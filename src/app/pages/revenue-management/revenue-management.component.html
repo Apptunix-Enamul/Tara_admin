@@ -1,0 +1,281 @@
+<div class="row mb-2">
+    <div class="col-md-12 text-right">
+        <div class="d-flex">
+            <div ngbDropdown container="body" class="ml-auto">
+                <button class="btn btn-outline-primary" ngbDropdownToggle>Filter By</button>
+                <div ngbDropdownMenu>
+                    <button ngbDropdownItem>Hourly</button>
+                    <button ngbDropdownItem>Daily</button>
+                    <button ngbDropdownItem>Weekly</button>
+                    <button ngbDropdownItem>Monthly </button>
+                </div>
+            </div>
+            <div class="form-group ml-2">
+                <input type="date" class="form-control">
+            </div>
+            <!-- <div ngbDropdown container="body" class="ml-2">
+                <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>Filter on partner</button>
+                <div ngbDropdownMenu>
+                    <button ngbDropdownItem>Partner 1</button>
+                    <button ngbDropdownItem>Partner 2</button>
+                    <button ngbDropdownItem>Partner 3</button>
+                    <button ngbDropdownItem>Partner 4</button>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+<div class="row">
+    <!-- column -->
+    <div class="col-sm-12 col-lg-3">
+        <div class="card bg-light-warning no-card-border">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="m-r-10">
+                        <span>Total Earning</span>
+                        <h4>$ 3,000</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-3">
+        <div class="card bg-light-success no-card-border">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="m-r-10">
+                        <span>Total orders</span>
+                        <h4> 753</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <ngb-tabset type="pills" class="cstm_tabs">
+            <ngb-tab title="Payments Recieved">
+                <ng-template ngbTabContent>
+                    <div class="row pt-3">
+                        <div class="col-md-12">
+                            <h3>All Payments Recieved</h3>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="">
+                                        <table class="table v-middle product-overview" id="zero_config">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Order ID</th>
+                                                    <th>Vendor Details</th>
+                                                    <th>Customer Details</th>
+                                                    <th>Ordered Items</th>
+                                                    <th>Payment Method</th>
+                                                    <th>Amount</th>
+                                                    <th>Fees</th>
+                                                    <!-- <th>Status</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>#1420233</td>
+                                                    <td>
+                                                        <p>Vendor 1</p>
+                                                        <p>vendor@gmail.com</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Customer 1</p>
+                                                        <p>+91 9874563210</p>
+                                                    </td>
+                                                    <td> 
+                                                    <p>Apple : <span>10</span></p>
+                                                    <p>Bananas : <span>12</span></p>
+                                                    </td>
+                                                    <td><label class="label label-success">Wallet</label></td>
+                                                    <td>$ 250</td>
+                                                    <td>10%</td>
+                                                    <!-- <td> <select class="custom-select b-0">
+                                                        <option selected="">Enable</option>
+                                                        <option value="1">Disable</option>
+                                                        </select></td> -->
+                                                </tr>
+                                                <tr>
+                                                    <td> 2 </td>
+                                                    <td>#1420234</td>
+                                                    <td>
+                                                        <p>Vendor 2</p>
+                                                        <p>vendor@gmail.com</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Customer 2</p>
+                                                        <p>+91 9874563210</p>
+                                                    </td>
+                                                    <td> 
+                                                    <p>Apple : <span> 5 </span></p>
+                                                    <p>Bananas : <span> 6 </span></p>
+                                                    </td>
+                                                    <td><label class="label label-warning">Apple Pay</label></td>
+                                                    <td>$ 125</td>
+                                                    <td>10%</td>
+                                                    <!-- <td> <select class="custom-select b-0">
+                                                        <option selected="">Enable</option>
+                                                        <option value="1">Disable</option>
+                                                        </select></td> -->
+                                                </tr>
+                                                <tr>
+                                                    <td> 3 </td>
+                                                    <td>#1420235 </td>
+                                                    <td>
+                                                        <p>Vendor 3</p>
+                                                        <p>vendor@gmail.com</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Customer 3</p>
+                                                        <p>+91 9874563210</p>
+                                                    </td>
+                                                    <td> 
+                                                    <p>Apple : <span>20</span></p>
+                                                    <p>Bananas : <span>24</span></p>
+                                                    </td>
+                                                    <td><label class="label label-danger">G-pay</label></td>
+                                                    <td>$ 500</td>
+                                                    <td>10%</td>
+                                                    <!-- <td> <select class="custom-select b-0">
+                                                        <option selected="">Enable</option>
+                                                        <option value="1">Disable</option>
+                                                        </select></td> -->
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Column -->
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Refunds">
+                <ng-template ngbTabContent>
+                    <div class="row pt-3">
+                        <div class="col-md-12">
+                            <h3>All Refunds </h3>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="">
+                                        <table class="table v-middle product-overview" id="zero_config">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Order ID</th>
+                                                    <th>Vendor Details</th>
+                                                    <th>Customer Details</th>
+                                                    <th>Returned Items</th>
+                                                    <th>Payment Method</th>
+                                                    <th>Amount Refunded</th>
+                                                    <th>Action</th>
+                                                    <!-- <th>Fees</th> -->
+                                                    <!-- <th>Status</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1 </td>
+                                                    <td>#1420233 </td>
+                                                    <td>
+                                                        <p>Vendor 1</p>
+                                                        <p>vendor@gmail.com</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Customer 1</p>
+                                                        <p>+91 9874563210</p>
+                                                    </td>
+                                                    <td> 
+                                                    <p>Apple : <span>10</span></p>
+                                                    <p>Bananas : <span>12</span></p>
+                                                    </td>
+                                                    <td><label class="label label-success">Wallet</label></td>
+                                                    <td>$ 250</td>
+                                                    <!-- <td>10%</td> -->
+                                                    <td> 
+                                                        <select class="b-0">
+                                                        <option selected="">Pending</option>
+                                                        <option>Approve</option>
+                                                        <option>Decline</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> 2 </td>
+                                                    <td>#1420234 </td>
+                                                    <td>
+                                                        <p>Vendor 1</p>
+                                                        <p>vendor@gmail.com</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Customer 2</p>
+                                                        <p>+91 9874563210</p>
+                                                    </td>
+                                                    <td> 
+                                                    <p>Apple : <span> 5 </span></p>
+                                                    <p>Bananas : <span> 6 </span></p>
+                                                    </td>
+                                                    <td><label class="label label-warning">Apple Pay</label></td>
+                                                    <td>$ 125</td>
+                                                    <!-- <td>10%</td> -->
+                                                    <!-- <td> <select class="custom-select b-0">
+                                                        <option selected="">Enable</option>
+                                                        <option value="1">Disable</option>
+                                                        </select></td> -->
+                                                        <td> 
+                                                            <div class="text-success"> Approved </div>
+                                                            <!-- <select class="btn-outline-success b-0">
+                                                            <option selected="">Pending</option>
+                                                            <option>Approve</option>
+                                                            <option>Decline</option>
+                                                            </select> -->
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> 3 </td>
+                                                    <td>#1420235 </td>
+                                                    <td>
+                                                        <p>Vendor 1</p>
+                                                        <p>vendor@gmail.com</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Customer 3</p>
+                                                        <p>+91 9874563210</p>
+                                                    </td>
+                                                    <td> 
+                                                    <p>Apple : <span>20</span></p>
+                                                    <p>Bananas : <span>24</span></p>
+                                                    </td>
+                                                    <td><label class="label label-danger">G-pay</label></td>
+                                                    <td>$ 500</td>
+                                                    <!-- <td>10%</td> -->
+                                                    <!-- <td> <select class="custom-select b-0">
+                                                        <option selected="">Enable</option>
+                                                        <option value="1">Disable</option>
+                                                        </select></td> -->
+                                                        <td><div class="text-danger"> Declined </div></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>

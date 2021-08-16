@@ -1,0 +1,334 @@
+<div class="card">
+    
+    <form action="#">
+      <div class="form-body">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button routerLink="/pages/vendors" class="btn btn-primary ">Back</button>
+                </div>
+            </div>
+            <!-- end row -->
+          <div class="row p-t-20">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">First Name</label>
+                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+  
+              </div>
+            </div>
+            <!--/span-->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">Last Name</label>
+                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+  
+              </div>
+            </div>
+             <!--/span-->
+            <!-- <div class="col-md-6">
+              <div class="form-group has-success">
+                <div class="form-group">
+                  <label class="control-label">Upload Vendor Profile</label>
+                  <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"
+                      ><label class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
+                </div>
+              </div>
+            </div> -->
+            <!--/span-->
+            <!-- <div class="col-md-6">
+              <div class="form-group has-success">
+                <div class="form-group">
+                  <label class="control-label"></label>
+                  <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"
+                      ><label class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
+                </div>
+              </div>
+            </div> -->
+            <!--/span-->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">Restaurant Name</label>
+                <input type="number" id="firstName" class="form-control" placeholder="Restaurant name">
+  
+              </div>
+            </div>
+          </div>
+          <!--/row-->
+          <div class="row ">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">Date of birth</label>
+                <input type="date" id="firstName" class="form-control" placeholder="">
+  
+              </div>
+            </div>
+            <!--/span-->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">Email</label>
+                <input type="email" id="firstName" class="form-control" placeholder="example@gmail.com">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">Are you currently delivering right now?*</label>
+                <select name="" id="" class="form-control">
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+            </div>
+            <!--/span-->
+            <div class="col-md-6">
+              <div class="form-group has-danger">
+                <label class="control-label">Vendor ID</label>
+                <input type="text" id="email" class="form-control form-control-danger" placeholder="#46543343" disabled>
+              </div>
+            </div>
+            <!--/span-->
+            <div class="col-md-6">
+              <div class="form-group has-danger">
+                <label class="control-label">Zip</label>
+                <input type="text" id="zip" class="form-control form-control-danger" placeholder="eg:44343">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group has-danger">
+                <label class="control-label">Type of restaurant</label>
+                <input type="text" id="zip" class="form-control form-control-danger" placeholder="eg:44343">
+              </div>
+            </div>
+            <!--/span-->
+            <!-- <div class="col-md-6">
+              <div class="form-group has-danger">
+                <label class="control-label">Total Orders</label>
+                <input type="text" id="email" class="form-control form-control-danger" placeholder="40">
+              </div>
+            </div> -->
+            <!--/span-->
+            <div class="col-md-6">
+              <div class="form-group has-danger">
+                <label class="control-label">City</label>
+                <input type="text" id="city" class="form-control form-control-danger" placeholder="Berlin">
+              </div>
+            </div>
+            <!-- <div class="col-md-6">
+              <div class="form-group has-danger">
+                <label class="control-label">Opening Time</label>
+                <input type="time" id="email" class="form-control form-control-danger" placeholder="00">
+              </div>
+            </div>  -->
+            <!--/span-->
+             <!-- <div class="col-md-6">
+              <div class="form-group has-danger">
+                <label class="control-label">Closing Time</label>
+                <input type="time" id="email" class="form-control form-control-danger" placeholder="40">
+              </div>
+            </div> -->
+            <!--/span-->
+           
+            <!--/span-->
+            <!-- <div class="col-md-12">
+              <div class="form-group has-danger">
+                <label class="control-label">Pincode</label>
+                <input type="text" id="email" class="form-control form-control-danger" placeholder="Pincode">
+              </div>
+            </div> -->
+            <!--/span-->
+            <div class="col-md-12">
+              <div class="form-group has-danger">
+                <label class="control-label">Address</label>
+                <textarea name="" id="" cols="30" rows="5" class="form-control"
+                  placeholder="#433 New garden Complex"></textarea>
+              </div>
+            </div>
+            <!--/span-->
+          </div>
+          <!--/row-->
+       
+  
+    
+    <h4>Opening days</h4>
+   
+      
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <div class="row">
+            <div class="col-md-6"><label>Monday</label></div>
+            <div class="col-md-6"><mat-slide-toggle class="" color="primary"(change)=
+              "check($event,'mon')" >{{(checked == 'mon')?'Open':'Closed'}}</mat-slide-toggle></div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-5">
+                <input type="time" placeholder="" class="form-control">
+              </div>
+              <div class="col-md-5"><input type="time" placeholder="" class="form-control"></div>
+              <div class="col-md-2"><a href="javascript:void()" (click)="add()">Add hours</a></div>
+            </div>
+          </div>  
+          <div class="offset-md-4 col-md-8 mt-2 ">
+            <div class=" showInputField">
+              
+            </div>
+          </div>  
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-6"><label>Tuesday</label></div>
+              <div class="col-md-6"><mat-slide-toggle class="" color="primary"(change)=
+                "check($event,'tue')" >{{(checked == 'tue')?'Open':'Closed'}}</mat-slide-toggle></div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-5">
+                  <input type="time" placeholder="" class="form-control">
+                </div>
+                <div class="col-md-5"><input type="time" placeholder="" class="form-control"></div>
+                <div class="col-md-2"><a href="javascript:void()" (click)="add()">Add hours</a></div>
+              </div>
+            </div>  
+            <div class="offset-md-4 col-md-8 mt-2 ">
+              <div class=" showInputField">
+                
+              </div>
+            </div>  
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-md-6"><label>Wednesday</label></div>
+                <div class="col-md-6"><mat-slide-toggle class="" color="primary"(change)=
+                  "check($event,'wed')" >{{(checked == 'wed')?'Open':'Closed'}}</mat-slide-toggle></div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="row">
+                  <div class="col-md-5">
+                    <input type="time" placeholder="" class="form-control">
+                  </div>
+                  <div class="col-md-5"><input type="time" placeholder="" class="form-control"></div>
+                  <div class="col-md-2"><a href="javascript:void()" (click)="add()">Add hours</a></div>
+                </div>
+              </div>  
+              <div class="offset-md-4 col-md-8 mt-2 ">
+                <div class=" showInputField">
+                  
+                </div>
+              </div>  
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-md-6"><label>Thusrday</label></div>
+                  <div class="col-md-6"><mat-slide-toggle class="" color="primary"(change)=
+                    "check($event,'thu')" >{{(checked == 'thu')?'Open':'Closed'}}</mat-slide-toggle></div>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="row">
+                    <div class="col-md-5">
+                      <input type="time" placeholder="" class="form-control">
+                    </div>
+                    <div class="col-md-5"><input type="time" placeholder="" class="form-control"></div>
+                    <div class="col-md-2"><a href="javascript:void()" (click)="add()">Add hours</a></div>
+                  </div>
+                </div>  
+                <div class="offset-md-4 col-md-8 mt-2 ">
+                  <div class=" showInputField">
+                  </div>
+                </div>  
+              </div>           
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    <div class="row">
+                      <div class="col-md-6"><label>Friday</label></div>
+                      <div class="col-md-6"><mat-slide-toggle class="" color="primary"(change)=
+                        "check($event,'fri')" >{{(checked == 'fri')?'Open':'Closed'}}</mat-slide-toggle></div>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <input type="time" placeholder="" class="form-control">
+                        </div>
+                        <div class="col-md-5"><input type="time" placeholder="" class="form-control"></div>
+                        <div class="col-md-2"><a href="javascript:void()" (click)="add()">Add hours</a></div>
+                      </div>
+                    </div>  
+                    <div class="offset-md-4 col-md-8 mt-2 ">
+                      <div class=" showInputField">
+                        
+                      </div>
+                    </div>  
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <div class="row">
+                        <div class="col-md-6"><label>Saturday</label></div>
+                        <div class="col-md-6"><mat-slide-toggle class="" color="primary"(change)=
+                          "check($event,'sat')" >{{(checked == 'sat')?'Open':'Closed'}}</mat-slide-toggle></div>
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="row">
+                          <div class="col-md-5">
+                            <input type="time" placeholder="" class="form-control">
+                          </div>
+                          <div class="col-md-5"><input type="time" placeholder="" class="form-control"></div>
+                          <div class="col-md-2"><a href="javascript:void()" (click)="add()">Add hours</a></div>
+                        </div>
+                      </div>  
+                      <div class="offset-md-4 col-md-8 mt-2 ">
+                        <div class=" showInputField">
+                          
+                        </div>
+                      </div>  
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-4">
+                        <div class="row">
+                          <div class="col-md-6"><label>Sunday</label></div>
+                          <div class="col-md-6"><mat-slide-toggle class="" color="primary"(change)=
+                            "check($event,'sun')" >{{(checked == 'sun')?'Open':'Closed'}}</mat-slide-toggle></div>
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="row">
+                            <div class="col-md-5">
+                              <input type="time" placeholder="" class="form-control">
+                            </div>
+                            <div class="col-md-5"><input type="time" placeholder="" class="form-control"></div>
+                            <div class="col-md-2"><a href="javascript:void()" (click)="add()">Add hours</a></div>
+                          </div>
+                        </div>  
+                        <div class="offset-md-4 col-md-8 mt-2 ">
+                          <div class=" showInputField">
+                            
+                          </div>
+                        </div>  
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-md-4">
+                          <div class="row">
+                            <div class="col-md-6"><label>Shop Status</label></div>
+                            <div class="col-md-6"><mat-slide-toggle class="" color="primary"(change)=
+                              "check($event,'shop')" >{{(checked == 'shop')?'Enable':'Disable'}}</mat-slide-toggle></div>
+                            </div>
+                          </div>                     
+                       
+                        </div>
+                        <div class="col-md-12">                        
+                            <button type="submit" class="btn btn-primary mr-3">
+                              Update</button>
+                            <!-- <button type="button" class="btn btn-dark" >Cancel</button> -->
+                          </div>
+                        </div>                   
+                    </div>
+                    </form>
+      </div>
+      

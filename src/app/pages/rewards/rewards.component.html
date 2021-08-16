@@ -1,0 +1,270 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-4">
+        <form>
+          <div class="mb-2">
+            <input type="text" class="form-control" id="prenametext" placeholder="Search">
+          </div>
+        </form>
+      </div>
+      <div class="col-md-8 d-flex  justify-content-end">
+        <div ngbDropdown class="d-inline-block mb-2 mr-2">
+          <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+            Filter by coupons status
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button class="dropdown-item">All</button>
+            <button class="dropdown-item">Active</button>
+            <button class="dropdown-item">Inactive</button>
+          </div>
+        </div>
+        <!-- <div ngbDropdown class="d-inline-block mb-2 mr-2">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+              Daily
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button class="dropdown-item">Daily</button>
+              <button class="dropdown-item">Weekly</button>
+              <button class="dropdown-item">Monthly</button>
+              <button class="dropdown-item">Yearly</button>
+            </div>
+          </div> -->
+        <button class="btn btn-primary mb-2 mr-2"><i class="sl-icon-cloud-download"></i> Export CSV</button>
+        <button class="btn btn-seconadary mb-2" (click)="promocodeModal(promocode)"><i class="sl-icon-plus"></i> Add
+          Coupon</button>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table">
+        <tr>
+          <th>Promo Code</th>
+          <th>Discount Type</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Vendors</th>
+          <th>Category Type</th>
+          <th>Discount/Flat</th>
+          <th>Description</th>
+          <th class="text-nowrap">Free Delivery</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        <tr>
+          <td>34d4d453</td>
+          <td>Percentage</td>
+          <td class="text-nowrap">12-05-2021/13:00</td>
+          <td class="text-nowrap">13-05-2021/15:00</td>
+          <td>All</td>
+          <td>Mains</td>
+          <td>20%</td>
+          <td class="text-nowrap"><span> Lorem ipsum, dolor sit amet <br> consectetur adipisicing elit.</span></td>
+          <td>Yes</td>
+          <td><mat-slide-toggle> </mat-slide-toggle></td>
+          <td>
+            <div ngbDropdown container="body">
+              <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>Actions</button>
+              <div ngbDropdownMenu>
+                <button ngbDropdownItem (click)="promocodeModal(promocode)">Edit</button>
+                <button ngbDropdownItem (click)="couponModal(coupon)">Delete</button>
+
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+
+
+
+  </div>
+</div>
+<ng-template #promocode let-modal>
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <!-- <div class="col-md-6 ">
+            <div class="form-group">
+              <label>Promo Code</label>
+              <input type="text" class="form-control">
+            </div>
+          </div> -->
+          <div class="col-md-6 ">
+            <div class="form-group">
+              <label>Discount type</label>
+              <select class="custom-select col-12" id="example-month-input2">
+                <option selected="">Percentage</option>
+                <option value="free">Flat</option>
+                <option value="Discount">Both Percentage and Flat amount</option>
+              </select>
+            </div>
+          </div>
+          <!-- <div class="col-md-6">
+                    <div class="form-group">
+                    <label for="">Applicable Time of the day. </label>
+                    <input type="11:00 AM - 12:00 PM" class="form-control">
+                    </div>
+                </div> -->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">Start Date </label>
+              <input type="date" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">End Date </label>
+              <input type="date" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">Start Time </label>
+              <input type="time" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">End Time </label>
+              <input type="time" class="form-control">
+            </div>
+          </div>
+        
+          <div class="col-md-6 ">
+            <div class="form-group">
+              <label>Restaurant</label>
+              <mat-form-field class="w-100">
+                <mat-label>Restaurants Name</mat-label>
+                <mat-select [formControl]="toppings" multiple>
+                  <mat-option *ngFor="let topping of kitchenList" [value]="topping">{{topping}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">Discount % </label>
+              <input type="text" class="form-control" placeholder="20%">
+            </div>
+          </div>
+          <div class="col-md-6 ">
+            <div class="form-group">
+              <label>Category</label>
+              <mat-form-field class="w-100">
+                <mat-label>Category</mat-label>
+                <mat-select [formControl]="toppings" multiple>
+                  <mat-option *ngFor="let topping of categoryList" [value]="topping">{{topping}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- <div class="col-md-6 ">
+            <div class="form-group">
+              <label>Vendors ID</label>
+              <mat-form-field class="w-100">
+                <mat-label>vendors ID</mat-label>
+                <mat-select [formControl]="toppings" multiple>
+                  <mat-option *ngFor="let topping of categoryList" [value]="topping">{{topping}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div> -->
+          <!-- <div class="col-md-6">
+                    <div class="form-group">
+                    <label for="">Type Of Dish </label>
+                    <mat-form-field class="w-100">
+                        <mat-label>Dish Type</mat-label>
+                        <mat-select [formControl]="toppings" multiple>
+                          <mat-option *ngFor="let topping of dishList" [value]="topping">{{topping}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                </div> -->
+       
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">Unique Code </label>
+              <input type="text" class="form-control" value="4d434df32">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">Usage Limit Per Coupan </label>
+              <input type="number" placeholder="Add No" class="form-control">
+            </div>
+          </div>
+          <!-- <div class="col-md-6">
+            <div class="form-group">
+              <label for="">Usage Limit Per User </label>
+              <input type="number" placeholder="Add No" class="form-control">
+            </div>
+          </div> -->
+        
+          
+          <!-- <div class="col-md-6">
+            <div class="form-group">
+              <label for="">Add Buy Value </label>
+              <input type="number" placeholder="Add Buy value" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">Add Free Value </label>
+              <input type="number" placeholder="Add Free Value" class="form-control">
+            </div>
+          </div> -->
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="">Free Delivery </label>            
+              <div class="custom-control custom-checkbox"><input id="customCheck1" type="checkbox" name="yes" class="custom-control-input">
+                <label for="customCheck1"  class="custom-control-label">Yes</label></div>              
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="">Single use coupon </label>            
+              <div class="custom-control custom-checkbox"><input id="customCheck2" type="checkbox" name="yes1" class="custom-control-input">
+                <label for="customCheck2"  class="custom-control-label">Yes</label></div>              
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="">Disable minimum amount of order </label>            
+              <div class="custom-control custom-checkbox"><input id="customCheck3" type="checkbox" name="yes1" class="custom-control-input">
+                <label for="customCheck3"  class="custom-control-label">Yes</label></div>              
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="">Add Minimum Amount </label>
+              <input type="number" placeholder="Add Minimum Amount" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="">Description </label>
+              <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success mr-3" (click)="modal.dismiss('Cross click')">
+      <i class="fa fa-check"></i> Save</button>
+  </div>
+</ng-template>
+
+<ng-template #coupon let-modal>
+  <div class="modal-body">
+    <p>Are you sure you want to delete this coupon?</p>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary mr-2" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">Yes</button>
+      <button type="button" class="btn btn-seconadary" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">No</button>
+    </div>
+  </div>
+</ng-template>

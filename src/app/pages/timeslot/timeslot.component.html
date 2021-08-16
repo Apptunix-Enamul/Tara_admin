@@ -1,0 +1,136 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+              <form>
+                <div class="mb-2">
+                  <input type="text" class="form-control" id="prenametext" placeholder="Search">
+                </div>
+              </form>
+            </div>
+            <div class="col-md-8 d-flex  justify-content-end">
+              
+              <div ngbDropdown class="d-inline-block mb-2 mr-2">
+                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                  Filter by status
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button class="dropdown-item">assigned</button>
+                  <button class="dropdown-item">unassigned</button>
+                </div>
+              </div>
+              <!-- <button class="btn btn-primary mb-2 mr-2"><i class="sl-icon-cloud-download"></i> Export CSV</button> -->
+              <button class="btn btn-seconadary mb-2" routerLink="/pages/addtimeslot"><i class="sl-icon-plus"></i> Add
+                Timeslot</button>
+            </div>
+        </div>
+     
+        <!-- <div class="row ">
+            <div class="col-md-12 mb-12">
+                <div class="border  p-2">                
+                <p class="pt-2 text-right pb-0"></p>
+                <div class="row">
+                    <div class="col-md-6"><label>Driver Name</label></div>
+                    <div class="col-md-6"><span>Andy</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5"><label>City</label></div>
+                    <div class="col-md-7"><span>Bangalore</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5"><label>Monday</label></div>
+                    <div class="col-md-7"><span>12:00-22:00</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5"><label>Tuesday</label></div>
+                    <div class="col-md-7"><span>12:00-22:00</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5"><label>Wednesday</label></div>
+                    <div class="col-md-7"><span>12:00-22:00</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5"><label>Thursday</label></div>
+                    <div class="col-md-7"><span>12:00-22:00</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5"><label>Friday</label></div>
+                    <div class="col-md-7"><span>12:00-22:00</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5"><label>Saturday</label></div>
+                    <div class="col-md-7"><span>12:00-22:00</span></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5"><label>Sunday</label></div>
+                    <div class="col-md-7"><span>12:00-22:00</span></div>
+                </div>
+            </div>
+            </div>
+        </div> -->
+        <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1">
+          <ngb-panel id="custom-panel-1">
+            <ng-template ngbPanelHeader let-opened="opened">
+              <div class="table-responsive">
+                <table class="table">
+                  <tr>
+                    <th>Date</th>
+                    <th>City</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                    <th>      <button ngbPanelToggle class="btn btn-link text-primary p-0"><i class="sl-icon-arrow-down"></i></button></th>
+                  </tr>
+                  <tr>
+                    <td>12-02-2021</td>
+                    <td>Bangalore</td>
+                    <td>12:00-14:00</td>
+                    <td><p class="mb-0">assigned </p><p>unassigned </p></td>
+                    <td><a routerLink="/pages/edittimeslot" class="btn btn-primary btn-sm mr-1"><i class="ti-pencil"></i></a> <a href="javascript:void()" class="btn btn-danger btn-sm ml-2"><i class="ti-trash"></i></a></td>
+                  </tr>
+                </table>          
+              </div>
+            </ng-template>
+            <ng-template ngbPanelContent>
+              <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>Date</th>
+                        <th class="text-nowrap">Driver Name</th>
+                        <th>City</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                      <td>12-02-2021</td>
+                      <td>Andy</td>
+                      <td>Bangalore</td>
+                      <td>12:00-22:00</td>
+                      <td>Unassigned</td>
+                      <td><a href="javascript:void()" class="btn btn-primary btn-sm mr-1">Assign</a></td>
+                    </tr>
+                    <tr>
+                      <td>12-02-2021</td>
+                      <td>Andy</td>
+                      <td>Bangalore</td>
+                      <td>12:00-22:00</td>
+                      <td>Assigned</td>
+                      <td><a routerLink="/pages/edittimeslot" class="btn btn-primary btn-sm mr-1"><i class="ti-pencil"></i></a> <a href="javascript:void()" class="btn btn-danger btn-sm ml-2"><i class="ti-trash"></i></a></td>
+                    </tr>
+                    <tr>
+                      <td>12-02-2021</td>
+                      <td>Andy</td>
+                      <td>Bangalore</td>
+                      <td>12:00-22:00</td>
+                      <td>Assigned</td>
+                      <td><a routerLink="/pages/edittimeslot" class="btn btn-primary btn-sm mr-1"><i class="ti-pencil"></i></a> <a href="javascript:void()" class="btn btn-danger btn-sm ml-2"><i class="ti-trash"></i></a></td>
+                    </tr>
+                </table>
+            </div>
+            </ng-template>
+          </ngb-panel>        
+         
+        </ngb-accordion>
+    </div>
+</div>

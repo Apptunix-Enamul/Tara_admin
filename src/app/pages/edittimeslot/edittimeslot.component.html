@@ -1,0 +1,330 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-block">
+            <div class="text-right mb-3">     
+                <a routerLink="/pages/timeslot" class="btn btn-primary">Back</a>                 
+              </div>
+        </div>
+        <div class="row border mb-2 pt-3">
+           
+            <div class="col-md-2">
+              
+                <div class="form-group">
+                    <label for="">Date</label>
+                    <input type="date" class="form-control" placeholder="">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Driver Name</label>
+                    <mat-form-field  class="w-100">
+                        <!-- <mat-label>Toppings</mat-label> -->
+                        <mat-select [formControl]="toppings" multiple>
+                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label for="">City</label>
+                <select class="form-control">
+                    <option value="">City 1</option>
+                    <option value="">City 2</option>
+                    <option value="">City 3</option>
+                    <option value="">City 4</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="">Start Time</label>
+                <div class="form-group"><input type="time" class="form-control"></div>
+            </div>
+            <div class="col-md-2">
+                <label for="">End Time</label>
+                <div class="form-group"><input type="time" class="form-control"></div>
+            </div>
+           
+            <div class="col-md-2">
+                <label>Availble/Busy</label>
+                <select name="" id="" class="form-control">
+                    <option value="1">Assign</option>
+                    <option value="2">Unassign</option>                 
+                </select>
+            </div>   
+         
+        </div>
+        <div class="col-md-12 ">
+                
+            <button class="btn btn-sm btn-primary mt-2">Save</button>
+        </div>   
+        <!-- <div class="row border mb-2 pt-3">          
+            <div class="col-md-2">
+                <label for="">Day</label>
+                <div class="form-group">
+                   <label for="">Tuesday</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Driver Name</label>
+                    <mat-form-field  class="w-100">
+                    
+                        <mat-select [formControl]="toppings" multiple>
+                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label for="">City</label>
+                <select class="form-control">
+                    <option value="">City 1</option>
+                    <option value="">City 2</option>
+                    <option value="">City 3</option>
+                    <option value="">City 4</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="">Start Time</label>
+                <div class="form-group"><input type="time" class="form-control"></div>
+            </div>
+            <div class="col-md-2">
+                <label for="">End Time</label>
+                <div class="form-group"><input type="time" class="form-control"></div>
+            </div>
+           
+            <div class="col-md-2">
+                <label>Availble/Busy</label>
+                <select name="" id="" class="form-control">
+                    <option value="1">Availble</option>
+                    <option value="2">Busy</option>                 
+                </select>
+            </div>   
+        </div> -->
+        <!-- <div class="row border mb-2 pt-3">          
+            <div class="col-md-2">
+                <label for="">Day</label>
+                <div class="form-group">
+                   <label for="">Wednesday</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Driver Name</label>
+                    <mat-form-field  class="w-100">
+                       
+                        <mat-select [formControl]="toppings" multiple>
+                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label for="">City</label>
+                <select class="form-control">
+                    <option value="">City 1</option>
+                    <option value="">City 2</option>
+                    <option value="">City 3</option>
+                    <option value="">City 4</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="">Start Time</label>
+                <div class="form-group"><input type="time" class="form-control"></div>
+            </div>
+            <div class="col-md-2">
+                <label for="">End Time</label>
+                <div class="form-group"><input type="time" class="form-control"></div>
+            </div>
+           
+            <div class="col-md-2">
+                <label>Availble/Busy</label>
+                <select name="" id="" class="form-control">
+                    <option value="1">Availble</option>
+                    <option value="2">Busy</option>                 
+                </select>
+            </div>   
+        </div> -->
+        <!-- <div class="row border mb-2 pt-3">
+         
+            <div class="col-md-2">
+                <label for="">Day</label>
+                <div class="form-group">
+                   <label for="">Thursday</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Driver Name</label>
+                    <mat-form-field  class="w-100">
+                        
+                        <mat-select [formControl]="toppings" multiple>
+                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label for="">City</label>
+                <select class="form-control">
+                    <option value="">City 1</option>
+                    <option value="">City 2</option>
+                    <option value="">City 3</option>
+                    <option value="">City 4</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="">Start Time</label>
+                <div class="form-group"><input type="time" class="form-control"></div>
+            </div>
+            <div class="col-md-2">
+                <label for="">End Time</label>
+                <div class="form-group"><input type="time" class="form-control"></div>
+            </div>
+           
+            <div class="col-md-2">
+                <label>Availble/Busy</label>
+                <select name="" id="" class="form-control">
+                    <option value="1">Availble</option>
+                    <option value="2">Busy</option>                 
+                </select>
+            </div>   
+        </div> -->
+        <!-- <div class="row border mb-2 pt-3">       
+            <div class="col-md-2">
+                <label for="">Day</label>
+                <div class="form-group">
+                   <label for="">Friday</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Driver Name</label>
+                    <mat-form-field  class="w-100">
+                     
+                        <mat-select [formControl]="toppings" multiple>
+                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label for="">City</label>
+                <select class="form-control">
+                    <option value="">City 1</option>
+                    <option value="">City 2</option>
+                    <option value="">City 3</option>
+                    <option value="">City 4</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="">Start Time</label>
+                <div class="form-group"><input type="time" class="form-control"></div>
+            </div>
+            <div class="col-md-2">
+                <label for="">End Time</label>
+                <div class="form-group"><input type="time" class="form-control"></div>
+            </div>
+           
+            <div class="col-md-2">
+                <label>Availble/Busy</label>
+                <select name="" id="" class="form-control">
+                    <option value="1">Availble</option>
+                    <option value="2">Busy</option>                 
+                </select>
+            </div>   
+        </div> -->
+        <!-- <div class="row border mb-2 pt-3">           
+            <div class="col-md-2">
+                <label for="">Day</label>
+                <div class="form-group">
+                   <label for="">Saturday</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Driver Name</label>
+                    <mat-form-field  class="w-100">
+                       
+                        <mat-select [formControl]="toppings" multiple>
+                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label for="">City</label>
+                <select class="form-control">
+                    <option value="">City 1</option>
+                    <option value="">City 2</option>
+                    <option value="">City 3</option>
+                    <option value="">City 4</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="">Start Time</label>
+                <div class="form-group"><input type="time" class="form-control"></div>
+            </div>
+            <div class="col-md-2">
+                <label for="">End Time</label>
+                <div class="form-group"><input type="time" class="form-control"></div>
+            </div>
+           
+            <div class="col-md-2">
+                <label>Availble/Busy</label>
+                <select name="" id="" class="form-control">
+                    <option value="1">Availble</option>
+                    <option value="2">Busy</option>                 
+                </select>
+            </div>   
+        </div> -->
+        <!-- <div class="row border mb-2 pt-3">
+         
+            <div class="col-md-2">
+                <label for="">Day</label>
+                <div class="form-group">
+                   <label for="">Sunday</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Driver Name</label>
+                    <mat-form-field  class="w-100">
+                    
+                        <mat-select [formControl]="toppings" multiple>
+                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label for="">City</label>
+                <select class="form-control">
+                    <option value="">City 1</option>
+                    <option value="">City 2</option>
+                    <option value="">City 3</option>
+                    <option value="">City 4</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="">Start Time</label>
+                <div class="form-group"><input type="time" class="form-control"></div>
+            </div>
+            <div class="col-md-2">
+                <label for="">End Time</label>
+                <div class="form-group"><input type="time" class="form-control"></div>
+            </div>
+           
+            <div class="col-md-2">
+                <label>Availble/Busy</label>
+                <select name="" id="" class="form-control">
+                    <option value="1">Availble</option>
+                    <option value="2">Busy</option>                 
+                </select>
+            </div>   
+        </div> -->
+
+        <!-- <div class="col-md-12">
+            <button class="btn btn-sm btn-primary mt-2">Save</button>
+        </div> -->
+    </div>
+</div>

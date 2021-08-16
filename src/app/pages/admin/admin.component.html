@@ -1,0 +1,361 @@
+<div class="row">
+  <!-- Column -->
+
+
+  <div class="col-lg-12">
+    <div class="card">
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <form >
+              <div class="mb-2">
+                  <input type="text" class="form-control" id="prenametext" placeholder="Search">
+              </div>
+          </form>
+          </div>
+          <div class="col-md-8 d-flex  justify-content-end">
+            <div ngbDropdown class="d-inline-block mb-2 mr-2">
+              <button class="btn  btn-primary text-white" id="dropdownBasic1" ngbDropdownToggle>
+                Status
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button class="dropdown-item">Active</button>
+                <button class="dropdown-item">Inactive</button>
+              </div>
+            </div>                           
+            <a routerLink="/pages/manage_admin_form" class="btn btn-primary mb-2" ><i class="sl-icon-plus"></i> Add </a>
+          </div>
+          <div class="table-responsive">
+            <table class="table v-middle product-overview" id="zero_config">
+              <thead>
+                <tr>                    
+                  <th>Image</th>                                    
+                  <th>Name</th>                                    
+                  <th>Contact</th>                     
+                  <th>Email</th>                     
+                  <th>Status</th>  
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="nowrap"> <img src="assets/images/users/3.jpg" alt="" width="60px"> </span></td>                 
+                  <td><span class="nowrap"> Ronny </span></td>                 
+                 <td><span class="text-nowrap">+91-7858485474</span></td>
+                 <td class="text-nowrap">Ronny@example.com</td>                               
+                  <td>                    
+                      <div ngbDropdown class="d-inline-block " container="body">
+                        <button class="btn btn-outline-primary btn-sm " id="dropdownBasic1" ngbDropdownToggle>
+                          Status
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                          <button class="dropdown-item">Active</button>
+                          <button class="dropdown-item">Inactive</button>
+                        </div>
+                      </div>         
+                    </td>
+                  <td>
+                      <a routerLink="/pages/manage_admin_form" class="btn btn-primary" ><i _ngcontent-axh-c146=""
+                          class="ti-marker-alt"></i> </a>
+                      <button class="btn btn-danger ml-2" (click)="userDeleteModal(userDelete)"><i class="ti-trash"></i>
+                        </button>
+                  </td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Column -->
+  </div>
+
+  <ng-template #content3 let-modal>
+    <div class="modal-header p-2">
+      <h4 class="modal-title">Driving Licence</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6">
+          <figure class=""><img src="assets/images/gallery/driving-licence.jpg" class="img-fluid"></figure>
+        </div>
+        <div class="col-md-6">
+          <figure class=""><img src="assets/images/gallery/driving-licence.jpg" class="img-fluid"></figure>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+
+  <!-- view modal -->
+  <ng-template #userprofile let-modal>
+    <div class="modal-body">
+      <button type="button" class=" close-icon" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <i class="mdi mdi-close"></i>
+      </button>
+      <div class="row">
+        <!-- Column -->
+        <div class="col-lg-3 col-xlg-3 col-md-5">
+          <div class="card">
+            <div class="card-body">
+              <div class="m-t-30 text-center">
+                <img src="assets/images/users/2.jpg" class="rounded-circle" width="120" />
+                <h4 class="card-title m-t-10">Ronny</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Column -->
+        <!-- Column -->
+        <div class="col-lg-9 col-xlg-9 col-md-7">
+          <div class="card custom-tabs mb-0">
+            <div class="card-body">
+              <!-- <div class="col-md-12 text-right"><button class="btn btn-primary">Export CSV</button></div> -->
+              <ngb-tabset>
+                <ngb-tab>
+                  <ng-template ngbTabTitle><b>Vendor Detail</b></ng-template>
+                  <ng-template ngbTabContent>
+                    <div class="row pt-2">
+                      <div class="col-md-6">
+                        <ul class="list-block">
+                          <li class="list-block-listing">Name: <span class="font-weight-600">Ronny</span></li>
+                          <li class="list-block-listing">Email: <span
+                              class="font-weight-600">ronny@gmail.com</span>
+                          </li>
+                          <li class="list-block-listing">Gender: <span class="font-weight-600">Female</span>
+                          </li>
+                          <li class="list-block-listing">Phone No: <span class="font-weight-600">+91-7858485474</span>
+                          </li>
+                          <li class="list-block-listing "> <span>Address: </span> <span class="font-weight-600">3750
+                              Grove Avenue, Clinton</span>
+                          </li>
+
+
+                        </ul>
+                      </div>
+                      <div class="col-md-6">
+                        <ul class="list-block">
+
+                          <li class="list-block-listing">Total Stock: <span class="font-weight-600">50</span></li>
+                          <li class="list-block-listing">Availble Stock: <span>10 </span></li>
+                          <li class="list-block-listing">Booked Stock: <span>10</span></li>
+                          <li class="list-block-listing">Total Revenue: <span class="font-weight-600">$ 410</span></li>
+                          <li class="list-block-listing">User Request: <span class="font-weight-600">8:40 AM</span></li>
+                          <li class="list-block-listing">Delivery Time: <span class="font-weight-600">9:00 AM</span></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ngb-tab>
+
+                <!-- <ngb-tab>
+                  <ng-template ngbTabTitle><b>User History</b></ng-template>
+                  <ng-template ngbTabContent>
+                    <ul class="user_history pl-0">
+                      <li class="user_history_list"><span class="user_history_list_icon active"><i
+                            class="mdi mdi-map-marker"></i></span> <span>Location 1</span> </li>
+                      <li class="user_history_list"><span class="user_history_list_icon active"><i
+                            class="mdi mdi-map-marker"></i></span> <span>Location 2</span> </li>
+                      <li class="user_history_list skip"><span class="user_history_list_icon active"><i
+                            class="mdi mdi-map-marker"></i></span>Location 3
+                      </li>
+                      <li class="user_history_list"><span class="user_history_list_icon"><i
+                            class="mdi mdi-map-marker"></i></span> <span>Location 4</span> </li>
+                      <li class="user_history_list"><span class="user_history_list_icon"><i
+                            class="mdi mdi-map-marker"></i></span> <span>Location 5</span> </li>
+                    </ul>
+                  </ng-template>
+                </ngb-tab> -->
+              </ngb-tabset>
+            </div>
+          </div>
+        </div>
+        <!-- Column -->
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- delete modal -->
+  <ng-template #userDelete let-modal>
+    <div class="modal-body">
+      <p>Are you sure want to delete?</p>
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary mr-2" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">Yes</button>
+        <button type="button" class="btn btn-seconadary" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">No</button>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- edit user detail -->
+  <ng-template #userDetail let-modal>
+    <div class="modal-body">
+      <div class="card">
+        <form action="#">
+          <div class="form-body">
+            <div class="card-body">
+              <div class="row p-t-20">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Vendor Name</label>
+                    <input type="text" id="firstName" class="form-control" placeholder="John doe">
+
+                  </div>
+                </div>
+                <!--/span-->
+                <div class="col-md-6">
+                  <div class="form-group has-success">
+                    <div class="form-group">
+                      <label class="control-label">Upload Vendor Profile</label>
+                      <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"><label
+                          class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
+                    </div>
+                  </div>
+                </div>
+                <!--/span-->
+              </div>
+              <!--/row-->
+              <div class="row ">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Contact No</label>
+                    <input type="text" id="firstName" class="form-control" placeholder="John doe">
+
+                  </div>
+                </div>
+                <!--/span-->
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Email</label>
+                    <input type="email" id="email" class="form-control form-control-danger"
+                      placeholder="example@gmail.com">
+
+                  </div>
+                </div>
+                <!--/span-->
+              </div>
+              <!--/row-->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Address</label>
+                    <input type="text" id="Address" class="form-control form-control-danger" placeholder="Address">
+
+                  </div>
+                </div>
+                <!--/span-->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Gender</label>
+                    <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1">
+                      <option value="Category 1">Male</option>
+                      <option value="Category 2">Female</option>
+                    </select>
+                  </div>
+                </div>
+                <!--/span-->
+              </div>
+              <!--/row-->                
+            </div>
+
+            <div class="form-actions">
+              <div class="card-body">
+                <button type="submit" class="btn btn-success mr-3" (click)="modal.dismiss('Cross click')">
+                  <i class="fa fa-check"></i> Update</button>
+                <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </ng-template>
+
+  <!-- add user -->
+  <ng-template #addUser let-modal>
+    <div class="modal-body">
+      <div class="card">
+        <form action="#">
+          <div class="form-body">
+            <div class="card-body">
+              <div class="row p-t-20">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Name</label>
+                    <input type="text" id="firstName" class="form-control" placeholder="John doe">
+
+                  </div>
+                </div>
+                <!--/span-->
+                <div class="col-md-6">
+                  <div class="form-group has-success">
+                    <div class="form-group">
+                      <label class="control-label">Upload Vendor Profile</label>
+                      <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"><label
+                          class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
+                    </div>
+                  </div>
+                </div>
+                <!--/span-->
+              </div>
+              <!--/row-->
+              <div class="row ">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Contact No</label>
+                    <input type="number" id="Contact" class="form-control" placeholder="+91-34343433">
+
+                  </div>
+                </div>
+                <!--/span-->
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Email</label>
+                    <input type="email" id="email" class="form-control form-control-danger"
+                      placeholder="example@gmail.com">
+
+                  </div>
+                </div>
+                <!--/span-->
+              </div>
+              <!--/row-->
+          
+            </div>
+
+            <div class="form-actions">
+              <div class="card-body">
+                <button type="submit" class="btn btn-success mr-3" (click)="modal.dismiss('Cross click')">
+                  <i class="fa fa-check"></i> Add</button>
+                <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </ng-template>
+
+  <ng-template #vendorConfirm let-modal>
+    <div class="modal-body">      
+        <label>Add Note</label>
+         <div class="form-group">
+          <textarea class="form-control" rows="3"></textarea>
+          <button class="btn btn-primary mt-2">Submit</button>
+         </div>      
+    </div>
+  </ng-template>
+  <!-- <ng-template #vendorUnconfirm let-modal>
+    <div class="modal-body">      
+        <label>Add Note</label>
+        <div  class="input-group mb-3"><span  class="input-group-text">@</span><input  aria-describedby="basic-addon1" aria-label="" class="form-control" placeholder="" type="text"><div  class="input-group-append"><button  class="btn mr-0 btn-info" type="button">Submit</button></div></div>
+      
+    </div>
+  </ng-template> -->

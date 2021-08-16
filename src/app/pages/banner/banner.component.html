@@ -1,0 +1,304 @@
+<div class="row">
+  <!-- Column -->
+
+  <div class="col-lg-12">
+    <div class="card">
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <form>
+              <div class="mb-2">
+                <input type="text" class="form-control" id="prenametext" placeholder="Search">
+              </div>
+            </form>
+          </div>
+          <div class="col-md-8 d-flex  justify-content-end">
+            <div ngbDropdown class="d-inline-block mb-2 mr-2">
+              <button class="btn btn-outline-primary " id="dropdownBasic1" ngbDropdownToggle>
+               Filter by banner status
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button class="dropdown-item">All</button>
+                <button class="dropdown-item">Active</button>
+                <button class="dropdown-item">Inactive</button>
+              </div>
+            </div>
+              <button class="btn btn-seconadary mb-2 ml-2" (click)="addBannerModal(banner)"><i class="sl-icon-plus"></i> Add
+                Banner</button>
+          </div>
+          <div class="table-responsive">
+            <table class="table v-middle product-overview" id="zero_config">
+              <thead>
+                <tr>
+                  <th>Banner Name</th>
+                  <th>Images</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Banner Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Yummy Food
+                  </td>
+                  <!-- <td><span class="nowrap"> Ronny <a routerLink="/pages/vendorsdetail"><span class="sl-icon-info"></span></a></span></td> -->
+                  <td><a href="javascript:void()" class="" (click)="imagesBoxModal(imagesBox)"> <img src="assets/images/food/banner.jpg" alt="" width="70px" class="img-fluid"> </a></td>
+
+                  <td><span class="text-nowrap">12-4-04-2021/13:00</span></td>
+                  <td><span class="text-nowrap">15-4-04-2021/15:00</span></td>                 
+                  <td>
+                    <div ngbDropdown container="body">
+                      <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>Enabled</button>
+                      <div ngbDropdownMenu>
+                        <button ngbDropdownItem>Enable</button>
+                        <button ngbDropdownItem>Disable</button>                      
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="btn btn-primary mr-2" (click)="addBannerModal(banner)"><i class="ti-pencil"></i>
+                    </button>
+                    <button class="btn btn-primary" (click)="userDeleteModal(userDelete)"><i class="ti-trash"></i>
+                      </button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Column -->
+  </div>
+  <!-- delete modal -->
+  <ng-template #userDelete let-modal>
+    <div class="modal-body">
+      <p>Are you sure want to delete?</p>
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary mr-2" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">Yes</button>
+        <button type="button" class="btn btn-seconadary" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">No</button>
+      </div>
+    </div>
+  </ng-template>
+
+ 
+
+
+  <ng-template #orderConfirm let-modal>
+    <div class="modal-body">
+      <label>Add Note</label>
+      <div class="form-group">
+        <textarea class="form-control" rows="3"></textarea>
+        <button class="btn btn-primary mt-2" (click)="modal.dismiss('Cross click')">Submit</button>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- add user -->
+  <ng-template #banner let-modal>
+    <div class="modal-body">
+      <div class="card">
+        <form action="#">
+          <div class="form-body">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                   <div class="form-group">
+                      <label for="">Select Categories</label>
+                     <select name="" id="" class="form-control">
+                       <option value="">Fast Food</option>
+                       <option value="">Chiness </option>
+                       <option value="">Thali</option>
+                     </select>
+                   </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                     <label for="">Select Food</label>
+                     <select name="" id="" class="form-control">
+                      <option value="">Food 1</option>
+                      <option value="">Food 2</option>
+                      <option value="">Food 3</option>
+                    </select>
+                  </div>
+               </div>
+              </div>
+              <div class="row p-t-20">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Banner Name</label>
+                    <input type="text" id="firstName" class="form-control" placeholder="Banner Name">
+
+                  </div>
+                </div>
+                <!--/span-->
+                <div class="col-md-6">
+                  <div class="form-group has-success">
+                    <div class="form-group">
+                      <label class="control-label">Upload Banner</label>
+                      <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"><label
+                          class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
+                          <p  class="constraints-info afu-constraints-info">(.jpg,.png) Size limit- 1.00 MB</p>
+                    </div>
+                    <ul class="banner-list list-style-none d-flex">
+                        <li class="banner-list-listing border p-1 mr-1"><figure class="mb-0"><img src="assets/images/food/banner.jpg" class="img-fluid"><a href="javascript:void()"><i class="mdi mdi-close-box"></i></a></figure></li>
+                        <li class="banner-list-listing border p-1 mr-1"><figure class="mb-0"><img src="assets/images/food/banner.jpg" class="img-fluid"><a href="javascript:void()"><i class="mdi mdi-close-box"></i></a></figure></li>
+                        <li class="banner-list-listing border p-1 mr-1"><figure class="mb-0"><img src="assets/images/food/banner.jpg" class="img-fluid"><a href="javascript:void()"><i class="mdi mdi-close-box"></i></a></figure></li>
+                        <li class="banner-list-listing border p-1 mr-1"><figure class="mb-0"><img src="assets/images/food/banner.jpg" class="img-fluid"><a href="javascript:void()"><i class="mdi mdi-close-box"></i></a></figure></li>
+                        <li class="banner-list-listing border p-1 mr-1"><figure class="mb-0"><img src="assets/images/food/banner.jpg" class="img-fluid"><a href="javascript:void()"><i class="mdi mdi-close-box"></i></a></figure></li>
+                    </ul>
+                  </div>
+                </div>
+                <!--/span-->
+              </div>
+              <!--/row-->
+              <div class="row ">              
+                <!-- <div class="col-md-12">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Days</label>
+                    <input type="text" id="day" class="form-control form-control-danger"
+                      placeholder="2 days">
+
+                  </div>
+                </div> -->
+                <!--/span-->
+              </div>
+              <!--/row-->
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="control-label col-form-label">Start Date</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon14">
+                                    <i class="far fa-calendar-plus"></i>
+                                </span>
+                            </div>
+                            <input type="date" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="control-label col-form-label">End Date</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon18">
+                                    <i class="far fa-calendar-plus"></i>
+                                </span>
+                            </div>
+                            <input type="date" class="form-control" aria-label="Username">
+                        </div>
+                    </div>
+                </div>
+                <!--/span-->
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="control-label col-form-label">Start Time</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon14">
+                                    <i class="far fa-clock"></i>
+                                </span>
+                            </div>
+                            <input type="time" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="control-label col-form-label">End Time</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon18">
+                                    <i class="far fa-clock"></i>
+                                </span>
+                            </div>
+                            <input type="time" class="form-control" aria-label="Username">
+                        </div>
+                    </div>
+                </div>
+                <!--/span-->
+              </div>
+              <!--/row-->
+              <div class="row">
+                <div class="col-md-6">
+                    <label class="control-label">Product Limit</label>
+                    <select name="" id="" class="form-control">
+                        <option value="">1</option>
+                        <option value="">2</option>
+                        <option value="">3</option>
+                        <option value="">4</option>
+                        <option value="">5</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                  <label class="control-label">Discount Type</label>
+                  <select name="" id="" class="form-control">
+                      <option value="">Percentage</option>
+                      <option value="">Flat</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!--/row-->
+              <div class="row">
+                  
+                  <div class="col-md-6">
+                    <div class="form-group has-danger">
+                        <label class="control-label">Min Order</label>
+                        <input type="text" class="form-control" aria-label="Username" placeholder="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group has-danger">
+                        <label class="control-label">Discount</label>
+                        <input type="text" class="form-control" aria-label="Username" placeholder="10%">
+                    </div>
+                </div>
+              </div>
+              <!--/row-->
+            </div>
+
+            <div class="form-actions">
+              <div class="card-body">
+                <button type="submit" class="btn btn-success mr-3" (click)="modal.dismiss('Cross click')">
+                  <i class="fa fa-check"></i> Add</button>
+                <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </ng-template>
+
+  <ng-template #imagesBox let-modal>
+    <div class="modal-body">
+      <label>Banner</label>
+      <div class="row">
+      <div class="col-md-3">
+          <img src="assets/images/food/banner.jpg" class="img-fluid">
+      </div>
+      <div class="col-md-3">
+        <img src="assets/images/food/banner.jpg" class="img-fluid">
+    </div>
+    <div class="col-md-3">
+        <img src="assets/images/food/banner.jpg" class="img-fluid">
+    </div>
+    <div class="col-md-3">
+        <img src="assets/images/food/banner.jpg" class="img-fluid">
+    </div>
+      </div>
+    </div>
+  </ng-template>

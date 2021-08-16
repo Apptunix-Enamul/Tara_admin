@@ -1,0 +1,24 @@
+<!-- .row -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-body">           
+            <form class="form-horizontal">
+                <div class="bg-light p-3 mb-3">
+                    <div class="form-group">
+                        <input type="text" id="que" name="que" class="form-control" placeholder="Quetions">
+                    </div>                 
+                    <div class="">
+                        <textarea class="form-control" rows="3" placeholder="Add Answer here"></textarea>
+                    </div>
+                </div>  
+                <div class="showInputField"></div> 
+                <div class="form-group">
+                <button (click)="add()" class="btn btn-success"><i class="mdi mdi-plus"></i></button>
+                </div>
+
+                <button class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /.row -->

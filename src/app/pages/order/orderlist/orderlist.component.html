@@ -1,0 +1,470 @@
+<div class="row">
+  <!-- Column -->
+  <!-- delete modal -->
+  <ng-template #userDelete let-modal>
+    <div class="modal-body">
+      <p>Are you sure you want to delete this order?</p>
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary mr-2" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">Yes</button>
+        <button type="button" class="btn btn-seconadary" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">No</button>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- view modal -->
+  <ng-template #review let-modal>
+    <div class="modal-body">
+      <button type="button" class=" close-icon" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <i class="mdi mdi-close"></i>
+      </button>
+      <div class="row">
+
+        <!-- Column -->
+        <div class="col-lg-12 col-xlg-12 col-md-12">
+          <div class="card custom-tabs mb-0">
+            <div class="card-body">
+              <div class="row pt-2">
+                <div class="col-md-12">
+                  <p>
+                    It is a long established fact that a reader will be distracted by the readable content of a page
+                    when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution of letters, as opposed to using 'Content here,
+                    content here', making it look like readable English. Many desktop publishing packages and web page
+                    editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover
+                    many web sites
+                    still in their infancy.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Column -->
+      </div>
+    </div>
+  </ng-template>
+
+
+  <ng-template #orderConfirm let-modal>
+    <div class="modal-body">
+      <label>Add Note</label>
+      <div class="form-group">
+        <textarea class="form-control" rows="3"></textarea>
+        <button class="btn btn-primary mt-2" (click)="modal.dismiss('Cross click')">Submit</button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #changedriver let-modal>
+    <div class="modal-body">
+      <h3>Change Driver</h3>
+      <mat-form-field class="w-100">
+        <mat-label>Select Drive</mat-label>
+        <mat-select [formControl]="toppings">
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button class="btn btn-primary" (click)="modal.dismiss('Cross click')">Save</button>
+    </div>
+  </ng-template>
+  <div class="card">
+    <div class="card-body">
+      <ngb-tabset type="pills" class="cstm_tabs">
+        <ngb-tab title="upcoming Orders">
+          <ng-template ngbTabContent>
+            <div class="col-lg-12 mt-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <form>
+                          <div class="mb-2">
+                              <input type="text" class="form-control" id="prenametext" placeholder="Search">
+                          </div>
+                      </form>
+                  </div>
+                  <div class="col-md-8 text-right">
+                    <div class="d-block">
+                      <mat-form-field appearance="fill">
+                        <mat-label> Filter by date</mat-label>
+                        <mat-date-range-input [rangePicker]="picker">
+                          <input matStartDate placeholder="Start date">
+                          <input matEndDate placeholder="End date">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                      </mat-form-field>
+                    </div>
+                      <div class="mr-2 d-inline-block"><button class="btn btn-primary">Download CSV</button></div>
+                      <div ngbDropdown class="d-inline-block mb-2 mr-2">
+                          <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                              Filter by order status
+                          </button>
+                          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button class="dropdown-item">Accepted</button>
+                            <button class="dropdown-item">Rejected</button>
+                          </div>
+                      </div>
+                  </div>
+                    <div class="table-responsive">
+                      <table mat-table class=" w-100" [dataSource]="dataSource" matSort>
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="serial_no">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> #  </th>
+                          <td mat-cell *matCellDef="let row"> {{row.serial_no}} </td>
+                        </ng-container>  
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="audio">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Audio Files </th>
+                          <td mat-cell *matCellDef="let row"> 
+                          <audio controls>
+                            <source [src]=row.audio type="audio/mp3">
+                          </audio> 
+                        </td>
+                        </ng-container>
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="ordered_item">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Ordered Items  </th>
+                          <td mat-cell *matCellDef="let row"> {{row.ordered_item}} </td>
+                        </ng-container>  <!-- ID Column -->
+                        <ng-container matColumnDef="name">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Customer Details </th>
+                          <td mat-cell *matCellDef="let row" class="text-nowrap"> {{row.name}} <br> {{row.contact}} </td>
+                        </ng-container>
+                        <!-- Address -->
+                        <ng-container matColumnDef="address">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Delivery Location </th>
+                          <td mat-cell *matCellDef="let row" style="width:200px;"> {{row.address}} <a href="javascript:void()" (click)="mapModal(map)"><i class="sl-icon-info"></i></a> </td>
+                        </ng-container>
+                        <!-- Pricing -->
+                        <ng-container matColumnDef="price">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Price of the Total Order</th>
+                          <td mat-cell *matCellDef="let row" class="text-nowrap"> {{row.price}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="vendor">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Vendor</th>
+                          <td mat-cell *matCellDef="let row" class="text-nowrap"> {{row.vendor}} <br> {{row.vendormail}} </td>
+                        </ng-container>
+                        <!-- <ng-container matColumnDef="payment">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment</th>
+                          <td mat-cell *matCellDef="let row">
+                            <label class="btn  sts" [ngClass]="row.status == 'Pending' ? 'btn-outline-info': 'btn-outline-success' ">{{row.payment}}</label>
+                          </td>
+                        </ng-container> -->
+                        <ng-container matColumnDef="action">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Action </th>
+                          <td mat-cell *matCellDef="let row" class="text-nowrap">
+                            <div ngbDropdown placement="bottom-right" display="dynamic" class="dropdown-menu-right"  container="body">
+                              <button class="btn btn-outline-primary btn-sm" id="dropdownBasic1" ngbDropdownToggle>
+                                Pending
+                              </button>
+                              <div  ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <a href="javascript:void()" class="dropdown-item" (click)="vendorConfirmModal(vendorConfirm)">
+                                  Accept
+                                </a>
+                                <a href="javascript:void()" class="dropdown-item "
+                                  (click)="orderConfirmModal(orderConfirm)">
+                                  Reject</a>
+                              </div>
+                            </div>
+                          </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="col-md-12 text-right"><mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator></div>
+                  </div>
+                </div>
+              </div>
+              <!-- Column -->
+              
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Ongoing Orders">
+          <ng-template ngbTabContent>
+            <div class="col-lg-12 mt-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <form>
+                          <div class="mb-2">
+                              <input type="text" class="form-control" id="prenametext" placeholder="Search">
+                          </div>
+                      </form>
+                  </div>
+                  <div class="col-md-8 text-right">
+                    <div class="d-block">
+                      <mat-form-field appearance="fill">
+                        <mat-label> Filter by date</mat-label>
+                        <mat-date-range-input [rangePicker]="picker">
+                          <input matStartDate placeholder="Start date">
+                          <input matEndDate placeholder="End date">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                      </mat-form-field>
+                    </div>
+                      <div class="mr-2 d-inline-block"><button class="btn btn-primary">Download CSV</button></div>
+                      <div ngbDropdown class="d-inline-block mb-2 mr-2">
+                          <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                              Filter by order status
+                          </button>
+                          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button class="dropdown-item">Accepted</button>
+                            <button class="dropdown-item">Rejected</button>
+                          </div>
+                      </div>
+                  </div>
+                    <div class="table-responsive">
+                      <table mat-table class=" w-100" [dataSource]="dataSource" matSort>
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="serial_no">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> #  </th>
+                          <td mat-cell *matCellDef="let row"> {{row.serial_no}} </td>
+                        </ng-container>  
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="audio">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Audio Files </th>
+                          <td mat-cell *matCellDef="let row"> 
+                          <audio controls>
+                            <source [src]=row.audio type="audio/mp3">
+                          </audio> 
+                        </td>
+                        </ng-container>
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="ordered_item">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Ordered Items  </th>
+                          <td mat-cell *matCellDef="let row"> {{row.ordered_item}} </td>
+                        </ng-container>  <!-- ID Column -->
+                        <ng-container matColumnDef="name">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Customer Details </th>
+                          <td mat-cell *matCellDef="let row" class="text-nowrap"> {{row.name}} <br> {{row.contact}} </td>
+                        </ng-container>
+                        <!-- Address -->
+                        <ng-container matColumnDef="address">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Delivery Location </th>
+                          <td mat-cell *matCellDef="let row" style="width:200px;"> {{row.address}} <a href="javascript:void()" (click)="mapModal(map)"><i class="sl-icon-info"></i></a> </td>
+                        </ng-container>
+                        <!-- Pricing -->
+                        <ng-container matColumnDef="price">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Price of the Total Order</th>
+                          <td mat-cell *matCellDef="let row" class="text-nowrap"> {{row.price}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="vendor">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Vendor</th>
+                          <td mat-cell *matCellDef="let row" class="text-nowrap"> {{row.vendor}} <br> {{row.vendormail}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="payment">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment</th>
+                          <td mat-cell *matCellDef="let row">
+                            <label class="btn  sts" [ngClass]="row.payment == 'Pending' ? 'btn-outline-info': 'btn-outline-success' ">{{row.payment}}</label>
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Action </th>
+                          <td mat-cell *matCellDef="let row" class="text-nowrap">
+                            <div ngbDropdown placement="bottom-right" display="dynamic" class="dropdown-menu-right"  container="body">
+                              <button class="btn btn-outline-primary btn-sm" id="dropdownBasic2" ngbDropdownToggle>
+                                Action
+                              </button> 
+                              <div  ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                                <button class="dropdown-item">Ready for Pickup</button>
+                                  <button class="dropdown-item">Completed/Delivered</button>
+                                </div>
+                            </div>  
+                          </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="col-md-12 text-right"><mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator></div>
+                  </div>
+                </div>
+              </div>
+              <!-- Column -->
+              
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Past Orders">
+          <ng-template ngbTabContent>
+            <div class="col-lg-12 mt-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <form>
+                          <div class="mb-2">
+                              <input type="text" class="form-control" id="prenametext" placeholder="Search">
+                          </div>
+                      </form>
+                  </div>
+                  <div class="col-md-8 text-right">
+                    <div class="d-block">
+                      <mat-form-field appearance="fill">
+                        <mat-label> Filter by date</mat-label>
+                        <mat-date-range-input [rangePicker]="picker">
+                          <input matStartDate placeholder="Start date">
+                          <input matEndDate placeholder="End date">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                      </mat-form-field>
+                    </div>
+                      <div class="mr-2 d-inline-block"><button class="btn btn-primary">Download CSV</button></div>
+                      <div ngbDropdown class="d-inline-block mb-2 mr-2">
+                          <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                              Filter by order status
+                          </button>
+                          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button class="dropdown-item">Completed</button>
+                            <button class="dropdown-item">Rejected</button>
+                          </div>
+                      </div>
+                  </div>
+                    <div class="table-responsive">
+                      <table mat-table class=" w-100" [dataSource]="dataSource" matSort>
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="serial_no">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> #  </th>
+                          <td mat-cell *matCellDef="let row"> {{row.serial_no}} </td>
+                        </ng-container>  
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="audio">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Audio Files </th>
+                          <td mat-cell *matCellDef="let row"> 
+                          <audio controls>
+                            <source [src]=row.audio type="audio/mp3">
+                          </audio> 
+                        </td>
+                        </ng-container>
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="ordered_item">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Ordered Items  </th>
+                          <td mat-cell *matCellDef="let row"> {{row.ordered_item}} </td>
+                        </ng-container>  <!-- ID Column -->
+                        <ng-container matColumnDef="name">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Customer Details </th>
+                          <td mat-cell *matCellDef="let row" class="text-nowrap"> {{row.name}} <br> {{row.contact}} </td>
+                        </ng-container>
+                        <!-- Address -->
+                        <ng-container matColumnDef="address">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Delivery Location </th>
+                          <td mat-cell *matCellDef="let row" style="width:200px;"> {{row.address}} <a href="javascript:void()" (click)="mapModal(map)"><i class="sl-icon-info"></i></a> </td>
+                        </ng-container>
+                        <!-- Pricing -->
+                        <ng-container matColumnDef="price">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Price of the Total Order</th>
+                          <td mat-cell *matCellDef="let row" class="text-nowrap"> {{row.price}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="vendor">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Vendor</th>
+                          <td mat-cell *matCellDef="let row" class="text-nowrap"> {{row.vendor}} <br> {{row.vendormail}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="payment">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment</th>
+                          <td mat-cell *matCellDef="let row">
+                            <label class="btn sts" [ngClass]="row.payment == 'Pending' ? 'btn-outline-info': 'btn-outline-success' ">{{row.payment}}</label>
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="status">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                          <td mat-cell *matCellDef="let row">
+                            <!-- <label class="label label-warning text-nowrap">{{row.status}}</label> -->
+                            <label class="btn sts" [ngClass]="row.status == 'Rejected' ? 'btn-outline-danger': (row.status == 'Pending') ? 'btn-outline-info' : 'btn-outline-success' ">{{row.status}}</label>
+                          </td>
+                        </ng-container>
+                        <!-- <ng-container [class.d-none]="true" matColumnDef="action">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Action </th>
+                          <td mat-cell *matCellDef="let row" class="text-nowrap">
+                            <div *ngIf="row.action==0" ngbDropdown placement="bottom-right" display="dynamic" class="dropdown-menu-right"  container="body">
+                              <button class="btn btn-outline-primary btn-sm" id="dropdownBasic1" ngbDropdownToggle>
+                                Action
+                              </button>
+                              <div  ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <a href="javascript:void()" class="dropdown-item" (click)="vendorConfirmModal(vendorConfirm)">
+                                  Accept
+                                </a>
+                                <a href="javascript:void()" class="dropdown-item "
+                                  (click)="orderConfirmModal(orderConfirm)">
+                                  Reject</a>
+                              </div>
+                            </div>
+                            <div *ngIf="row.action==1" ngbDropdown placement="bottom-right" display="dynamic" class="dropdown-menu-right"  container="body">
+                              <button class="btn btn-outline-primary btn-sm" id="dropdownBasic2" ngbDropdownToggle>
+                                Action
+                              </button> 
+                              <div  ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                                <button class="dropdown-item">Ready for Pickup</button>
+                                  <button class="dropdown-item">Completed/Delivered</button>
+                                </div>
+                            </div>  
+                          </td>
+                        </ng-container> -->
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="col-md-12 text-right"><mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator></div>
+                  </div>
+                </div>
+              </div>
+              <!-- Column -->
+              
+            </div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
+  <ng-template #orderConfirm let-modal>
+    <div class="modal-body">
+      <label>Add Note</label>
+      <div class=" mb-3">
+        <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+        <div class="input-group-append">
+          <button class="btn mr-0 btn-primary mt-2" type="button" (click)="modal.close()">Submit</button>
+        </div>
+      </div>
+
+    </div>
+  </ng-template>
+  
+  <ng-template #comment let-modal>
+    <div class="modal-body">
+     <button class="btn close-icon" (click)="modal.close()"><i class="mdi mdi-close"></i></button> 
+      <label>Comment</label>
+      <div class=" mb-3">
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit neque reprehenderit quidem beatae repudiandae quisquam voluptas, ipsa molestias autem fuga.</p>
+      </div>
+
+    </div>
+  </ng-template>
+
+  <ng-template #map let-modal>
+    <div class="modal-body">
+     <button class="btn close-icon" (click)="modal.close()"><i class="mdi mdi-close"></i></button>     
+      <div class=" mb-3">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d470029.1604841957!2d72.29955005258641!3d23.019996818380896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C+Gujarat!5e0!3m2!1sen!2sin!4v1493204785508"
+        width="100%" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>
+      </div>
+
+    </div>
+  </ng-template>

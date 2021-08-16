@@ -1,0 +1,474 @@
+<div class="row">
+    <!-- Column -->
+
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <form>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="prenametext" placeholder="Search">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-8 d-flex  justify-content-end">
+                        <div ngbDropdown class="d-inline-block mb-2 mr-2">
+                            <button class="btn btn-outline-primary " id="dropdownBasic1" ngbDropdownToggle>
+                                Filter by franchise status
+                    </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button class="dropdown-item">All</button>
+                                <button class="dropdown-item">Pending </button>
+                                <button class="dropdown-item">Denied</button>
+                            </div>
+                        </div>
+                        <!-- <div ngbDropdown class="d-inline-block mb-2 mr-2">
+                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                  Daily
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button class="dropdown-item">Daily</button>
+                  <button class="dropdown-item">Weekly</button>
+                  <button class="dropdown-item">Monthly</button>
+                  <button class="dropdown-item">Yearly</button>
+                </div>
+              </div> -->
+                        <!-- <button class="btn btn-primary mb-2 mr-2"><i class="sl-icon-cloud-download"></i> Export CSV</button>
+              <button class="btn btn-seconadary mb-2" (click)="addUserModal(addUser)"><i class="sl-icon-plus"></i> Add
+                Vendor</button>-->
+                    </div>
+                    <div class="table-responsive">
+                        <table mat-table class=" w-100" [dataSource]="dataSource" matSort>
+                            <!-- ID Column -->
+                            <ng-container matColumnDef="serial_no">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> # </th>
+                                <td mat-cell *matCellDef="let row"> {{row.serial_no}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Name </th>
+                                <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+                            </ng-container>
+                            <!-- <ng-container matColumnDef="lastname">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Last Name </th>
+                                <td mat-cell *matCellDef="let row"> {{row.lastname}} </td>
+                            </ng-container> -->
+                            <!-- Progress Column -->
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>ID </th>
+                                <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+                            </ng-container>
+                            <!-- Progress Column -->
+                            <ng-container matColumnDef="contact">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Phone Number </th>
+                                <td mat-cell *matCellDef="let row" class="text-nowrap"> <a href="tel:765453232">{{row.contact}}</a> </td>
+                            </ng-container>
+                            <!-- Progress Column -->
+                            <ng-container matColumnDef="email">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Email </th>
+                                <td mat-cell *matCellDef="let row"> <a href="mailto:example@site.com"> {{row.email}}</a> </td>
+                            </ng-container>
+                            <ng-container matColumnDef="frachise">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Frachise </th>
+                                <td mat-cell *matCellDef="let row"> {{row.frachise}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="message">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Message </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p style="width:200px">{{row.message}}</p>
+                                </td>
+                            </ng-container>
+                            <!-- Address -->
+                            <!-- <ng-container matColumnDef="address">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Address </th>
+                                <td mat-cell *matCellDef="let row"> {{row.address}} </td>
+                            </ng-container> -->
+
+                            <!-- pendingOrder -->
+                            <!-- <ng-container matColumnDef="pendingOrders">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Pending Orders </th>
+                  <td mat-cell *matCellDef="let row"> {{row.pendingOrders}} </td>
+                </ng-container> -->
+                            <!-- total Orders -->
+                            <!-- <ng-container matColumnDef="totalOrders">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Total Orders </th>
+                  <td mat-cell *matCellDef="let row"> {{row.totalOrders}} </td>
+                </ng-container> -->
+                            <!-- Name Column -->
+                            <!-- <ng-container matColumnDef="cancelledOrders">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Cancelled Orders </th>
+                  <td mat-cell *matCellDef="let row"> {{row.cancelledOrders}} </td>
+                </ng-container> -->
+                            <!-- Name Column -->
+                            <!-- <ng-container matColumnDef="completedOrders">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Completed Order </th>
+                  <td mat-cell *matCellDef="let row"> {{row.completedOrders}} </td>
+                </ng-container> -->
+                            <!-- Color Column -->
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Status </th>
+                                <td mat-cell *matCellDef="let row" class="text-nowrap"> <label class="badge bg-warning">{{row.status}}</label>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Action </th>
+                                <td mat-cell *matCellDef="let row" class="text-nowrap">
+                                    <div ngbDropdown placement="bottom" class="d-inline-block" container="body">
+                                        <button class="btn btn-outline-primary btn-sm" id="dropdownBasic1" ngbDropdownToggle>
+                        Action
+                      </button>
+
+                                        <div *ngIf="row.action==0" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                            <a href="javascript:void()" class="dropdown-item" (click)="vendorConfirmModal(vendorConfirm)">
+                                                Accept
+                        </a>
+                                            <button class="dropdown-item" (click)="vendorUnconfirmModal(vendorUnconfirm)"> Pending </button>
+
+                                            <a href="javascript:void()" class="dropdown-item" (click)="vendorUnconfirmModal(vendorUnconfirm)">
+                                                Deny</a>
+                                        </div>
+
+                                        <div *ngIf="row.action==1" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                            <button class="dropdown-item" (click)="edituserModal(edituser)"><i _ngcontent-axh-c146=""
+                            class="ti-marker-alt"></i> Edit</button>
+                                            <a class="dropdown-item" routerLink="/pages/vendorHistory"><i class="ti-eye"></i>
+                          View
+                        </a>
+
+                                            <button class="dropdown-item" (click)="userDeleteModal(userDelete)"><i class="ti-trash"></i>
+                          Delete</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                            <!-- Row shown when there is no matching data. -->
+                            <!-- <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr> -->
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+    </div>
+
+    <ng-template #content3 let-modal>
+        <div class="modal-header p-2">
+            <h4 class="modal-title">Driving Licence</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <figure class=""><img src="assets/images/gallery/driving-licence.jpg" class="img-fluid"></figure>
+                </div>
+                <div class="col-md-6">
+                    <figure class=""><img src="assets/images/gallery/driving-licence.jpg" class="img-fluid"></figure>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <!-- delete modal -->
+    <ng-template #userDelete let-modal>
+        <div class="modal-body">
+            <p>Are You Sure want to delete?</p>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary mr-2" aria-label="Close" (click)="modal.dismiss('Cross click')">Yes</button>
+                <button type="button" class="btn btn-seconadary" aria-label="Close" (click)="modal.dismiss('Cross click')">No</button>
+            </div>
+        </div>
+    </ng-template>
+
+    <!-- edit user detail -->
+    <ng-template #addUser let-modal>
+        <div class="modal-body">
+            <div class="card">
+                <form action="#">
+                    <div class="form-body">
+                        <div class="card-body">
+                            <div class="row p-t-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">First Name</label>
+                                        <input type="text" id="firstName" class="form-control" placeholder="John doe">
+
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Last Name</label>
+                                        <input type="text" id="firstName" class="form-control" placeholder="John doe">
+
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <!-- <div class="col-md-6">
+                    <div class="form-group has-success">
+                      <div class="form-group">
+                        <label class="control-label">Upload Vendor Profile</label>
+                        <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"
+                            disabled><label class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
+                      </div>
+                    </div>
+                  </div> -->
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                            <div class="row ">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Phone Number</label>
+                                        <input type="number" id="firstName" class="form-control" placeholder="343-434-5423">
+
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Email</label>
+                                        <input type="email" id="firstName" class="form-control" placeholder="example@gmail.com">
+
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group has-danger">
+                                        <label class="control-label">Shop ID</label>
+                                        <input type="text" id="email" class="form-control form-control-danger" placeholder="#46543343">
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <!-- <div class="col-md-6">
+                    <div class="form-group has-danger">
+                      <label class="control-label">Total Orders</label>
+                      <input type="text" id="email" class="form-control form-control-danger" placeholder="40">
+                    </div>
+                  </div> -->
+                                <!--/span-->
+                                <!-- <div class="col-md-6">
+                    <div class="form-group has-danger">
+                      <label class="control-label">Cancelled Orders</label>
+                      <input type="text" id="email" class="form-control form-control-danger" placeholder="00">
+                    </div>
+                  </div> -->
+                                <!--/span-->
+                                <!-- <div class="col-md-6">
+                    <div class="form-group has-danger">
+                      <label class="control-label">Completed Orders</label>
+                      <input type="text" id="email" class="form-control form-control-danger" placeholder="40">
+                    </div>
+                  </div> -->
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group has-danger">
+                                        <label class="control-label">City</label>
+                                        <input type="text" id="city" class="form-control form-control-danger" placeholder="Berlin">
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <!-- <div class="col-md-12">
+                    <div class="form-group has-danger">
+                      <label class="control-label">Pincode</label>
+                      <input type="text" id="email" class="form-control form-control-danger" placeholder="Pincode">
+                    </div>
+                  </div> -->
+                                <!--/span-->
+                                <div class="col-md-12">
+                                    <div class="form-group has-danger">
+                                        <label class="control-label">Address</label>
+                                        <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="#433 New garden Complex"></textarea>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                        </div>
+
+                        <div class="form-actions">
+                            <div class="card-body">
+                                <button type="submit" class="btn btn-primary mr-3" (click)="modal.dismiss('Cross click')">
+                    <i class="fa fa-plus"></i> Add</button>
+                                <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </ng-template>
+    <ng-template #edituser let-modal>
+        <div class="modal-body">
+            <div class="card">
+                <form action="#">
+                    <div class="form-body">
+                        <div class="card-body">
+                            <div class="row p-t-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">First Name</label>
+                                        <input type="text" id="firstName" class="form-control" placeholder="John doe">
+
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Last Name</label>
+                                        <input type="text" id="firstName" class="form-control" placeholder="John doe">
+
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <!-- <div class="col-md-6">
+                        <div class="form-group has-success">
+                          <div class="form-group">
+                            <label class="control-label">Upload Vendor Profile</label>
+                            <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"
+                                disabled><label class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
+                          </div>
+                        </div>
+                      </div> -->
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                            <div class="row ">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Phone Number</label>
+                                        <input type="number" id="firstName" class="form-control" placeholder="343-434-5423">
+
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Email</label>
+                                        <input type="email" id="firstName" class="form-control" placeholder="example@gmail.com">
+
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group has-danger">
+                                        <label class="control-label">Shop ID</label>
+                                        <input type="text" id="email" class="form-control form-control-danger" placeholder="#46543343">
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <!-- <div class="col-md-6">
+                        <div class="form-group has-danger">
+                          <label class="control-label">Total Orders</label>
+                          <input type="text" id="email" class="form-control form-control-danger" placeholder="40">
+                        </div>
+                      </div> -->
+                                <!--/span-->
+                                <!-- <div class="col-md-6">
+                        <div class="form-group has-danger">
+                          <label class="control-label">Cancelled Orders</label>
+                          <input type="text" id="email" class="form-control form-control-danger" placeholder="00">
+                        </div>
+                      </div> -->
+                                <!--/span-->
+                                <!-- <div class="col-md-6">
+                        <div class="form-group has-danger">
+                          <label class="control-label">Completed Orders</label>
+                          <input type="text" id="email" class="form-control form-control-danger" placeholder="40">
+                        </div>
+                      </div> -->
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group has-danger">
+                                        <label class="control-label">City</label>
+                                        <input type="text" id="city" class="form-control form-control-danger" placeholder="Berlin">
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <!-- <div class="col-md-12">
+                        <div class="form-group has-danger">
+                          <label class="control-label">Pincode</label>
+                          <input type="text" id="email" class="form-control form-control-danger" placeholder="Pincode">
+                        </div>
+                      </div> -->
+                                <!--/span-->
+                                <div class="col-md-12">
+                                    <div class="form-group has-danger">
+                                        <label class="control-label">Address</label>
+                                        <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="#433 New garden Complex"></textarea>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                        </div>
+
+                        <div class="form-actions">
+                            <div class="card-body">
+                                <button type="submit" class="btn btn-primary mr-3" (click)="modal.dismiss('Cross click')">
+                        <i class="fa fa-plus"></i> Update</button>
+                                <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </ng-template>
+    <ng-template #vendorConfirm let-modal>
+        <div class="modal-body">
+            <h3>Add Commission</h3>
+            <div class="row">
+                <!-- <div class="col-md-12">
+            <div class="form-group has-danger">
+              <label class="control-label">Income Type</label>
+              <select name="" id="" class="form-control">
+                <option value="">Salaried</option>
+                <option value="">Salaried + Commission</option>
+              </select>
+
+            </div>
+          </div> -->
+                <!--/span-->
+                <!-- <div class="col-md-6">
+            <div class="form-group">
+              <label class="control-label">Amount</label>
+              <input type="text" id="Address" class="form-control form-control-danger" placeholder="Add Salary">
+            </div>
+          </div> -->
+                <!--/span-->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">Commission</label>
+                        <input type="text" id="Address" class="form-control form-control-danger" placeholder="Add Commission">
+                    </div>
+                </div>
+                <!--/span-->
+                <div class="col-md-12">
+                    <button class="btn btn-primary" (click)="modal.close()">Save</button>
+                </div>
+            </div>
+            <!--/row-->
+        </div>
+    </ng-template>
+    <ng-template #vendorUnconfirm let-modal>
+        <div class="modal-body">
+            <label>Add Note</label>
+            <div class=" mb-3">
+                <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+                <div class="input-group-append">
+                    <button class="btn mr-0 btn-primary mt-2" type="button" (click)="modal.close()">Submit</button>
+                </div>
+            </div>
+
+        </div>
+    </ng-template>

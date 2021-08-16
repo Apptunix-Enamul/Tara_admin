@@ -1,0 +1,345 @@
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <form >
+                <div class="mb-2">
+                    <input type="text" class="form-control" id="prenametext" placeholder="Search">
+                </div>
+            </form>
+            </div>
+            <div class="col-md-8 mb-2 text-right">
+              <button class="btn btn-seconadary" (click)="addBikeModal(addBike)"><i class="sl-icon-plus"></i> Add Bike</button>
+            </div>
+          </div>
+          <div class="">
+            <table class="table v-middle product-overview" id="zero_config">
+              <thead>
+                <tr>
+                  <th>Bike Photo</th>
+                  <th>Bike Name</th>
+                  <th>Bike Number</th>
+                  <th>Vendor Name</th>
+                  <th>User Name</th>
+                  <th>Price Per Hour</th>                                 
+                  <th>Rent Time</th>                                 
+                  <th>Action</th> 
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="img-small"><img src="assets/images/bikes/1.jpg" alt="iMac" width="60" class="rounded-circle border"></span>
+                  </td>
+                  <td>Pulsar 150</td>
+                  <td>HR-03-v-2034</td>
+                  <td>John</td>
+                  <td>Sandy</td>
+                  <td> $10 </td>
+                  <td> 10:30 AM</td>
+                  <td> 
+                    <div ngbDropdown placement="bottom" class="d-inline-block">
+                        <button
+                          class="btn btn-outline-primary"
+                          id="dropdownBasic1"
+                          ngbDropdownToggle
+                        >
+                          Action
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                          <button class="dropdown-item" (click)="userprofileModal(userprofile)"><i class="ti-eye"></i> View </button>
+                          <button class="dropdown-item" (click)="userDetailModal(userDetail)"><i _ngcontent-axh-c146="" class="ti-marker-alt"></i> Edit</button>
+                          
+                          <button class="dropdown-item" (click)="userDeleteModal(userDelete)"><i class="ti-trash"></i> Delete</button>
+                        </div>
+                      </div>
+                    
+                  </td>
+                </tr>
+               
+               
+             
+               
+  
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Column -->
+  </div>
+  
+  <ng-template #content3 let-modal>
+    <div class="modal-header p-2">
+      <!-- <h4 class="modal-title">Driving Licence</h4> -->
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <figure class="text-center"><img src="assets/images/users/qr.jpg" class="img-fluid"></figure>
+        </div>       
+      </div>
+    </div>
+  </ng-template>
+  
+  
+  <!-- view modal -->
+  <ng-template #userprofile let-modal>
+    <div class="modal-body">
+      <button type="button" class=" close-icon" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <i class="mdi mdi-close"></i>
+      </button>
+      <div class="row">
+        <!-- Column -->
+        <div class="col-lg-3 col-xlg-3 col-md-5">
+          <div class="card">
+            <div class="card-body">
+              <div class="text-center">
+                <img src="assets/images/bikes/1.jpg" class="" width="150" />
+              </div>  
+            </div>
+           
+  
+          </div>
+        </div>
+        <!-- Column -->
+        <!-- Column -->
+        <div class="col-lg-9 col-xlg-9 col-md-7">
+          <div class="card custom-tabs mb-0">
+            <div class="card-body">
+              <div class="row pt-2">
+                <div class="col-md-6">
+                  <h4>Bike Detail</h4>
+                  <ul class="list-block">                    
+                    <li class="list-block-listing">Bike Name: <span class="font-weight-600">Bajaj Pulsar 150</span></li>
+                    <li class="list-block-listing">Bike No: <span class="font-weight-600">HR-03-v-2656</span>
+                    </li>                          
+                    <li class="list-block-listing d-flex">Bike Owner: <span class="font-weight-600">John</span></li>
+                    <li class="list-block-listing">Bike Price:  <span class="font-weight-600"> $10</span></li>
+                   </ul>
+                </div>
+                <div class="col-md-6">
+                  <h4>User Detail</h4>
+                  <ul class="list-block">
+                    <li class="list-block-listing">Name: <span class="font-weight-600">Sandy</span></li>
+                    <li class="list-block-listing">Email: <span class="font-weight-600">Hannagover@gmail.com</span>
+                    </li>
+                    <li class="list-block-listing">Gender: <span class="font-weight-600">Female</span>
+                    </li>
+                    <li class="list-block-listing">Phone No: <span class="font-weight-600">+91-7858485474</span>
+                    </li>                
+                    <li class="list-block-listing "> <span>Address: </span> <span class="font-weight-600">3750 Grove Avenue, Clinton</span>
+                    </li>
+
+
+                  </ul>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <!-- Column -->
+      </div>
+    </div>
+  </ng-template>
+  
+  <!-- delete modal -->
+  <ng-template #userDelete let-modal>
+    <div class="modal-body">
+      <p>Are you sure want to delete?</p>
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary mr-2" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">Yes</button>
+        <button type="button" class="btn btn-seconadary" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">No</button>
+      </div>
+    </div>
+  </ng-template>
+  
+  <!-- edit user detail -->
+  <ng-template #userDetail let-modal>
+    <div class="modal-body">
+      <div class="card mb-0">
+        <form action="#">
+          <div class="form-body">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12 mb-2">
+                  <h3 class="mb-0 p-2 bg-light">Edit Bike</h3>
+                  
+                </div>
+              </div>
+              <div class="row ">
+              
+                <div class="col-md-6">
+                  
+                  <div class="form-group">
+                    <label class="control-label">Bike Name</label>
+                    <input type="text" id="firstName" class="form-control" placeholder="John doe" value="Plusar 150">
+  
+                  </div>
+                </div>
+                <!--/span-->
+                <div class="col-md-6">
+                  <div class="form-group has-success">
+                    <label class="control-label">Bike Number</label>
+                    <input type="text" id="firstName" class="form-control" placeholder="John doe" value="HR-03-v-2034">
+  
+                  </div>
+  
+                </div>
+                <!--/span-->
+              </div>
+              <!--/row-->
+              <div class="row ">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Vendor Name</label>
+                    <input type="text" id="location" class="form-control form-control-danger"
+                    Value="John">
+                    <!-- <div class="custom-file"><input  class="custom-file-input" id="inputGroupFile01" type="file"><label  class="custom-file-label" for="inputGroupFile01">Choose file</label></div> -->
+  
+                  </div>
+                </div>
+                <!--/span-->
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">User Name</label>
+                    <input type="text" id="location" class="form-control form-control-danger"
+                     value="Sandy">
+  
+                  </div>
+                </div>
+                <!--/span-->
+              </div>
+             
+              <!--/row-->
+              <div class="row">                
+                <!--/span-->
+                <div class="col-md-6">
+                  <label>Rent Per Hours</label>
+                  <input type="text" value="$ 10" class="form-control form-control-danger">
+                </div>
+                <!--/span-->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Time Changed</label>             
+                    <input type="text" id="vendor" class="form-control form-control-danger"
+                    placeholder="10:00 Am">     
+                  </div>
+                </div>
+                <!--/span-->
+              </div>
+              
+              <!--/row-->
+            </div>
+  
+            <div class="form-actions">
+              <div class="card-body">
+                <button type="submit" class="btn btn-success mr-3" (click)="modal.dismiss('Cross click')">
+                  <i class="fa fa-check"></i> Update</button>
+                <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+  
+    </div>
+  </ng-template>
+  
+    <!-- Add bike detail -->
+    <ng-template #addBike let-modal>
+      <div class="modal-body">
+        <div class="card mb-0">
+          <form action="#">
+            <div class="form-body">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12 mb-2">
+                    <h3 class="mb-0 p-2 bg-light">Add Bike</h3>
+                    
+                  </div>
+                </div>
+                <div class="row ">
+                
+                  <div class="col-md-6">
+                    
+                    <div class="form-group">
+                      <label class="control-label">Bike Name</label>
+                      <input type="text" id="firstName" class="form-control" placeholder="Bike Name" >
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group has-success">
+                      <label class="control-label">Bike Number</label>
+                      <input type="text" id="firstName" class="form-control" placeholder="Bike No" >
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row ">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label">Upload Bike Image</label>
+                      <div class="custom-file"><input  class="custom-file-input" id="inputGroupFile01" type="file"><label  class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group has-danger">
+                      <label class="control-label">Vendor Name</label>
+                      <input type="text" id="vendor" class="form-control form-control-danger"
+                        placeholder="Vendor Name">
+    
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+               
+                <!--/row-->
+                <div class="row">                
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label">Add Time</label>             
+                      <input type="text" id="vendor" class="form-control form-control-danger"
+                      placeholder="10:00 Am">     
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label">Price Per Hour</label>             
+                      <input type="text" id="vendor" class="form-control form-control-danger"
+                      placeholder="$ 10">     
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+                <!--/row-->
+              </div>
+    
+              <div class="form-actions">
+                <div class="card-body">
+                  <button type="submit" class="btn btn-success mr-3" (click)="modal.dismiss('Cross click')">
+                    <i class="fa fa-check"></i> Add</button>
+                  <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+    
+      </div>
+    </ng-template>

@@ -1,0 +1,426 @@
+<div class="row">
+    <!-- Column -->
+  
+  
+    <div class="col-lg-12">
+      <div class="card">
+  
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <form>
+                <div class="mb-2">
+                  <input type="text" class="form-control" id="prenametext" placeholder="Search">
+                </div>
+              </form>
+            </div>
+            <div class="col-md-8  d-flex justify-content-end">
+              <div ngbDropdown class="d-inline-block mb-2 mr-2">
+                <button class="btn btn-info text-white" id="dropdownBasic1" ngbDropdownToggle>
+                  Status
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button class="dropdown-item">Active</button>
+                  <button class="dropdown-item">Inactive</button>
+                </div>
+              </div>            
+              <button class="btn btn-seconadary mb-2" (click)="addUserModal(addUser)"><i class="sl-icon-plus"></i> Add
+                Coupan</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table v-middle product-overview" id="zero_config">
+                <thead>
+                  <tr>
+                    <th>Promo Code</th>
+                    <th>Active Type</th>
+                    <th>Vendor Name</th>
+                    <th>Event Name</th>
+                    <th>Discount</th>                    
+                    <th>Coupan Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                   
+                    <td>de3433dd233</td>
+                      <td>All Vendors</td>
+                      <td>All Vendors</td>
+                    <td><span class="text-nowrap">N/A</span></td>                  
+                    <td>20%</td>  
+                    <td>
+                      <div class="form-check">
+                        <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" id="customControlValidation2"
+                            name="radio-stacked" disabled>
+                          <label class="custom-control-label" for="customControlValidation2">Inactive</label>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div ngbDropdown placement="bottom" class="d-inline-block">
+                        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                          Action
+                        </button>
+  
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class=" pb-5">
+                          <!-- <button class="dropdown-item" (click)="userprofileModal(userprofile)"><i class="ti-eye"></i>
+                            View
+                          </button> -->
+                          <button class="dropdown-item" (click)="userDetailModal(userDetail)"><i _ngcontent-axh-c146=""
+                              class="ti-marker-alt"></i> Edit</button>
+  
+                          <button class="dropdown-item" (click)="userDeleteModal(userDelete)"><i class="ti-trash"></i>
+                            Delete</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                   
+                    <td>de3433dd233</td>
+                      <td>Vendor</td>
+                      <td>John</td>
+                    <td><span class="text-nowrap">Rock On</span></td>                  
+                    <td>20%</td>  
+                    <td>
+                      <div class="form-check">
+                        <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" id="customControlValidation2"
+                            name="radio-stacked" checked>
+                          <label class="custom-control-label" for="customControlValidation2">Active</label>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div ngbDropdown placement="bottom" class="d-inline-block">
+                        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                          Action
+                        </button>
+  
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class=" pb-5">
+                          <!-- <button class="dropdown-item" (click)="userprofileModal(userprofile)"><i class="ti-eye"></i>
+                            View
+                          </button> -->
+                          <button class="dropdown-item" (click)="userDetailModal(userDetail)"><i _ngcontent-axh-c146=""
+                              class="ti-marker-alt"></i> Edit</button>
+  
+                          <button class="dropdown-item" (click)="userDeleteModal(userDelete)"><i class="ti-trash"></i>
+                            Delete</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Column -->
+    </div>
+  
+    <ng-template #content3 let-modal>
+      <div class="modal-header p-2">
+        <h4 class="modal-title">Driving Licence</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <figure class=""><img src="assets/images/gallery/driving-licence.jpg" class="img-fluid"></figure>
+          </div>
+          <div class="col-md-6">
+            <figure class=""><img src="assets/images/gallery/driving-licence.jpg" class="img-fluid"></figure>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  
+  
+    <!-- view modal -->
+    <ng-template #userprofile let-modal>
+      <div class="modal-body">
+        <button type="button" class=" close-icon" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <i class="mdi mdi-close"></i>
+        </button>
+        <div class="row">
+          <!-- Column -->
+          <div class="col-lg-3 col-xlg-3 col-md-5">
+            <div class="card">
+              <div class="card-body">
+                <div class="m-t-30 text-center">
+                  <img src="assets/images/users/5.jpg" class="rounded-circle" width="120" />
+                  <h4 class="card-title m-t-10">Hanna Gover</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Column -->
+          <!-- Column -->
+          <div class="col-lg-9 col-xlg-9 col-md-7">
+            <div class="card custom-tabs mb-0">
+              <div class="card-body">
+                <!-- <div class="col-md-12 text-right"><button class="btn btn-primary">Export CSV</button></div>  -->
+                <ngb-tabset>
+                  <ngb-tab>
+                    <ng-template ngbTabTitle><b>User Detail</b></ng-template>
+                    <ng-template ngbTabContent>
+                      <div class="row pt-2">
+                        <div class="col-md-6">
+                          <ul class="list-block">
+                            <li class="list-block-listing">Name: <span class="font-weight-600">Hanna Gover</span></li>
+                            <li class="list-block-listing">Email: <span
+                                class="font-weight-600">Hannagover@gmail.com</span>
+                            </li>
+                            <li class="list-block-listing">Gender: <span class="font-weight-600">Female</span>
+                            </li>
+                            <li class="list-block-listing">Phone No: <span class="font-weight-600">+91-7858485474</span>
+                            </li>
+                            <li class="list-block-listing "> <span>Address: </span> <span class="font-weight-600">3750
+                                Grove Avenue, Clinton</span>
+                            </li>
+  
+  
+                          </ul>
+                        </div>
+                        <div class="col-md-6">
+                          <ul class="list-block">
+  
+                            <li class="list-block-listing">Total Bike: <span class="font-weight-600">1</span></li>
+                            <li class="list-block-listing">Bike Name: <span>Pulsar </span></li>
+                            <li class="list-block-listing">Bike No: <span>HR-04-V-2433</span></li>
+                            <li class="list-block-listing">Vendor Name: <span class="font-weight-600">John</span></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ngb-tab>
+  
+                  <ngb-tab>
+                    <ng-template ngbTabTitle><b>User History</b></ng-template>
+                    <ng-template ngbTabContent>
+                      <ul class="user_history pl-0">
+                        <li class="user_history_list"><span class="user_history_list_icon active"><i
+                              class="mdi mdi-map-marker"></i></span> <span>Location 1</span> </li>
+                        <li class="user_history_list"><span class="user_history_list_icon active"><i
+                              class="mdi mdi-map-marker"></i></span> <span>Location 2</span> </li>
+                        <li class="user_history_list skip"><span class="user_history_list_icon active"><i
+                              class="mdi mdi-map-marker"></i></span>Location 3
+                        </li>
+                        <li class="user_history_list"><span class="user_history_list_icon"><i
+                              class="mdi mdi-map-marker"></i></span> <span>Location 4</span> </li>
+                        <li class="user_history_list"><span class="user_history_list_icon"><i
+                              class="mdi mdi-map-marker"></i></span> <span>Location 5</span> </li>
+                      </ul>
+                    </ng-template>
+                  </ngb-tab>
+                </ngb-tabset>
+              </div>
+            </div>
+          </div>
+          <!-- Column -->
+        </div>
+      </div>
+    </ng-template>
+  
+    <!-- delete modal -->
+    <ng-template #userDelete let-modal>
+      <div class="modal-body">
+        <p>Are you sure want to delete?</p>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary mr-2" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">Yes</button>
+          <button type="button" class="btn btn-seconadary" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">No</button>
+        </div>
+      </div>
+    </ng-template>
+  
+    <!-- edit user detail -->
+    <ng-template #userDetail let-modal>
+      <div class="modal-body">
+        <div class="card">
+          <form action="#">
+            <div class="form-body">
+                <div class="card-body">
+                  <div class="row p-t-20">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label">Promo Code</label>
+                        <input type="text" id="firstName" class="form-control" placeholder="J2d3ddf3">  
+                      </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                      <div class="form-group">
+                          <label class="control-label">Active Code</label>
+                          <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1">
+                            <option value="Category 1">Event</option>
+                            <option value="Category 2">Bikes</option>
+                            <option value="Category 2">Vendor</option>
+                            <option value="Category 1">All Event</option>
+                            <option value="Category 2">All Bikes</option>
+                            <option value="Category 2">All Vendors</option>
+                          </select>
+                        </div>
+                    </div>
+                    <!--/span-->
+                  </div>
+                  <!--/row-->
+                  <div class="row ">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label">Vendor Name</label>
+                        <input type="text" id="firstName" class="form-control" placeholder="John doe">
+    
+                      </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                      <div class="form-group has-danger">
+                        <label class="control-label">Event Name</label>
+                        <input type="text" id="event" class="form-control form-control-danger"
+                          placeholder="Event Name">
+    
+                      </div>
+                    </div>
+                    <!--/span-->
+                  </div>
+                  <!--/row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group has-danger">
+                        <label class="control-label">Discount</label>
+                        <input type="text" id="Address" class="form-control form-control-danger" placeholder="% Discount">
+    
+                      </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label">Ticket Status</label>
+                        <div class="custom-control custom-radio">
+                          <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                          <label class="custom-control-label" for="customRadio1">Active</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                          <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                          <label class="custom-control-label" for="customRadio2">Inactive</label>
+                        </div>
+                      </div>  
+                    </div>
+                    <!--/span-->
+                  </div>
+                  <!--/row-->
+                  
+                </div>
+    
+                <div class="form-actions">
+                  <div class="card-body">
+                    <button type="submit" class="btn btn-success mr-3" (click)="modal.dismiss('Cross click')">
+                      <i class="fa fa-check"></i> Save</button>
+                    <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
+                  </div>
+                </div>
+              </div>
+          </form>
+        </div>
+  
+      </div>
+    </ng-template>
+  
+    <!-- add user -->
+    <ng-template #addUser let-modal>
+      <div class="modal-body">
+        <div class="card">
+          <form action="#">
+            <div class="form-body">
+              <div class="card-body">
+                <div class="row p-t-20">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label">Promo Code</label>
+                      <input type="text" id="firstName" class="form-control" placeholder="2323sdsd">  
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Active Code</label>
+                        <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1">
+                          <option value="Category 1">Event</option>
+                          <option value="Category 2">Bikes</option>
+                          <option value="Category 2">Vendor</option>
+                          <option value="Category 1">All Event</option>
+                          <option value="Category 2">All Bikes</option>
+                          <option value="Category 2">All Vendors</option>
+                        </select>
+                      </div>
+                  </div>
+                  <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row ">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label">Vendor Name</label>
+                      <input type="text" id="firstName" class="form-control" placeholder="John doe">
+  
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group has-danger">
+                      <label class="control-label">Event Name</label>
+                      <input type="text" id="event" class="form-control form-control-danger"
+                        placeholder="Event Name">
+  
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group has-danger">
+                      <label class="control-label">Discount</label>
+                      <input type="text" id="Address" class="form-control form-control-danger" placeholder="% Discount">
+  
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label">Ticket Status</label>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio1">Active</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio2">Inactive</label>
+                      </div>
+                    </div>  
+                  </div>
+                  <!--/span-->
+                </div>
+                <!--/row-->
+                
+              </div>
+  
+              <div class="form-actions">
+                <div class="card-body">
+                  <button type="submit" class="btn btn-success mr-3" (click)="modal.dismiss('Cross click')">
+                    <i class="fa fa-check"></i> Add</button>
+                  <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+  
+      </div>
+    </ng-template>

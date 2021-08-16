@@ -1,0 +1,116 @@
+<div class="row">
+    
+    <div class="col-lg-12">
+      <div class="card">
+         
+        <div class="card-body">
+            
+         
+          <div class="row">
+            <div class="col-md-4">
+                <form >
+                  <div class="mb-2">
+                      <input type="text" class="form-control" id="prenametext" placeholder="Search">
+                  </div>
+              </form>
+              </div>
+              <div class="col-md-8 text-right">
+                <a routerLink="/pages/users" class="btn btn-primary text-white mb-3">Back</a>
+              </div>
+            
+            <div class="table-responsive">
+              <table class="table v-middle product-overview" id="zero_config">
+                <thead>
+                  <tr>
+                    <th>User Name</th>                   
+                    <th>Vendor Name</th>
+                    <th>User Total Bike</th> 
+                    <th>Date</th> 
+                    <th>Price</th>
+                    <th>Action</th>
+                                  
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Sandy </td>                   
+                    <td>Andy</td>
+                    <td>5</td>   
+                    <td>13-12-2020</td>   
+                    <td>$10/Hrs</td>                 
+                    <td><button class="btn btn-primary" (click)="userHistoryModal(userHistory)">View detail</button></td>                 
+                  </tr>
+                
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Column -->
+    </div>
+  </div>
+  <ng-template #userHistory let-modal>
+    <div class="modal-body">      
+        <h4>User History Detail</h4>
+        <div class="table-responsive">
+            <table class="table v-middle product-overview" id="zero_config">
+              <thead>
+                <tr>
+                  <th>Bike Name</th>
+                  <th>Bike No</th>
+                  <th>Vendor Name</th>                  
+                  <th>Rent Date</th>
+                  <th>Rent Time</th>                
+                  <th>Price</th>                
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Pulsar </td>
+                  <td>HR-05-V-5343</td>
+                  <td>Andy</td>                  
+                  <td>10-12-2020</td>
+                  <td>10:30 AM</td>   
+                  <td>$10/Hrs</td>              
+                </tr>
+                <tr>
+                    <td>Honda </td>
+                    <td>HR-05-V-7343</td>
+                    <td>Andy</td>                  
+                    <td>10-12-2020</td>
+                    <td>10:30 AM</td>
+                    <td>$10/Hrs</td> 
+                  </tr>
+                  <tr>
+                    <td>TVS </td>
+                    <td>HR-05-V-1343</td>
+                    <td>Andy</td>                  
+                    <td>10-12-2020</td>
+                    <td>10:30 AM</td>
+                    <td>$5/Hrs</td> 
+                  </tr>
+                  <tr>
+                    <td>TVS </td>
+                    <td>HR-05-V-0343</td>
+                    <td>Andy</td>                  
+                    <td>10-12-2020</td>
+                    <td>10:30 AM</td>
+                    <td>$12/Hrs</td> 
+                  </tr>
+                  <tr>
+                    <td>TVS </td>
+                    <td>HR-05-V-7383</td>
+                    <td>Andy</td>                  
+                    <td>10-12-2020</td>
+                    <td>10:30 AM</td>
+                    <td>$10/Hrs</td> 
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+      
+    </div>
+  </ng-template>

@@ -1,0 +1,120 @@
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <form>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="prenametext" placeholder="Search">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-8 text-right">
+                        <div ngbDropdown class="d-inline-block mb-2 mr-2">
+                            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                          Filter by review rating
+                        </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="text-warning">
+                                <button class="dropdown-item text-warning"><i  class="fas fa-star"></i></button>
+                                <button class="dropdown-item text-warning"><i  class="fas fa-star"></i><i  class="fas fa-star"></i></button>
+                                <button class="dropdown-item text-warning"><i  class="fas fa-star"></i><i  class="fas fa-star"></i><i  class="fas fa-star"></i></button>
+                                <button class="dropdown-item text-warning"><i  class="fas fa-star"></i><i  class="fas fa-star"></i><i  class="fas fa-star"></i><i  class="fas fa-star"></i></button>
+                                <button class="dropdown-item text-warning"><i  class="fas fa-star"></i><i  class="fas fa-star"></i><i  class="fas fa-star"></i><i  class="fas fa-star"></i><i  class="fas fa-star"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table v-middle product-overview" id="zero_config">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Email Id</th>
+                                <th>Phone Number</th>
+                                <th>Location</th>
+                                <th>Emergency Contact Details</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img src="assets/images/users/2.jpg" alt="iMac" width="60" class="rounded-circle">
+                                </td>
+                                <td>Ronny </td>
+                                <td>Hannagover@gmail.com </td>
+                                <td>+91 - 9874563210</td>
+                                <td><button class="btn theme_btn" (click)="locationmodal(location)">View</button></td>
+                                <td>
+                                    <p>Person 1</p>
+                                    <p>+91 - 9876543210</p>
+                                    <p>#127 c, Mohali, punjab, India</p>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger" (click)="reviewDeleteModal(reviewDelete)"><i class="ti-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="assets/images/users/2.jpg" alt="iMac" width="60" class="rounded-circle">
+                                </td>
+                                <td>Ronny </td>
+                                <td>Hannagover@gmail.com </td>
+                                <td>+91 - 9874563210</td>
+                                <td><button class="btn theme_btn" (click)="locationmodal(location)">View</button></td>
+                                <td>
+                                    <p>Person 1</p>
+                                    <p>+91 - 9876543210</p>
+                                    <p>#127 c, Mohali, punjab, India</p>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger" (click)="reviewDeleteModal(reviewDelete)"><i class="ti-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="assets/images/users/2.jpg" alt="iMac" width="60" class="rounded-circle">
+                                </td>
+                                <td>Ronny </td>
+                                <td>Hannagover@gmail.com </td>
+                                <td>+91 - 9874563210</td>
+                                <td><button class="btn theme_btn" (click)="locationmodal(location)">View</button></td>
+                                <td>
+                                    <p>Person 1</p>
+                                    <p>+91 - 9876543210</p>
+                                    <p>#127 c, Mohali, punjab, India</p>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger" (click)="reviewDeleteModal(reviewDelete)"><i class="ti-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+</div>
+
+<!-- delete modal -->
+<ng-template #reviewDelete let-modal>
+    <div class="modal-body">
+        <p>Are you sure you want to delete this?</p>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary mr-2" aria-label="Close" (click)="modal.dismiss('Cross click')">Yes</button>
+            <button type="button" class="btn btn-seconadary" aria-label="Close" (click)="modal.dismiss('Cross click')">No</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #location let-modal>
+    <div class="modal-header p-2">
+        <h4 class="modal-title">User's Location</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [styles]="styles" #map2></agm-map>
+    </div>
+</ng-template>

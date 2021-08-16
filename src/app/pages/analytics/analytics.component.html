@@ -1,0 +1,140 @@
+<div class="row">
+    <!-- Column -->
+    <div class="col-md-6 col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <!-- <div>
+                        <span class="btn-circle btn-lg btn btn-outline-secondary">
+                            <i class="mdi mdi-account"></i>
+                        </span>
+                    </div> -->
+                    
+                   
+                    <div class="ml-auto">
+                        <select class="custom-select b-0">
+                            <option value="1">Day</option>                           
+                            <option selected="">Weekly</option>
+                            <option value="1">Monthly</option>                           
+                            <option value="1">Yearly</option>                           
+                        </select>
+                        <!--<ul class="list-inline font-12 dl m-r-10">
+                            <li class="list-inline-item">
+                                <i class="fas fa-dot-circle text-info"></i> Users
+                            </li>
+                            <!-- <li class="list-inline-item">
+                                <i class="fas fa-dot-circle text-danger"></i> Iphone</li> 
+                        </ul>-->
+                    </div>
+                </div>
+                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels1" [options]="barChartOptions" [legend]="barChartLegend"
+                [chartType]="barChartType" (chartHover)="chartHovered($event)" [colors]="barChartColors1" (chartClick)="chartClicked($event)">
+            </canvas>
+            </div>
+        </div>
+
+    </div>
+   
+    <!-- Column -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    
+                    <!-- <div>
+                        <span class="btn-circle btn-lg btn btn-outline-secondary">
+                            <i class="ti-shopping-cart"></i>
+                        </span>
+                    </div> -->
+                   
+                    <div class="ml-auto">
+                        <select class="custom-select b-0">
+                            <option value="1">Day</option>                           
+                            <option selected="">Weekly</option>
+                            <option value="1">Monthly</option>                           
+                            <option value="1">Yearly</option>                              
+                        </select>
+                    </div>
+                    
+                </div>
+                <div class=" text-white">
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                        [chartType]="barChartType" (chartHover)="chartHovered($event)" [colors]="barChartColors" (chartClick)="chartClicked($event)">
+                    </canvas>
+                </div>
+            </div>
+           
+           
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-4 col-md-12">
+        <div class="row">
+            <!-- Column -->
+            <div class="col-md-12">
+                <div class="card bg-light-info no-card-border">
+                    <div class="card-body">
+                        <h5 class="card-title">Sales Difference</h5>
+                        <div class="d-flex no-block">
+                            <div class="align-self-center no-shrink">
+                                <h2 class="m-b-0">$2842</h2>
+                                <h6 class="text-muted">(160-165 Sales)</h6>
+                            </div>
+                            <div class="ml-auto">
+                                <div id="sales" style="width:150px; height:140px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <div class="col-md-12">
+                <div class="card bg-light-success no-card-border">
+                    <div class="card-body">
+                        <h5 class="card-title">Sales Prediction</h5>
+                        <div class="d-flex no-block">
+                            <div class="align-self-end no-shrink">
+                                <h2 class="m-b-0">$6528</h2>
+                                <h6 class="text-muted">(160-165 Sales)</h6>
+                            </div>
+                            <div class="ml-auto">
+                                <div id="prediction"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+        </div>
+    </div>
+    <!-- Column -->
+    <div class="col-lg-8 col-md-12">
+        <div class="card o-income">
+            <div class="card-body">
+                <div class="d-flex m-b-30 no-block">
+                    <h5 class="card-title m-b-0 align-self-center">Our Income</h5>
+                    <div class="ml-auto">
+                        <select class="custom-select b-0">
+                            <option selected="">January</option>
+                            <option value="1">February</option>
+                            <option value="2">March</option>
+                            <option value="3">April</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="income" style="height:250px; width:100%;"></div>
+                <ul class="list-inline m-t-30 text-center font-12">
+                    <li class="list-inline-item">
+                        <i class="fa fa-circle text-success"></i> Growth
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="fa fa-circle text-info"></i> Net
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

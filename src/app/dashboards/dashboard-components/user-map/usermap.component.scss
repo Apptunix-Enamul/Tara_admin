@@ -1,0 +1,33 @@
+@import '../../../../assets/scss/variable.scss';
+
+.bike-color-list{
+    .bike-color-listing{
+        display: flex;
+        align-items: center;
+        span{
+            width:15px;
+            height: 15px;
+            display: inline-block;
+            margin-right:5px;
+        }
+        &:nth-child(1){
+            span{
+            background-color:$green1 ;
+            }
+        }
+        &:nth-child(1){
+            span{
+            background-color:$green1 ;
+            }
+        }
+        &:nth-child(1){
+            span{
+            background-color:$green1 ;
+            }
+        }
+    }
+}
+.map-element{
+    overflow: hidden;
+    position: relative;
+}

@@ -1,0 +1,467 @@
+<div class="card">
+  <div class="card-body">
+    <ngb-tabset type="pills">
+      <ngb-tab>
+        <ng-template ngbTabTitle><b>Running Events</b></ng-template>
+        <ng-template ngbTabContent>
+          <div class="row pl-2 pr-2 mt-2">
+            <div class="col-md-4">
+              <form >
+                <div class="mb-2 mt-2">
+                    <input type="text" class="form-control" id="prenametext" placeholder="Search">
+                </div>
+            </form>
+            </div>
+            <!-- <div class="col-md-12  text-right">
+              <button class="btn btn-primary mb-2 mr-2"><i class="sl-icon-cloud-download"></i> Export CSV</button>
+              <button class="btn btn-seconadary mb-2" (click)="addUserModal(addUser)"><i class="sl-icon-plus"></i> Add User</button>
+          </div> -->
+          <div class="text-right col-md-8">
+            <div ngbDropdown class="d-inline-block mb-2   mr-3 mt-2">
+              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                Event Process
+              </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+              
+              <button class="dropdown-item">Canceled</button>
+              <button class="dropdown-item">Confirmed</button>
+                  <button class="dropdown-item">Compeleted</button>
+                  <button class="dropdown-item">Orginzer Rejected</button>
+                      <button class="dropdown-item">Custmer Canceled</button>
+                      <button class="dropdown-item">No Show Customer</button>
+                      <button class="dropdown-item">Custmers Canceled</button>
+                      <button class="dropdown-item">Payment Faild</button>
+            </div>
+          </div>
+    
+                <div ngbDropdown class="d-inline-block mb-2  mr-3 mt-2">
+                  <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                    Total Orders
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button class="dropdown-item">Daily</button>
+                    <button class="dropdown-item">Weekly</button>
+                    <button class="dropdown-item">Monthly</button>
+                    <button class="dropdown-item">Yearly</button>
+                  </div>
+                </div>
+               
+                <div ngbDropdown class="d-inline-block mb-2  mt-2">
+                  <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                    Cancel Event
+                  </button>         
+                  
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button class="dropdown-item">Cancelation after payment & > 24 hours</button>
+                    <button class="dropdown-item">Cancelation after payment & < 24 hours</button>
+                        <button class="dropdown-item">Cancelation after payment & > 6 hours</button>
+                        <button class="dropdown-item">Cancelation after payment & < 6 hours</button>
+                            <button class="dropdown-item">Cancelation after payment & > 3 hours</button>
+                  </div>
+                </div>
+              </div>
+          </div>
+            <div class="table-responsive">
+              <table class="table v-middle product-overview" id="zero_config">
+                <thead>
+                  <tr>
+                    <!-- <th>Photo</th> -->
+                    <th>Event Name</th>
+                    <th>Event Organizer</th>
+                    <th>Contact No</th>
+                    <th>Timing</th>
+                    <th>Status</th>
+                    <th>Confirmed Seats</th>
+                    <th>Avaible Seats</th>
+                    <th>Canceled Seats</th>
+                    <th>Total Seats</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <!-- <td>
+                    <img src="assets/images/users/2.jpg" alt="iMac" width="60" class="rounded-circle">
+                  </td> -->
+                    <td>Digital Elite Camp</td>
+                    <td>Ronny </td>
+                    <td><span class="text-nowrap">+91-7858485474</span></td>
+                    <td>8:30 PM</td>
+                    <td> <button type="button" class="btn btn-outline-danger "
+                        ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                        Cancel
+                      </button></td>
+
+                    <td>40 <a href="javascript:void()" (click)="openWindowCustomClass(content3)"
+                        class="mdi mdi-information"></a></td>
+                    <td>10</td>
+                    <td>50</td>
+                    <td>100</td>
+
+                    <td>                     
+                          <button class="btn btn-primary" (click)="userDeleteModal(userDelete)"><i class="ti-trash"></i>
+                            Delete</button>
+                  
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+
+        <ng-template ngbTabTitle><b>Past Events</b></ng-template>
+        <ng-template ngbTabContent>
+          <div class="row">
+            <!-- <div class="col-md-12  text-right">
+            <button class="btn btn-primary mb-2 mr-2"><i class="sl-icon-cloud-download"></i> Export CSV</button>
+            <button class="btn btn-seconadary mb-2" (click)="addUserModal(addUser)"><i class="sl-icon-plus"></i> Add User</button>
+        </div> -->
+        <div class="ml-auto">
+        <div ngbDropdown class="d-inline-block mb-2   mr-3 mt-2">
+          <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+            Event Process
+          </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+          
+          <button class="dropdown-item">Canceled</button>
+          <button class="dropdown-item">Confirmed</button>
+              <button class="dropdown-item">Compeleted</button>
+              <button class="dropdown-item">Orginzer Rejected</button>
+                  <button class="dropdown-item">Custmer Canceled</button>
+                  <button class="dropdown-item">No Show Customer</button>
+                  <button class="dropdown-item">Custmers Canceled</button>
+                  <button class="dropdown-item">Payment Faild</button>
+        </div>
+      </div>
+
+            <div ngbDropdown class="d-inline-block mb-2  mr-3 mt-2">
+              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                Total Orders
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button class="dropdown-item">Daily</button>
+                <button class="dropdown-item">Weekly</button>
+                <button class="dropdown-item">Monthly</button>
+                <button class="dropdown-item">Yearly</button>
+              </div>
+            </div>
+           
+            <div ngbDropdown class="d-inline-block mb-2  mt-2">
+              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                Cancel Event
+              </button>         
+              
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button class="dropdown-item">Cancelation after payment & > 24 hours</button>
+                <button class="dropdown-item">Cancelation after payment & < 24 hours</button>
+                    <button class="dropdown-item">Cancelation after payment & > 6 hours</button>
+                    <button class="dropdown-item">Cancelation after payment & < 6 hours</button>
+                        <button class="dropdown-item">Cancelation after payment & > 3 hours</button>
+              </div>
+            </div>
+          </div>
+            <div class="table-responsive">
+              <table class="table v-middle product-overview" id="zero_config">
+                <thead>
+                  <tr>
+                    <!-- <th>Photo</th> -->
+                    <th>Event Name</th>
+                    <th>Event Organizer</th>
+                    <th>Contact No</th>
+                    <th>Timing</th>
+                    <th>Status</th>
+                    <th>Confirmed Seats</th>
+                    <th>Avaible Seats</th>
+                    <th>Canceled Seats</th>
+                    <th>Total Seats</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <!-- <td>
+                  <img src="assets/images/users/2.jpg" alt="iMac" width="60" class="rounded-circle">
+                </td> -->
+                    <td>Digital Elite Camp</td>
+                    <td>Ronny </td>
+                    <td><span class="text-nowrap">+91-7858485474</span></td>
+                    <td>8:30 PM</td>
+                    <td> <button type="button" class="btn btn-outline-danger "
+                        ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                        Cancel
+                      </button></td>
+
+                    <td>40 <a href="javascript:void()" (click)="openWindowCustomClass(content3)"
+                        class="mdi mdi-information"></a></td>
+                    <td>10</td>
+                    <td>50</td>
+                    <td>100</td>
+
+                    <td>                    
+                        <button class="btn btn-primary" (click)="userDeleteModal(userDelete)"><i class="ti-trash"></i>
+                          Delete</button>
+                     
+
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <!-- <td>
+                  <img src="assets/images/users/2.jpg" alt="iMac" width="60" class="rounded-circle">
+                </td> -->
+                    <td>Digital Elite Camp</td>
+                    <td>Ronny </td>
+                    <td><span class="text-nowrap">+91-7858485474</span></td>
+                    <td>8:30 PM</td>
+                    <td> <button type="button" class="btn btn-outline-success "
+                        ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                        Complete
+                      </button></td>
+
+                    <td>40 <a href="javascript:void()" (click)="openWindowCustomClass(content3)"
+                        class="mdi mdi-information"></a></td>
+                    <td>10</td>
+                    <td>50</td>
+                    <td>100</td>
+
+                    <td>
+                           <button class="btn btn-primary" (click)="userDeleteModal(userDelete)"><i class="ti-trash"></i>
+                            Delete</button>
+                    
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <!-- <td>
+                  <img src="assets/images/users/2.jpg" alt="iMac" width="60" class="rounded-circle">
+                </td> -->
+                    <td>Digital Elite Camp</td>
+                    <td>Ronny </td>
+                    <td><span class="text-nowrap">+91-7858485474</span></td>
+                    <td>8:30 PM</td>
+                    <td> <button type="button" class="btn btn-outline-warning "
+                        ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                        Process
+                      </button></td>
+
+                    <td>40 <a href="javascript:void()" (click)="openWindowCustomClass(content3)"
+                        class="mdi mdi-information"></a></td>
+                    <td>10</td>
+                    <td>50</td>
+                    <td>100</td>
+
+                    <td>
+                      <button class="btn btn-primary" (click)="userDeleteModal(userDelete)"><i class="ti-trash"></i>
+                        Delete</button>
+
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <!-- <td>
+                  <img src="assets/images/users/2.jpg" alt="iMac" width="60" class="rounded-circle">
+                </td> -->
+                    <td>Digital Elite Camp</td>
+                    <td>Ronny </td>
+                    <td><span class="text-nowrap">+91-7858485474</span></td>
+                    <td>8:30 PM</td>
+                    <td> <button type="button" class="btn btn-outline-success "
+                        ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                        Compelete
+                      </button></td>
+
+                    <td>40 <a href="javascript:void()" (click)="openWindowCustomClass(content3)"
+                        class="mdi mdi-information"></a></td>
+                    <td>10</td>
+                    <td>50</td>
+                    <td>100</td>
+
+                    <td>
+                      <button class="btn btn-primary" (click)="userDeleteModal(userDelete)"><i class="ti-trash"></i>
+                        Delete</button>
+
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+
+        <ng-template ngbTabTitle><b> Upcoming Events </b></ng-template>
+        <ng-template ngbTabContent>
+          <div class="row">
+            <!-- <div class="col-md-12  text-right">
+            <button class="btn btn-primary mb-2 mr-2"><i class="sl-icon-cloud-download"></i> Export CSV</button>
+            <button class="btn btn-seconadary mb-2" (click)="addUserModal(addUser)"><i class="sl-icon-plus"></i> Add User</button>
+        </div> -->
+        <div class="ml-auto">
+          <div ngbDropdown class="d-inline-block mb-2   mr-3 mt-2">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+              Event Process
+            </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+            
+            <button class="dropdown-item">Canceled</button>
+            <button class="dropdown-item">Confirmed</button>
+                <button class="dropdown-item">Compeleted</button>
+                <button class="dropdown-item">Orginzer Rejected</button>
+                    <button class="dropdown-item">Custmer Canceled</button>
+                    <button class="dropdown-item">No Show Customer</button>
+                    <button class="dropdown-item">Custmers Canceled</button>
+                    <button class="dropdown-item">Payment Faild</button>
+          </div>
+        </div>
+  
+              <div ngbDropdown class="d-inline-block mb-2  mr-3 mt-2">
+                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                  Total Orders
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button class="dropdown-item">Daily</button>
+                  <button class="dropdown-item">Weekly</button>
+                  <button class="dropdown-item">Monthly</button>
+                  <button class="dropdown-item">Yearly</button>
+                </div>
+              </div>
+             
+              <div ngbDropdown class="d-inline-block mb-2  mt-2">
+                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                  Cancel Event
+                </button>         
+                
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button class="dropdown-item">Cancelation after payment & > 24 hours</button>
+                  <button class="dropdown-item">Cancelation after payment & < 24 hours</button>
+                      <button class="dropdown-item">Cancelation after payment & > 6 hours</button>
+                      <button class="dropdown-item">Cancelation after payment & < 6 hours</button>
+                          <button class="dropdown-item">Cancelation after payment & > 3 hours</button>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table v-middle product-overview" id="zero_config">
+                <thead>
+                  <tr>
+                    <!-- <th>Photo</th> -->
+                    <th>Event Name</th>
+                    <th>Event Organizer</th>
+                    <th>Contact No</th>
+                    <th>Timing</th>
+                    <th>Status</th>
+                    <th>Confirmed Seats</th>
+                    <th>Avaible Seats</th>
+                    <th>Canceled Seats</th>
+                    <th>Total Seats</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Digital Elite Camp</td>
+                    <td>Ronny </td>
+                    <td><span class="text-nowrap">+91-7858485474</span></td>
+                    <td>8:30 PM</td>
+                    <td> <button type="button" class="btn btn-outline-primary "
+                        ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                        Coming Soon
+                      </button></td>
+                    <td>40 <a href="javascript:void()" (click)="openWindowCustomClass(content3)"
+                        class="mdi mdi-information"></a></td>
+                    <td>10</td>
+                    <td>50</td>
+                    <td>100</td>
+
+                    <td>
+                      <button class="btn btn-primary" (click)="userDeleteModal(userDelete)"><i class="ti-trash"></i>
+                        Delete</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Digital Elite Camp</td>
+                    <td>Ronny </td>
+                    <td><span class="text-nowrap">+91-7858485474</span></td>
+                    <td>8:30 PM</td>
+                    <td> <button type="button" class="btn btn-outline-primary "
+                        ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                        Coming Soon
+                      </button></td>
+                    <td>40 <a href="javascript:void()" (click)="openWindowCustomClass(content3)"
+                        class="mdi mdi-information"></a></td>
+                    <td>10</td>
+                    <td>50</td>
+                    <td>100</td>
+
+                    <td>
+                      <button class="btn btn-primary" (click)="userDeleteModal(userDelete)"><i class="ti-trash"></i>
+                        Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>
+<!-- delete modal -->
+<ng-template #userDelete let-modal>
+  <div class="modal-body">
+    <p>Are you sure want to delete?</p>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary mr-2" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">Yes</button>
+      <button type="button" class="btn btn-seconadary" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">No</button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- delete modal -->
+<ng-template #content3 let-modal>
+  <div class="modal-body">
+    <div class="table-responsive">
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Contact</th>
+          <th>Total Ticket</th>
+        </tr>
+        <tr>
+          <th>Ronny</th>
+          <th>example@gmail.com</th>
+          <th>+91-321324567</th>
+          <th>10</th>
+        </tr>
+        <tr>
+          <th>Ronny</th>
+          <th>example@gmail.com</th>
+          <th>+91-321324567</th>
+          <th>10</th>
+        </tr>
+        <tr>
+          <th>Tonny</th>
+          <th>example@gmail.com</th>
+          <th>+91-321324567</th>
+          <th>10</th>
+        </tr>
+        <tr>
+          <th>Ronny</th>
+          <th>example@gmail.com</th>
+          <th>+91-321324567</th>
+          <th>10</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+</ng-template>

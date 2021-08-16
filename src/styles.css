@@ -1,0 +1,121 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.theme_btn {
+    background: #9ECB2E;
+    border: solid #fff 2px !important;
+    color: #fff !important;
+    cursor: pointer;
+}
+
+.theme_btn_drk {
+    background: #536d10;
+    border: solid #fff 2px !important;
+    color: #fff !important;
+    cursor: pointer;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    color: #9ECB2E !important;
+}
+
+.dlt_btn {
+    background: #9ECB2E;
+    color: #fff !important;
+    padding-right: 1px;
+    width: 30px;
+    height: 30px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.dlt_btn i {
+    font-size: 17px;
+}
+
+.cstm_tabs {
+    border: 0px solid #9ECB2E !important;
+    border-bottom: 0px !important;
+}
+.cstm_tabs ul li a {
+    color: black;
+}
+
+.cstm_tabs2 {
+    border: 0px solid #9ECB2E !important;
+    border-bottom: 0px !important;
+}
+.cstm_tabs2 ul li a {
+    color: black;
+}
+.cstm_tabs2 ul li .active {
+    background-color: transparent !important;
+    color: #9ECB2E !important;
+    border-bottom: 2px solid #9ECB2E !important;
+}
+
+.sts {
+    cursor: default !important;
+}
+/* .ord_tab_hd {
+    border: 0px !important;
+    color: #000;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
+
+.ord_tab_hd:hover {
+    color: #000;
+}
+
+.ord_tab_hd.active {
+    color: #9ECB2E !important;
+    background: #fff !important;
+    border-bottom: 2px solid #9ECB2E !important;
+} */
+
+.sidebar-nav ul .sidebar-item .first-level .sidebar-item.active .sidebar-link {
+    color: #9ECB2E;
+    font-weight: bold;
+    /* background: #A75514; */
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: #d9fa85 !important;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: #9ECB2E !important;
+}
+
+.btn-danger {
+    font-size: 17px !important;
+    padding: 5px 10px !important;
+}
+
+.cursor_pointer {
+    cursor: pointer;
+}
+
+/* .logo {
+    background: #fff;
+    padding: 10px;
+} */
