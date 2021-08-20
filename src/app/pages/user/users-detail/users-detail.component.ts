@@ -12,7 +12,7 @@ export interface UserData {
   // deliverydate:string,
   // delivery_man:string,
   // coupon:string;
-  audio: string,
+  // audio: string,
   name: string,
   // contact:string,
   address:string,
@@ -31,8 +31,8 @@ export class UsersDetailComponent implements AfterViewInit    {
   closeResult: string;
   //table: any
   // displayedColumns: string[] = [ 'hotelName' ,'id', 'orderdate','deliverydate','delivery_man','price','coupon','status'];
-  displayedColumns: string[] = ['serial_no', 'audio', 'name', 'ordered_item', 'address', 'price'];
-  displayedColumns2: string[] = ['serial_no', 'audio', 'name', 'ordered_item', 'address', 'price'];
+  displayedColumns: string[] = ['serial_no', 'name', 'ordered_item', 'address', 'price'];
+  displayedColumns2: string[] = ['serial_no', 'name', 'ordered_item', 'address', 'price'];
   dataSource: MatTableDataSource<UserData>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -52,9 +52,9 @@ export class UsersDetailComponent implements AfterViewInit    {
   table = [
     {   
       serial_no:"1",
-      audio:"assets/media/example.mp3",
+      // audio:"assets/media/example.mp3",
       ordered_item:"Banana : 10",
-      name: 'Sandy roy',
+      name: 'Big Bazar',
       id:'Merchant1@gmail.com',
       // contact: '+91 9874563210',
       address:"#454 1st Block, Rammurthy, Bangalore-560016",
@@ -64,9 +64,9 @@ export class UsersDetailComponent implements AfterViewInit    {
     },
     {    
       serial_no:"2",
-      audio:"assets/media/example.mp3",
+      // audio:"assets/media/example.mp3",
       ordered_item:"Apple : 10",
-      name: 'Rohan Smith',
+      name: 'Big Bazar',
       id:'Merchant1@gmail.com',
       // contact: '+91 9874563210',
       address:"#454 1st Block, Rammurthy, Bangalore-560016",
@@ -76,9 +76,9 @@ export class UsersDetailComponent implements AfterViewInit    {
     },
     {    
       serial_no:"3",
-      audio:"assets/media/example.mp3",
+      // audio:"assets/media/example.mp3",
       ordered_item:"Apple : 3",
-      name: 'john Doe',
+      name: 'Big Bazar',
       id:'Merchant1@gmail.com',
       // contact: '+91 9874563210',
       address:"#454 1st Block, Rammurthy, Bangalore-560016",

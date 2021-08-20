@@ -31,7 +31,7 @@ export interface UserData {
 })
 export class VendorsComponent implements OnInit {
   closeResult: string;
-  displayedColumns: string[] = [ 'serial_no','name', 'contact', 'email','address','message', 'doc','status','action'];
+  displayedColumns: string[] = [ 'serial_no','name', 'lastname', 'restaurant', 'contact', 'email','address','message', 'doc','status','action'];
   dataSource: MatTableDataSource<UserData>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -58,7 +58,7 @@ export class VendorsComponent implements OnInit {
       name: 'Sandy', 
       lastname:'Doe',  
       id: "#sand334553",
-      restaurant:'KFC',  
+      restaurant:'Big Bazar',  
       restaurant_delivery:"Yes",
       restaurant_type:"Italian",
       contact:"+91-33434343",
@@ -79,7 +79,7 @@ export class VendorsComponent implements OnInit {
       name: 'Rohan',  
       lastname:'Doe',  
       id: "#rohan334553", 
-      restaurant:'Safforn', 
+      restaurant:'Big Bazar',  
       restaurant_delivery:"Yes", 
       restaurant_type:"Indian",
       contact:"+91-33434343",
@@ -100,7 +100,7 @@ export class VendorsComponent implements OnInit {
       name: 'john',  
       lastname:'Root',  
       id: "#rohan334553",
-      restaurant:'Safforn',  
+      restaurant:'Big Bazar',
       restaurant_delivery:"Yes", 
       restaurant_type:"Chiness",
       contact:"+91-33434343",

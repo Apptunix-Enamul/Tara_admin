@@ -549,7 +549,7 @@ export const PagesRoutes: Routes = [
         path: 'support',
         component: SupportComponent,
         data: {
-          title: 'Custom Support',
+          title: 'Customer Support',
           urls: [
             { title: 'Dashboard', url: '/notification' },
             { title: 'Notification' }

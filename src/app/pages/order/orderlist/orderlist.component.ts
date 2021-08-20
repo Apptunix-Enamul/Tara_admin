@@ -33,9 +33,9 @@ export class OrderlistComponent implements OnInit {
   lng = 7.809007;
   closeResult: string;
   // displayedColumns: string[] = ['serial_no', 'audio', 'hotelName','name' ,'id','contact','comment','address','driver','orderdate','deliverydate','orderStatus','totalSales','action'];
-  displayedColumns: string[] = ['serial_no', 'audio', 'name', 'ordered_item', 'address', 'price', 'vendor', 'action'];
-  displayedColumns1: string[] = ['serial_no', 'audio', 'name', 'ordered_item', 'address', 'price', 'vendor', 'payment', 'action'];
-  displayedColumns2: string[] = ['serial_no', 'audio', 'name', 'ordered_item', 'address', 'price', 'vendor', 'payment','status'];
+  displayedColumns: string[] = ['serial_no', 'name', 'ordered_item', 'address', 'price', 'vendor', 'action'];
+  displayedColumns1: string[] = ['serial_no', 'name', 'ordered_item', 'address', 'price', 'vendor', 'payment', 'action'];
+  displayedColumns2: string[] = ['serial_no', 'name', 'ordered_item', 'address', 'price', 'vendor', 'payment','status'];
   dataSource: MatTableDataSource<UserData>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;

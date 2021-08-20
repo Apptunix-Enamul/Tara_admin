@@ -14,7 +14,7 @@ export interface UserData {
   // price:string,    
   // status:string,
   contact: string,
-  audio: string,
+  // audio: string,
   name: string,
   address:string,
   ordered_item:string,
@@ -28,8 +28,8 @@ export interface UserData {
 export class VendordetailComponent implements OnInit {
   closeResult: string;
   //table: any
-  displayedColumns: string[] = ['serial_no', 'audio', 'name', 'ordered_item', 'address', 'price'];
-  displayedColumns2: string[] = ['serial_no', 'audio', 'name', 'ordered_item', 'address', 'price'];
+  displayedColumns: string[] = ['serial_no','name', 'ordered_item', 'address', 'price'];
+  displayedColumns2: string[] = ['serial_no','name', 'ordered_item', 'address', 'price'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -57,7 +57,7 @@ export class VendordetailComponent implements OnInit {
   table = [
     {   
       serial_no:"1",
-      audio:"assets/media/example.mp3",
+      // audio:"assets/media/example.mp3",
       ordered_item:"Banana : 10",
       name: 'Sandy roy',
       // id:'Merchant1@gmail.com',
@@ -69,7 +69,7 @@ export class VendordetailComponent implements OnInit {
     },
     {    
       serial_no:"2",
-      audio:"assets/media/example.mp3",
+      // audio:"assets/media/example.mp3",
       ordered_item:"Apple : 10",
       name: 'Rohan Smith',
       // id:'Merchant1@gmail.com',
@@ -81,7 +81,7 @@ export class VendordetailComponent implements OnInit {
     },
     {    
       serial_no:"3",
-      audio:"assets/media/example.mp3",
+      // audio:"assets/media/example.mp3",
       ordered_item:"Apple : 3",
       name: 'john Doe',
       // id:'Merchant1@gmail.com',
