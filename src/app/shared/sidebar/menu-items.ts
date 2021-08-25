@@ -314,17 +314,17 @@ export const ROUTES: RouteInfo[] = [
             extralink: false,
             submenu: []
         },
-        // {
-        //     path: '/pages/contact',
-        //     title: 'Contact',
-        //     icon: 'fas fa-phone-volume',
-        //     class: '',
-        //     extralink: false,
-        //     submenu: []
-        // },
+        {
+            path: '/pages/contact',
+            title: 'About Us',
+            icon: "fas fa-address-card",
+            class: '',
+            extralink: false,
+            submenu: []
+        },
         {
             path: '/pages/faq',
-            title: 'Faq',
+            title: "FAQ's",
             icon: 'fas fa-comment-alt',
             class: '',
             extralink: false,
@@ -332,7 +332,7 @@ export const ROUTES: RouteInfo[] = [
     },
     {
         path: '/pages/privacy',
-        title: 'Privacy',
+        title: 'Privacy Policy',
         icon: 'fas fa-lock',
         class: '',
         extralink: false,

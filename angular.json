@@ -33,7 +33,7 @@
               "@mattlewis92/dom-autoscroller",
               "calendar-utils"
             ],
-            "outputPath": "dist",
+            "outputPath": "admin",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

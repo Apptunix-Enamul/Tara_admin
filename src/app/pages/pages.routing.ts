@@ -516,10 +516,10 @@ export const PagesRoutes: Routes = [
         path: 'contact',
         component: ContactComponent,
         data: {
-          title: 'Contact',
+          title: 'About Us',
           urls: [
             { title: 'Dashboard', url: '/contact' },
-            { title: 'Contact' }
+            { title: 'About Us' }
           ]
         }
       },
@@ -527,10 +527,10 @@ export const PagesRoutes: Routes = [
         path: 'faq',
         component: FaqComponent,
         data: {
-          title: 'Faq',
+          title: "Faq's",
           urls: [
             { title: 'Dashboard', url: '/faq' },
-            { title: 'Faq' }
+            { title: "Faq's" }
           ]
         }
       },
@@ -538,10 +538,10 @@ export const PagesRoutes: Routes = [
         path: 'privacy',
         component: PrivacyComponent,
         data: {
-          title: 'Privacy',
+          title: 'Privacy Policy',
           urls: [
             { title: 'Dashboard', url: '/privacy' },
-            { title: 'Privacy' }
+            { title: 'Privacy Policy' }
           ]
         }
       },
