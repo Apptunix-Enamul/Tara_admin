@@ -13,13 +13,18 @@ import { Signup2Component } from './signup2/signup2.component';
 
 import { AuthenticationRoutes } from './authentication.routing';
 import { NgOtpInputModule } from  'ng-otp-input';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AuthenticationRoutes),
     NgbModule,
-    NgOtpInputModule
+    NgOtpInputModule,
+    NgxSpinnerModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     NotfoundComponent,
@@ -27,7 +32,8 @@ import { NgOtpInputModule } from  'ng-otp-input';
     SignupComponent,
     changepasswordComponent,
     Login2Component,
-    Signup2Component
+    Signup2Component,
+    
   ]
 })
 export class AuthenticationModule {}

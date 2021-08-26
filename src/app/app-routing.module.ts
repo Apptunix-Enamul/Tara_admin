@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from 'src/app/_guards/auth.guard';
 
 import { FullComponent } from './layouts/full/full.component';
 import { BlankComponent } from './layouts/blank/blank.component';
@@ -12,7 +13,7 @@ export const Approutes: Routes = [
     children: [
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       {
-        path: 'dashboard',
+        path: 'dashboard',canActivate:[AuthGuard],
         loadChildren: () => import('./dashboards/dashboard.module').then(m => m.DashboardModule)
       },
       {

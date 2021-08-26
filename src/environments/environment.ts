@@ -3,7 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseUrl: 'http://192.168.1.87:8888/api/',
+	storageKey: 'TaraAdmin',
+	dateFormatWithTime: 'MM-DD-YYYY hh:mm A',
+	dateFormat: 'MM-DD-YYYY',
+	resetPasswordLink: 'http://localhost:4200/resetpassword',
+	homeURL: 'http://192.168.1.87:8888/',
+	googleMapKey: 'AIzaSyC7Ju90BCi9a01akYUWBvrEOFzwl8yxWZ8'
 };
 
 /*

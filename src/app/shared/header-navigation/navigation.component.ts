@@ -1,4 +1,5 @@
-import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
+import { Component, AfterViewInit, EventEmitter, Output, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   NgbModal,
   ModalDismissReasons,
@@ -6,6 +7,8 @@ import {
   NgbCarouselConfig
 } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { CommonService } from 'src/app/_services/common.service';
+import { environment } from 'src/environments/environment';
 declare var $: any;
 
 @Component({
@@ -13,15 +16,40 @@ declare var $: any;
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements AfterViewInit {
+export class NavigationComponent implements AfterViewInit, OnInit{
   @Output() toggleSidebar = new EventEmitter<void>();
 
   public config: PerfectScrollbarConfigInterface = {};
 
   public showSearch = false;
   public element1: any;
-  constructor(private modalService: NgbModal) {}
-
+  VendorId: any;
+  VendorDetails: any;
+  ProfileImageUrl: any;
+  constructor(private modalService: NgbModal,private router:Router,private service:CommonService) {
+    this.VendorId= JSON.parse(sessionStorage.getItem(environment.storageKey)).id;
+  }
+  ngOnInit(){
+    this.GetVendorProfile()
+    this.service.subject.subscribe(res => {
+      if (res == true) {
+        this.GetVendorProfile();
+      }
+    })
+  }
+  Logout(){
+    sessionStorage.removeItem(environment.storageKey);
+    this.router.navigate(['/login']);
+  }
+  GetVendorProfile(){
+    this.service.get(`vendor/get-vendor-by-id/${this.VendorId}/`).subscribe((res:any)=>{
+      console.log('Vendor get fromnav',res);
+      if([200,201].includes(res.code)){
+     this.VendorDetails = res.data;
+     this.ProfileImageUrl =   res?.data?.image?.media_file_url
+  }
+    })
+  }
   // This is for Notifications
   notifications: Object[] = [
     {

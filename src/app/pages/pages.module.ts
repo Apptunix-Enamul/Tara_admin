@@ -6,16 +6,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { PagesRoutes } from './pages.routing';
-import { HelperclassesComponent } from './helper-classes/hc.component';
-import { InvoiceComponent } from './invoice/invoice.component';
+// import { HelperclassesComponent } from './helper-classes/hc.component';
+// import { InvoiceComponent } from './invoice/invoice.component';
 import { ProfileComponent } from './profile/profile.component';
 // import { PricingComponent } from './pricing/pricing.component';
 // import { UserComponent } from './user/user.component';
 // import { UsersComponent } from './user/users/users.component';
-import { CalculatorComponent } from './calculator/calculator.component';
+// import { CalculatorComponent } from './calculator/calculator.component';
 import { RevenueManagementComponent } from './revenue-management/revenue-management.component';
 import { ReviewsComponent } from './reviews/reviews.component';
-import { AnalyticsComponent } from './analytics/analytics.component';
+// import { AnalyticsComponent } from './analytics/analytics.component';
 import { CmsComponent } from './pages/cms/cms.component';
 import { AboutComponent } from './about/about.component';
 import { QuillModule } from 'ngx-quill';
@@ -27,19 +27,19 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NotificationComponent } from './notification/notification.component';
 // import { VendorsComponent } from './vendors/vendors.component';
-import { EventsComponent } from './events/events.component';
-import { RewardsComponent } from './rewards/rewards.component';
+// import { EventsComponent } from './events/events.component';
+// import { RewardsComponent } from './rewards/rewards.component';
 // import { VendordetailComponent } from './vendordetail/vendordetail.component';
 // import { UserhistoryComponent } from './user/userhistory/userhistory.component';
-import { PromocodeComponent } from './promocode/promocode.component';
+// import { PromocodeComponent } from './promocode/promocode.component';
 // import { VendorhistoryComponent } from './vendorhistory/vendorhistory.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatExpansionModule} from '@angular/material/expansion';
 // import { UsersDetailComponent } from './user/users-detail/users-detail.component';
 import { FoodCategoriesComponent } from './food-categories/food-categories.component';
-import { InventoryComponent } from './inventory/inventory.component';
+// import { InventoryComponent } from './inventory/inventory.component';
 // import { OrderlistComponent } from './orderlist/orderlist.component';
-import { BannerComponent } from './banner/banner.component';
+// import { BannerComponent } from './banner/banner.component';
 import { PrivacyComponent } from './privacy-policy/privacy.component';
 import { AdminComponent } from './admin/admin.component';
 import { FoodItemsComponent } from './food-items/food-items.component';
@@ -64,20 +64,22 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 // import { EditvendorComponent } from './editvendor/editvendor.component';
 // import { AdddriverComponent } from './adddriver/adddriver.component';
 // import { EditdriverComponent } from './drivermodule/editdriver/editdriver.component';
-import { TimeslotComponent } from './timeslot/timeslot.component';
-import { AddtimeslotComponent } from './addtimeslot/addtimeslot.component';
-import { EdittimeslotComponent } from './edittimeslot/edittimeslot.component';
+// import { TimeslotComponent } from './timeslot/timeslot.component';
+// import { AddtimeslotComponent } from './addtimeslot/addtimeslot.component';
+// import { EdittimeslotComponent } from './edittimeslot/edittimeslot.component';
 import { MatNativeDateModule } from '@angular/material/core';
-import { FranchiseComponent } from './franchise/franchise.component';
-import { FranchiseseditComponent } from './franchisesedit/franchisesedit.component';
-import { FranchiseaddComponent } from './franchiseadd/franchiseadd.component';
-import { FranchisedetailComponent } from './franchisedetail/franchisedetail.component';
-import { FranchiserequestComponent } from './franchiserequest/franchiserequest.component';
-import { CouponRequestComponent } from './coupon-request/coupon-request.component';
+// import { FranchiseComponent } from './franchise/franchise.component';
+// import { FranchiseseditComponent } from './franchisesedit/franchisesedit.component';
+// import { FranchiseaddComponent } from './franchiseadd/franchiseadd.component';
+// import { FranchisedetailComponent } from './franchisedetail/franchisedetail.component';
+// import { FranchiserequestComponent } from './franchiserequest/franchiserequest.component';
+// import { CouponRequestComponent } from './coupon-request/coupon-request.component';
 import { SupportComponent } from './support/support.component';
 import { MembershipComponent } from './membership/membership.component';
 import { SOSComponent } from './sos/sos.component';
 import { SpeechRecognitionComponent } from './speech-recognition/speech-recognition.component';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   imports: [
@@ -100,12 +102,13 @@ CommonModule,
     MatPaginatorModule,
     MatSortModule,
     DragDropModule,
-    MatNativeDateModule
-
+    MatNativeDateModule,
+    GooglePlaceModule,
+    AgmCoreModule,
   ],
   declarations: [
-    HelperclassesComponent,
-    InvoiceComponent,
+    // HelperclassesComponent,
+    // InvoiceComponent,
     ProfileComponent,
     // UserComponent,
     // UsersComponent,
@@ -113,27 +116,27 @@ CommonModule,
     // ToursComponent,
     // DestinationComponent,
     // HotelsComponent,
-    CalculatorComponent,
+    // CalculatorComponent,
     RevenueManagementComponent,
     ReviewsComponent,
-    AnalyticsComponent,
+    // AnalyticsComponent,
     CmsComponent,
     AboutComponent,
     ContactComponent,
     FaqComponent,
     NotificationComponent,
     // VendorsComponent,
-    EventsComponent,
-    RewardsComponent,
+    // EventsComponent,
+    // RewardsComponent,
     // VendordetailComponent,
     // UserhistoryComponent,
     // UsersDetailComponent,
-    PromocodeComponent,
+    // PromocodeComponent,
     // VendorhistoryComponent,
     FoodCategoriesComponent,
-    InventoryComponent,
+    // InventoryComponent,
     // OrderlistComponent,
-    BannerComponent,
+    // BannerComponent,
     PrivacyComponent,
     AdminComponent,
     FoodItemsComponent,
@@ -151,15 +154,15 @@ CommonModule,
     // EditvendorComponent,
     // AdddriverComponent,
     // EditdriverComponent,
-    TimeslotComponent,
-    AddtimeslotComponent,
-    EdittimeslotComponent,
-    FranchiseComponent,
-    FranchiseseditComponent,
-    FranchiseaddComponent,
-    FranchisedetailComponent,
-    FranchiserequestComponent,
-    CouponRequestComponent,
+    // TimeslotComponent,
+    // AddtimeslotComponent,
+    // EdittimeslotComponent,
+    // FranchiseComponent,
+    // FranchiseseditComponent,
+    // FranchiseaddComponent,
+    // FranchisedetailComponent,
+    // FranchiserequestComponent,
+    // CouponRequestComponent,
     SupportComponent,
     MembershipComponent,
     SOSComponent,

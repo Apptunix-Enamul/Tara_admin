@@ -1,5 +1,4 @@
-<div class="row">
-    <!-- Column -->
+<!-- <div class="row">
      <div class="col-lg-12 col-xlg-3 col-md-5 ">
        <div class="d-flex mb-3">     
          <a routerLink="/pages/editfranchise" class="btn btn-primary ">Edit</a>
@@ -19,7 +18,6 @@
                     <div class="col-md-3">
                       <ul class="list-block pl-0 ">                   
                         <li class="list-block-listing pr-2 pb-2">Vendor ID: <span class="font-weight-600">elite2345</span></li>
-                        <!-- <li class="list-block-listing pr-2 pb-2">Salary: <span class="font-weight-600">$2500</span></li> -->
                        
                       </ul>
                     </div>
@@ -45,8 +43,7 @@
           </div>
         </div>
   
-    <!-- Column -->
-    <!-- Column -->
+   
     <div class="col-lg-12">
       <h2 class="pt-2">Order History</h2>
       <div class="card ">          
@@ -73,25 +70,21 @@
   
           <div class="table-responsive">
             <table mat-table class="w-100" [dataSource]="dataSource" matSort>          
-              <!-- ID Column -->
               <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
                 <td mat-cell *matCellDef="let row"> {{row.id}} <a routerLink="/pages/orderdetail"><i class="sl-icon-info"></i></a> </td>
               </ng-container>
           
-              <!-- Progress Column -->
               <ng-container matColumnDef="hotelName">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Restaurant </th>
                 <td mat-cell *matCellDef="let row"> {{row.hotelName}} </td>
               </ng-container>
           
-              <!-- Name Column -->
               <ng-container matColumnDef="productname">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Product name </th>
                 <td mat-cell *matCellDef="let row"> {{row.productname}} </td>
               </ng-container>
           
-              <!-- Color Column -->
               <ng-container matColumnDef="orderdate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Date </th>
                 <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.orderdate}} </td>
@@ -117,7 +110,6 @@
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           
-              <!-- Row shown when there is no matching data. -->
               <tr class="mat-row" *matNoDataRow>
                 <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
               </tr>
@@ -128,6 +120,5 @@
         </div>
   </div>
     </div>
-    <!-- Column -->
   </div>
-  
+   -->

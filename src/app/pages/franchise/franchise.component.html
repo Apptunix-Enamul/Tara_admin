@@ -1,5 +1,4 @@
-<div class="row">
-    <!-- Column -->
+<!-- <div class="row">
 
 
     <div class="col-lg-12">
@@ -24,24 +23,13 @@
                                 <button class="dropdown-item">Inactive</button>
                             </div>
                         </div>
-                        <!-- <div ngbDropdown class="d-inline-block mb-2 mr-2">
-                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
-                  Daily
-                </button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  <button class="dropdown-item">Daily</button>
-                  <button class="dropdown-item">Weekly</button>
-                  <button class="dropdown-item">Monthly</button>
-                  <button class="dropdown-item">Yearly</button>
-                </div>
-              </div> -->
+                      
                         <button class="btn btn-primary mb-2 mr-2"><i class="sl-icon-cloud-download"></i> Export CSV</button>
                         <button class="btn btn-seconadary mb-2" routerLink="/pages/franchiseadd"><i class="sl-icon-plus"></i> Add
                 Franchise</button>
                     </div>
                     <div class="table-responsive">
                         <table mat-table class=" w-100" [dataSource]="dataSource" matSort>
-                            <!-- ID Column -->
                             <ng-container matColumnDef="serial_no">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> # </th>
                                 <td mat-cell *matCellDef="let row"> {{row.serial_no}} </td>
@@ -52,27 +40,22 @@
                             </ng-container>
 
 
-                            <!-- Progress Column -->
                             <ng-container matColumnDef="id">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
                                 <td mat-cell *matCellDef="let row"> {{row.id}} </td>
                             </ng-container>
-                            <!-- Progress Column -->
                             <ng-container matColumnDef="contact">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Phone Number </th>
                                 <td mat-cell *matCellDef="let row" class="text-nowrap"> <a href="tel:765453232">{{row.contact}}</a> </td>
                             </ng-container>
-                            <!-- Progress Column -->
                             <ng-container matColumnDef="email">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Email </th>
                                 <td mat-cell *matCellDef="let row"> <a href="mailto:example@site.com"> {{row.email}}</a> </td>
                             </ng-container>
-                            <!-- Address -->
                             <ng-container matColumnDef="address">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header>DOB </th>
                                 <td mat-cell *matCellDef="let row"> {{row.address}} </td>
                             </ng-container>
-                            <!-- pendingOrder -->
                             <ng-container matColumnDef="message">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Message </th>
                                 <td mat-cell *matCellDef="let row">
@@ -84,22 +67,6 @@
                                 <td mat-cell *matCellDef="let row"> {{row.frachise}} </td>
                             </ng-container>
 
-                            <!-- total Orders -->
-                            <!-- <ng-container matColumnDef="totalOrders">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Total Orders </th>
-                  <td mat-cell *matCellDef="let row"> {{row.totalOrders}} </td>
-                </ng-container> -->
-                            <!-- Name Column -->
-                            <!-- <ng-container matColumnDef="cancelledOrders">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Cancelled Orders </th>
-                  <td mat-cell *matCellDef="let row"> {{row.cancelledOrders}} </td>
-                </ng-container> -->
-                            <!-- Name Column -->
-                            <!-- <ng-container matColumnDef="completedOrders">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Completed Order </th>
-                  <td mat-cell *matCellDef="let row"> {{row.completedOrders}} </td>
-                </ng-container> -->
-                            <!-- Color Column -->
                             <ng-container matColumnDef="status">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Status </th>
                                 <td mat-cell *matCellDef="let row" class="text-nowrap"> {{row.status}}
@@ -120,8 +87,6 @@
                             class=" sl-icon-check"></i>
                           Accept
                         </a>
-                                            <!-- <button class="dropdown-item" (click)="userDetailModal(userDetail)"><i _ngcontent-axh-c146=""
-                            class="ti-marker-alt"></i> Edit</button> -->
 
                                             <a href="javascript:void()" class="dropdown-item" (click)="vendorUnconfirmModal(vendorUnconfirm)"><i
                             class="sl-icon-close"></i>
@@ -144,16 +109,12 @@
                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-                            <!-- Row shown when there is no matching data. -->
-                            <!-- <tr class="mat-row" *matNoDataRow>
-                  <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-                </tr> -->
+                          
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Column -->
     </div>
 
     <ng-template #content3 let-modal>
@@ -175,7 +136,6 @@
         </div>
     </ng-template>
 
-    <!-- delete modal -->
     <ng-template #userDelete let-modal>
         <div class="modal-body">
             <p>Are you sure want to delete franchise?</p>
@@ -186,7 +146,6 @@
         </div>
     </ng-template>
 
-    <!-- edit user detail -->
     <ng-template #addUser let-modal>
         <div class="modal-body">
             <div class="card">
@@ -201,7 +160,6 @@
 
                                     </div>
                                 </div>
-                                <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Last Name</label>
@@ -209,19 +167,8 @@
 
                                     </div>
                                 </div>
-                                <!--/span-->
-                                <!-- <div class="col-md-6">
-                    <div class="form-group has-success">
-                      <div class="form-group">
-                        <label class="control-label">Upload Vendor Profile</label>
-                        <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"
-                            disabled><label class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
-                      </div>
-                    </div>
-                  </div> -->
-                                <!--/span-->
+                               
                             </div>
-                            <!--/row-->
                             <div class="row ">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -230,7 +177,6 @@
 
                                     </div>
                                 </div>
-                                <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Email</label>
@@ -238,58 +184,27 @@
 
                                     </div>
                                 </div>
-                                <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group has-danger">
                                         <label class="control-label">DOB</label>
 
                                     </div>
                                 </div>
-                                <!--/span-->
-                                <!-- <div class="col-md-6">
-                    <div class="form-group has-danger">
-                      <label class="control-label">Total Orders</label>
-                      <input type="text" id="email" class="form-control form-control-danger" placeholder="40">
-                    </div>
-                  </div> -->
-                                <!--/span-->
-                                <!-- <div class="col-md-6">
-                    <div class="form-group has-danger">
-                      <label class="control-label">Cancelled Orders</label>
-                      <input type="text" id="email" class="form-control form-control-danger" placeholder="00">
-                    </div>
-                  </div> -->
-                                <!--/span-->
-                                <!-- <div class="col-md-6">
-                    <div class="form-group has-danger">
-                      <label class="control-label">Completed Orders</label>
-                      <input type="text" id="email" class="form-control form-control-danger" placeholder="40">
-                    </div>
-                  </div> -->
-                                <!--/span-->
+                              
                                 <div class="col-md-6">
                                     <div class="form-group has-danger">
                                         <label class="control-label">City</label>
                                         <input type="text" id="city" class="form-control form-control-danger" placeholder="Berlin">
                                     </div>
                                 </div>
-                                <!--/span-->
-                                <!-- <div class="col-md-12">
-                    <div class="form-group has-danger">
-                      <label class="control-label">Pincode</label>
-                      <input type="text" id="email" class="form-control form-control-danger" placeholder="Pincode">
-                    </div>
-                  </div> -->
-                                <!--/span-->
+                              
                                 <div class="col-md-12">
                                     <div class="form-group has-danger">
                                         <label class="control-label">Address</label>
                                         <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="#433 New garden Complex"></textarea>
                                     </div>
                                 </div>
-                                <!--/span-->
                             </div>
-                            <!--/row-->
                         </div>
 
                         <div class="form-actions">
@@ -319,7 +234,6 @@
 
                                     </div>
                                 </div>
-                                <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Last Name</label>
@@ -327,19 +241,7 @@
 
                                     </div>
                                 </div>
-                                <!--/span-->
-                                <!-- <div class="col-md-6">
-                        <div class="form-group has-success">
-                          <div class="form-group">
-                            <label class="control-label">Upload Vendor Profile</label>
-                            <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"
-                                disabled><label class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
-                          </div>
-                        </div>
-                      </div> -->
-                                <!--/span-->
                             </div>
-                            <!--/row-->
                             <div class="row ">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -348,7 +250,6 @@
 
                                     </div>
                                 </div>
-                                <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Email</label>
@@ -356,58 +257,26 @@
 
                                     </div>
                                 </div>
-                                <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group has-danger">
                                         <label class="control-label">Shop ID</label>
                                         <input type="text" id="email" class="form-control form-control-danger" placeholder="#46543343">
                                     </div>
                                 </div>
-                                <!--/span-->
-                                <!-- <div class="col-md-6">
-                        <div class="form-group has-danger">
-                          <label class="control-label">Total Orders</label>
-                          <input type="text" id="email" class="form-control form-control-danger" placeholder="40">
-                        </div>
-                      </div> -->
-                                <!--/span-->
-                                <!-- <div class="col-md-6">
-                        <div class="form-group has-danger">
-                          <label class="control-label">Cancelled Orders</label>
-                          <input type="text" id="email" class="form-control form-control-danger" placeholder="00">
-                        </div>
-                      </div> -->
-                                <!--/span-->
-                                <!-- <div class="col-md-6">
-                        <div class="form-group has-danger">
-                          <label class="control-label">Completed Orders</label>
-                          <input type="text" id="email" class="form-control form-control-danger" placeholder="40">
-                        </div>
-                      </div> -->
-                                <!--/span-->
-                                <div class="col-md-6">
+                                                            <div class="col-md-6">
                                     <div class="form-group has-danger">
                                         <label class="control-label">City</label>
                                         <input type="text" id="city" class="form-control form-control-danger" placeholder="Berlin">
                                     </div>
                                 </div>
-                                <!--/span-->
-                                <!-- <div class="col-md-12">
-                        <div class="form-group has-danger">
-                          <label class="control-label">Pincode</label>
-                          <input type="text" id="email" class="form-control form-control-danger" placeholder="Pincode">
-                        </div>
-                      </div> -->
-                                <!--/span-->
+                                
                                 <div class="col-md-12">
                                     <div class="form-group has-danger">
                                         <label class="control-label">Address</label>
                                         <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="#433 New garden Complex"></textarea>
                                     </div>
                                 </div>
-                                <!--/span-->
                             </div>
-                            <!--/row-->
                         </div>
 
                         <div class="form-actions">
@@ -427,36 +296,17 @@
         <div class="modal-body">
             <h3>Add Commission</h3>
             <div class="row">
-                <!-- <div class="col-md-12">
-            <div class="form-group has-danger">
-              <label class="control-label">Income Type</label>
-              <select name="" id="" class="form-control">
-                <option value="">Salaried</option>
-                <option value="">Salaried + Commission</option>
-              </select>
-
-            </div>
-          </div> -->
-                <!--/span-->
-                <!-- <div class="col-md-6">
-            <div class="form-group">
-              <label class="control-label">Amount</label>
-              <input type="text" id="Address" class="form-control form-control-danger" placeholder="Add Salary">
-            </div>
-          </div> -->
-                <!--/span-->
+               
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="control-label">Commission</label>
                         <input type="text" id="Address" class="form-control form-control-danger" placeholder="Add Commission">
                     </div>
                 </div>
-                <!--/span-->
                 <div class="col-md-12">
                     <button class="btn btn-primary" (click)="modal.close()">Save</button>
                 </div>
             </div>
-            <!--/row-->
         </div>
     </ng-template>
     <ng-template #vendorUnconfirm let-modal>
@@ -470,4 +320,4 @@
             </div>
 
         </div>
-    </ng-template>
+    </ng-template> -->

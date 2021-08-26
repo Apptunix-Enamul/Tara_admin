@@ -7,14 +7,14 @@ import { PricingComponent } from './pricing/pricing.component';
 // import { UsersComponent } from './user/users/users.component';
 import { RevenueManagementComponent } from './revenue-management/revenue-management.component';
 import { ReviewsComponent } from './reviews/reviews.component';
-import { AnalyticsComponent } from './analytics/analytics.component';
+// import { AnalyticsComponent } from './analytics/analytics.component';
 import { AboutComponent } from './about/about.component';
 import { FaqComponent } from './faq/faq.component';
 import { ContactComponent } from './contact/contact.component';
 import { NotificationComponent } from './notification/notification.component';
 // import { VendorsComponent } from './vendors/vendors.component';
-import { EventsComponent } from './events/events.component';
-import { RewardsComponent } from './rewards/rewards.component';
+// import { EventsComponent } from './events/events.component';
+// import { RewardsComponent } from './rewards/rewards.component';
 // import { VendordetailComponent } from './vendordetail/vendordetail.component';
 // import { UserhistoryComponent } from './user/userhistory/userhistory.component';
 import { PromocodeComponent } from './promocode/promocode.component';
@@ -42,15 +42,15 @@ import { NotificationhistoryComponent } from './notificationhistory/notification
 // import { EditvendorComponent } from './editvendor/editvendor.component';
 // import { AdddriverComponent } from './adddriver/adddriver.component';
 // import { EditdriverComponent } from './drivermodule/editdriver/editdriver.component';
-import { TimeslotComponent } from './timeslot/timeslot.component';
-import { EdittimeslotComponent } from './edittimeslot/edittimeslot.component';
-import { AddtimeslotComponent } from './addtimeslot/addtimeslot.component';
-import { FranchiseComponent } from './franchise/franchise.component';
-import { FranchiseseditComponent } from './franchisesedit/franchisesedit.component';
-import { FranchiseaddComponent } from './franchiseadd/franchiseadd.component';
-import { FranchisedetailComponent } from './franchisedetail/franchisedetail.component';
-import { FranchiserequestComponent } from './franchiserequest/franchiserequest.component';
-import { CouponRequestComponent } from './coupon-request/coupon-request.component';
+// import { TimeslotComponent } from './timeslot/timeslot.component';
+// import { EdittimeslotComponent } from './edittimeslot/edittimeslot.component';
+// import { AddtimeslotComponent } from './addtimeslot/addtimeslot.component';
+// import { FranchiseComponent } from './franchise/franchise.component';
+// import { FranchiseseditComponent } from './franchisesedit/franchisesedit.component';
+// import { FranchiseaddComponent } from './franchiseadd/franchiseadd.component';
+// import { FranchisedetailComponent } from './franchisedetail/franchisedetail.component';
+// import { FranchiserequestComponent } from './franchiserequest/franchiserequest.component';
+// import { CouponRequestComponent } from './coupon-request/coupon-request.component';
 import { SupportComponent } from './support/support.component';
 import { MembershipComponent } from './membership/membership.component';
 import { SpeechRecognitionComponent } from './speech-recognition/speech-recognition.component';
@@ -136,28 +136,28 @@ export const PagesRoutes: Routes = [
           ]
         }
       },
-      {
-        path: 'events',
-        component: EventsComponent,
-        data: {
-          title: 'Events',
-          urls: [
-            { title: 'Dashboard', url: '/dashboard' },
-            { title: 'Events' }
-          ]
-        }
-      },
-      {
-        path: 'rewards',
-        component: RewardsComponent,
-        data: {
-          title: 'Discount',
-          urls: [
-            { title: 'Dashboard', url: '/dashboard' },
-            { title: 'Discount' }
-          ]
-        }
-      },
+      // {
+      //   path: 'events',
+      //   component: EventsComponent,
+      //   data: {
+      //     title: 'Events',
+      //     urls: [
+      //       { title: 'Dashboard', url: '/dashboard' },
+      //       { title: 'Events' }
+      //     ]
+      //   }
+      // },
+      // {
+      //   path: 'rewards',
+      //   component: RewardsComponent,
+      //   data: {
+      //     title: 'Discount',
+      //     urls: [
+      //       { title: 'Dashboard', url: '/dashboard' },
+      //       { title: 'Discount' }
+      //     ]
+      //   }
+      // },
       {
         path: 'promocode',
         component: PromocodeComponent,
@@ -202,105 +202,105 @@ export const PagesRoutes: Routes = [
           ]
         }
       },
-      {
-        path: 'franchise',
-        component: FranchiseComponent,
-        data: {
-          title: 'Franchise',
-          urls: [
-            { title: 'Dashboard', url: '/dashboard' },
-            { title: 'franchise' }
-          ]
-        }
-      },
-      {
-        path: 'franchisedetail',
-        component: FranchisedetailComponent,
-        data: {
-          title: 'Franchise Detail',
-          urls: [
-            { title: 'Dashboard', url: '/franchisedetail' },
-            { title: 'Franchise Detail' }
-          ]
-        }
-      },
-      {
-        path: 'editfranchise',
-        component: FranchiseseditComponent,
-        data: {
-          title: 'Edit Franchise',
-          urls: [
-            { title: 'Dashboard', url: '/editfranchise' },
-            { title: 'Edit Franchise' }
-          ]
-        }
-      },
-      {
-        path: 'franchiseadd',
-        component: FranchiseaddComponent,
-        data: {
-          title: 'Add Franchise',
-          urls: [
-            { title: 'Dashboard', url: '/franchiseadd' },
-            { title: 'Add Franchise' }
-          ]
-        }
-      },
-      {
-        path: 'timeslot',
-        component: TimeslotComponent,
-        data: {
-          title: 'TimeSlot',
-          urls: [
-            { title: 'Dashboard', url: '/timeslot' },
-            { title: 'Timeslot' }
-          ]
-        }
-      },
-      {
-        path: 'timeslot',
-        component: TimeslotComponent,
-        data: {
-          title: 'TimeSlot',
-          urls: [
-            { title: 'Dashboard', url: '/timeslot' },
-            { title: 'Timeslot' }
-          ]
-        }
-      },
-      {
-        path: 'edittimeslot',
-        component: EdittimeslotComponent,
-        data: {
-          title: 'Edit TimeSlot',
-          urls: [
-            { title: 'Dashboard', url: '/edittimeslot' },
-            { title: 'Edit Timeslot' }
-          ]
-        }
-      },
-      {
-        path: 'addtimeslot',
-        component: AddtimeslotComponent,
-        data: {
-          title: 'Add TimeSlot',
-          urls: [
-            { title: 'Dashboard', url: '/addtimeslot' },
-            { title: 'Add Timeslot' }
-          ]
-        }
-      },
-      {
-        path: 'franchiserequest',
-        component: FranchiserequestComponent,
-        data: {
-          title: 'Franchise Request',
-          urls: [
-            { title: 'Dashboard', url: '/franchiserequest' },
-            { title: 'Franchise Request' }
-          ]
-        }
-      },
+      // {
+      //   path: 'franchise',
+      //   component: FranchiseComponent,
+      //   data: {
+      //     title: 'Franchise',
+      //     urls: [
+      //       { title: 'Dashboard', url: '/dashboard' },
+      //       { title: 'franchise' }
+      //     ]
+      //   }
+      // },
+      // {
+      //   path: 'franchisedetail',
+      //   component: FranchisedetailComponent,
+      //   data: {
+      //     title: 'Franchise Detail',
+      //     urls: [
+      //       { title: 'Dashboard', url: '/franchisedetail' },
+      //       { title: 'Franchise Detail' }
+      //     ]
+      //   }
+      // },
+      // {
+      //   path: 'editfranchise',
+      //   component: FranchiseseditComponent,
+      //   data: {
+      //     title: 'Edit Franchise',
+      //     urls: [
+      //       { title: 'Dashboard', url: '/editfranchise' },
+      //       { title: 'Edit Franchise' }
+      //     ]
+      //   }
+      // },
+      // {
+      //   path: 'franchiseadd',
+      //   component: FranchiseaddComponent,
+      //   data: {
+      //     title: 'Add Franchise',
+      //     urls: [
+      //       { title: 'Dashboard', url: '/franchiseadd' },
+      //       { title: 'Add Franchise' }
+      //     ]
+      //   }
+      // },
+      // {
+      //   path: 'timeslot',
+      //   component: TimeslotComponent,
+      //   data: {
+      //     title: 'TimeSlot',
+      //     urls: [
+      //       { title: 'Dashboard', url: '/timeslot' },
+      //       { title: 'Timeslot' }
+      //     ]
+      //   }
+      // },
+      // {
+      //   path: 'timeslot',
+      //   component: TimeslotComponent,
+      //   data: {
+      //     title: 'TimeSlot',
+      //     urls: [
+      //       { title: 'Dashboard', url: '/timeslot' },
+      //       { title: 'Timeslot' }
+      //     ]
+      //   }
+      // },
+      // {
+      //   path: 'edittimeslot',
+      //   component: EdittimeslotComponent,
+      //   data: {
+      //     title: 'Edit TimeSlot',
+      //     urls: [
+      //       { title: 'Dashboard', url: '/edittimeslot' },
+      //       { title: 'Edit Timeslot' }
+      //     ]
+      //   }
+      // },
+      // {
+      //   path: 'addtimeslot',
+      //   component: AddtimeslotComponent,
+      //   data: {
+      //     title: 'Add TimeSlot',
+      //     urls: [
+      //       { title: 'Dashboard', url: '/addtimeslot' },
+      //       { title: 'Add Timeslot' }
+      //     ]
+      //   }
+      // },
+      // {
+      //   path: 'franchiserequest',
+      //   component: FranchiserequestComponent,
+      //   data: {
+      //     title: 'Franchise Request',
+      //     urls: [
+      //       { title: 'Dashboard', url: '/franchiserequest' },
+      //       { title: 'Franchise Request' }
+      //     ]
+      //   }
+      // },
       // {
       //   path: 'orderlist',
       //   component: OrderlistComponent,
@@ -433,29 +433,29 @@ export const PagesRoutes: Routes = [
           ]
         }
       },
-      {
-        path: 'couponsrequest',
-        component: CouponRequestComponent,
-        data: {
-          title: 'Coupons',
-          urls: [
-            { title: 'Dashboard', url: '/coupons' },
-            { title: 'Coupons' }
-          ]
-        }
-      },
+      // {
+      //   path: 'couponsrequest',
+      //   component: CouponRequestComponent,
+      //   data: {
+      //     title: 'Coupons',
+      //     urls: [
+      //       { title: 'Dashboard', url: '/coupons' },
+      //       { title: 'Coupons' }
+      //     ]
+      //   }
+      // },
 
-      {
-        path: 'analytics',
-        component: AnalyticsComponent,
-        data: {
-          title: 'Analytics',
-          urls: [
-            { title: 'Dashboard', url: '/dashboard' },
-            { title: 'Analytics' }
-          ]
-        }
-      },
+      // {
+      //   path: 'analytics',
+      //   component: AnalyticsComponent,
+      //   data: {
+      //     title: 'Analytics',
+      //     urls: [
+      //       { title: 'Dashboard', url: '/dashboard' },
+      //       { title: 'Analytics' }
+      //     ]
+      //   }
+      // },
       {
         path: 'manage_admin',
         component: AdminComponent,

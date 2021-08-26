@@ -1,31 +1,40 @@
+<style>
+    .sebm-google-map-container {
+      width: 100%;
+      height: 150px;
+      display: flex;
+    }
+  </style>
 <div class="row">
     <!-- Column -->
     <div class="col-lg-4 col-xlg-3 col-md-5">
         <div class="card">
             <div class="card-body text-center">
                 <div class="m-t-30 text-center">
-                    <img src="assets/images/users/1.jpg" class="rounded-circle" width="150" />               
+                    <img [src]="ProfileImageUrl?ProfileImageUrl:'assets/images/users/1.jpg'" class="rounded-circle" width="150" height="150"/>               
                 </div>
                 <div class="upload-btn-wrapper">
                     <button class="btn-upload"><i class="mdi mdi-pencil"></i></button>
-                    <input type="file" name="myfile" />
+                    <input type="file" name="myfile" (change)="uploadFile($event)" accept="image/*"/>
                   </div>
             </div>
             <div>
                 <hr> </div>
             <div class="card-body">
-                <small class="text-muted p-t-30 db">Name</small>
-                <h6>  Steave Jobs</h6>
+                <small class="text-muted p-t-30 db">Full name</small>
+                <h6>{{VendorDetails?.first_name+' '+VendorDetails?.last_name}}</h6>
                 <small class="text-muted">Email address </small>
-                <h6>hannagover@gmail.com</h6>
+                <h6>{{VendorDetails?.email}}</h6>
                 <small class="text-muted p-t-30 db">Phone</small>
-                <h6>+91 654 784 547</h6>
+                <h6>{{VendorDetails?.phone_no}}</h6>
                 <small class="text-muted p-t-30 db">Address</small>
-                <h6>71 Pilgrim Avenue Chevy Chase, MD 20815</h6>
-                <div class="map-box">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d470029.1604841957!2d72.29955005258641!3d23.019996818380896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C+Gujarat!5e0!3m2!1sen!2sin!4v1493204785508"
-                        width="100%" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>
-                </div>
+                <h6>{{VendorDetails?.address}}</h6>
+                <div>
+                    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14">
+                         <agm-marker [latitude]="lat" [agmFitBounds]="true" [longitude]="lng"></agm-marker>
+                    </agm-map>
+                    
+               </div>
             </div>
         </div>
     </div>
@@ -38,23 +47,23 @@
                     <ng-template ngbTabContent>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
+                                <div class="col-md-3 col-xs-6 b-r"> <strong>Full name</strong>
                                     <br>
-                                    <p class="text-muted">Johnathan Deo</p>
+                                    <p class="text-muted">{{VendorDetails?.first_name+' '+VendorDetails?.last_name}}</p>
                                 </div>
                                 <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile</strong>
                                     <br>
-                                    <p class="text-muted">(123) 456 7890</p>
+                                    <p class="text-muted">{{VendorDetails?.phone_no}}</p>
                                 </div>
                                 <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
                                     <br>
-                                    <p class="text-muted">johnathan@admin.com</p>
+                                    <p class="text-muted">{{VendorDetails?.email}}</p>
                                 </div>
-                                <div class="col-md-3 col-xs-6"> <strong>Location</strong>
+                                <div class="col-md-3 col-xs-6"> <strong>Address</strong>
                                     <br>
-                                    <p class="text-muted">London</p>
+                                    <p class="text-muted">{{VendorDetails?.address}}</p>
                                 </div>
-                                <div class="col-md-3 col-xs-6"> <strong>Location Access</strong>
+                                <!-- <div class="col-md-3 col-xs-6"> <strong>Location Access</strong>
                                     <br>
                                     <p class="text-muted">Allow</p>
                                 </div>
@@ -62,30 +71,44 @@
                                     <h4 class="font-weight-600 pb-2 mb-0">Documents</h4>
                                 </div>
                                 <div class="col-md-3"><img src="assets/images/gallery/driving-licence.jpg" class="img-fluid" alt=""></div>
-                                <div class="col-md-3"><img src="assets/images/gallery/driving-licence.jpg" class="img-fluid" alt=""></div> 
+                                <div class="col-md-3"><img src="assets/images/gallery/driving-licence.jpg" class="img-fluid" alt=""></div>  -->
                             </div>
-                            <hr>
-                            <h4>Bio</h4>
+                            <!--<hr>
+                             <h4>Bio</h4>
                             <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
                             <h4 class="mt-3">Shop's Details</h4>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries </p>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries </p> -->
                         </div>
                     </ng-template>
                 </ngb-tab>
                 <ngb-tab title="Edit Profile">
                     <ng-template ngbTabContent>
                         <div class="card-body">
-                            <form class="form-horizontal form-material row">
+                            <form class="form-horizontal form-material row" [formGroup]="ProfileForm">
                                 <div class="col-12 form-group">
-                                    <label class="col-md-12">Full Name</label>
+                                    <label class="col-md-12">First name</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line">
+                                        <input type="text" placeholder="Enter first name" class="form-control form-control-line" formControlName="firstName" #name (keydown.space)="!name.value?$event.preventDefault():null">
+                                        <span class="error" *ngIf="ProfileForm.get('firstName').hasError('required') && ProfileForm.get('firstName').touched">Please enter first name.</span>
+                                        <span class="error" *ngIf="ProfileForm.get('firstName').hasError('maxlength') && !ProfileForm.get('firstName').hasError('pattern')">Maxlength should 30.</span>
+                                        <span class="error" *ngIf="ProfileForm.get('firstName').hasError('pattern')">Please enter alphabetic only.</span>
+                                    </div>
+                                </div>
+                                <div class="col-12 form-group">
+                                    <label class="col-md-12">Last name</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="Enter last name" class="form-control form-control-line" formControlName="lastName" #nam (keydown.space)="!nam.value?$event.preventDefault():null">
+                                        <span class="error" *ngIf="ProfileForm.get('lastName').hasError('required') && ProfileForm.get('lastName').touched">Please enter last name.</span>
+                                        <span class="error" *ngIf="ProfileForm.get('lastName').hasError('maxlength') && !ProfileForm.get('lastName').hasError('pattern')">Maxlength should 30.</span>
+                                        <span class="error" *ngIf="ProfileForm.get('lastName').hasError('pattern')">Please enter alphabetic only.</span>
                                     </div>
                                 </div>
                                 <div class="col-12 form-group">
                                     <label for="example-email" class="col-md-12">Email</label>
                                     <div class="col-md-12">
-                                        <input type="email" placeholder="johnathan@admin.com" class="form-control form-control-line" name="example-email" id="example-email">
+                                        <input type="email" placeholder="Enter email" formControlName="email" class="form-control form-control-line" name="example-email" id="example-email"  #nam (keydown.space)="!nam.value?$event.preventDefault():null">
+                                        <span class="error" *ngIf="ProfileForm.get('email').hasError('required') && ProfileForm.get('email').touched">Please enter email.</span>
+                                        <span class="error" *ngIf="ProfileForm.get('email').hasError('pattern')">Please enter valid email.</span>
                                     </div>
                                 </div>
                                 <!-- <div class="form-group">
@@ -95,25 +118,39 @@
                                     </div>
                                 </div> -->
                                 <div class="col-12 form-group">
-                                    <label class="col-md-12">Phone No</label>
+                                    <label class="col-md-12">Phone no</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
+                                        <input type="text" max="15" placeholder="123 456 7890" class="form-control form-control-line" formControlName="phoneNo">
+                                        <span *ngIf="ProfileForm.get('phoneNo').hasError('required') && ProfileForm.get('phoneNo').touched" class="error">
+                                            Please enter phone no.
+                                          </span>
+                                        <span *ngIf="ProfileForm.get('phoneNo').hasError('pattern')" class="error">
+                                            Phone no is Invaid.
+                                          </span>
+                                          <!-- <span *ngIf="!ProfileForm.get('phoneNo').hasError('pattern') && ProfileForm.get('phoneNo').hasError('maxlength') && !ProfileForm.get('phoneNo').hasError('minlength')" class="error">
+                                            Maximum length of contact no should 15.
+                                          </span>
+                                          <span *ngIf="!ProfileForm.get('phoneNo').hasError('pattern') && !ProfileForm.get('phoneNo').hasError('maxlength') && ProfileForm.get('phoneNo').hasError('minlength')" class="error">
+                                            Minimum length of contact no should 7.
+                                          </span> -->
                                     </div>
+                                
                                 </div>
-                                <div class="col-12 form-group">
-                                    <!-- <label class="col-md-12">Select Country</label> -->
+                                <!-- <div class="col-12 form-group">
+                                   
                                     <label class="col-md-12">Location</label>
                                     <div class="col-md-12">
                                         <select class="form-control form-control-line"><option>London</option><option>India</option><option>Usa</option><option>Canada</option><option>Thailand</option></select>
                                     </div>
-                                </div>    
+                                </div>     -->
                                 <div class="col-12 form-group">
                                     <label class="col-md-12">Address</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="Eg:71 Pilgrim Avenue Chevy Chas" class="form-control form-control-line col-12">
+                                        <input class="form-control form-control-lg" type="text" placeholder="Vendor address" formControlName="address" #addr (keydown.space)="!addr.value?$event.preventDefault():null" ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="AddressChange($event,addr)">
+                                        <span class="error" *ngIf="ProfileForm.get('address').hasError('required') && ProfileForm.get('address').touched">Please enter address.</span>
                                     </div>
                                 </div>  
-                                <div class="col-md-6 form-group">
+                                <!-- <div class="col-md-6 form-group">
                                     <label class="col-md-12">Shop's Details</label>
                                     <div class="col-md-12">
                                         <textarea name="" id="" rows="5" class="form-control" placeholder="lorem ipsum dummy content.."></textarea>
@@ -124,8 +161,8 @@
                                     <div class="col-md-12">
                                         <textarea name="" id="" rows="5" class="form-control" placeholder="lorem ipsum dummy content.."></textarea>
                                     </div>
-                                </div> 
-                                <div class="col-md-12 mb-3">
+                                </div>  -->
+                                <!-- <div class="col-md-12 mb-3">
                                     <h4 class="font-weight-600 pb-2 mb-0">Documents</h4>
                                     <div class="row">
                                         <div class="col-md-3">
@@ -145,10 +182,10 @@
                                     <label class="col-12">Access the shop's current location</label>
                                     <mat-slide-toggle class="ml-2">
                                     </mat-slide-toggle>
-                                </div>               
+                                </div>                -->
                                 <div class="col-12 form-group">
                                     <div class="col-sm-12">
-                                        <button class="btn btn-primary">Update Profile</button>
+                                        <button class="btn btn-primary" (click)="updateProfileFn()">Update Profile</button>
                                     </div>
                                 </div>
                             </form>
