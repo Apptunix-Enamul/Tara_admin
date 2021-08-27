@@ -81,8 +81,8 @@ export class Login2Component implements OnInit ,AfterViewInit{
     {
   this.service.postApi(`auth/admin/login/`,obj).subscribe((res:any)=>{
     if([200,201].includes(res.code)){
-   sessionStorage.setItem(environment.storageKey,JSON.stringify(res?.data));
    this.router.navigate(['dashboard']);
+   sessionStorage.setItem(environment.storageKey,JSON.stringify(res?.data));
      this.toaster.success('You are logged in successfully','',{
     timeOut: 2000,
   })
@@ -114,8 +114,17 @@ export class Login2Component implements OnInit ,AfterViewInit{
       }
     })
   }
+  ForgotOtp(obj){
+    this.service.put(`user/forgot-verify-otp/`,obj).subscribe((res:any)=>{
+      if([200,201].includes(res.code)){
+      this.service.SaveObj = obj
+       this.toaster.success('Otp verified successfully')
+       $('#exampleModalCenter').modal('hide')
+       this.router.navigate(['/changepassword'])
+      }
+    })
+  }
   SendOtp(obj){
-    
     this.service.post(`user/verify-otp/`,obj).subscribe((res:any)=>{
       if([200,201].includes(res.code)){
      sessionStorage.setItem("OtpDetails",JSON.stringify(obj));
@@ -127,10 +136,11 @@ export class Login2Component implements OnInit ,AfterViewInit{
   }
   VerifyOtp(){
      let obj = {
-     "email":this.LoginByEmailform.value.email,
+     "email":this.ForgotPasswordForm.value.email,
      "otp":this.optValue
       }
-      this.SendOtp(obj)
+      // this.SendOtp(obj)
+      this.ForgotOtp(obj)
     }
   
   ResendOtp(obj,msg){
@@ -144,7 +154,7 @@ export class Login2Component implements OnInit ,AfterViewInit{
   CallResendOTP(){
     this.ResetOtp()
   let obj = {
-    "email":this.LoginByEmailform.value.email,
+    "email":this.ForgotPasswordForm.value.email,
      }
      this.ResendOtp(obj,'to email id')
    }

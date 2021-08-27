@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CommonService {
+	SaveObj:object
 	public subject = new BehaviorSubject<boolean>(false)
   profileUpdate(): Observable<any> {
     return this.subject.asObservable()

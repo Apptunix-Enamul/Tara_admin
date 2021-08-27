@@ -13,29 +13,35 @@ import { environment } from 'src/environments/environment';
 })
 export class changepasswordComponent implements OnInit{
   PhoneSignupForm:FormGroup
+  obj:any
+  Reference:any
+  currentUser: any;
+  ChangePasswordToute:any = `user/change-password/`
+  IsToken :boolean = false
   constructor(private fb:FormBuilder,private router:Router,private service:CommonService,private toaster:ToastrService) {
-    this.PhoneSignupForm=this.fb.group({
-      // "oldPassword":["",[Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
-      "password":["",[Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
-      "cnfPassword":["",[Validators.required]]
-    },{ validators: MustMatch('password', 'cnfPassword') })
+   this.currentUser = JSON.parse(sessionStorage.getItem(environment.storageKey));
   }
-ngOnInit(){}
+ngOnInit(){
+this.obj = this.service.SaveObj
+if(this.currentUser && this.currentUser.token){
+  this.IsToken = true
+  this.PhoneSignupForm=this.fb.group({
+    "oldPassword":["",[Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
+    "password":["",[Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
+    "cnfPassword":["",[Validators.required]]
+  },{ validators: MustMatch('password', 'cnfPassword') })
+}else{
+  this.PhoneSignupForm=this.fb.group({
+    "password":["",[Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
+    "cnfPassword":["",[Validators.required]]
+  },{ validators: MustMatch('password', 'cnfPassword') })
+}
+  
+}
 changepass()
   {
   if(this.PhoneSignupForm.valid){
-  let obj = {
-    "email":JSON.parse(sessionStorage.getItem(environment.storageKey)).email,
-    "password":this.PhoneSignupForm.value.password
-   }
-   this.service.putApi(`user/change-password/`,obj).subscribe((res:any)=>{
-     console.log(res);
-     if([200,201].includes(res.code))
-     {
-      this.toaster.success("Password has been changed",'Success');
-      window.history.back();
-     }
-   })
+    this.CallChangePassword()
 }else{
   this.PhoneSignupForm.markAllAsTouched()
 }
@@ -43,5 +49,26 @@ changepass()
   BackToDashboard()
   {
     window.history.back();
+  }
+  CallChangePassword(){
+    if(this.currentUser && this.currentUser.token){
+      this.ChangePasswordToute = `user/update-password/`
+       this.obj = {
+        current_password:this.PhoneSignupForm.value.oldPassword,
+        new_password:this.PhoneSignupForm.value.password
+        }
+      }else{
+        this.obj = {
+         "email":this.obj?.email,
+         "password":this.PhoneSignupForm.value.password
+       }
+        }
+      this.service.putApi(this.ChangePasswordToute,this.obj).subscribe((res:any)=>{
+        if([200,201].includes(res.code))
+        {
+         this.toaster.success("Password has been changed",'Success');
+         window.history.back();
+        }
+      })
   }
 }
