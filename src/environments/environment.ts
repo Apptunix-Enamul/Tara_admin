@@ -10,7 +10,8 @@ export const environment = {
 	dateFormatWithTime: 'MM-DD-YYYY hh:mm A',
 	dateFormat: 'MM-DD-YYYY',
 	resetPasswordLink: 'http://localhost:4200/resetpassword',
-	homeURL: 'http://192.168.1.87:8888/',
+	// homeURL: 'http://192.168.1.87:8888/',
+	homeURL:'http://182.72.246.251:8888/',
 	googleMapKey: 'AIzaSyC7Ju90BCi9a01akYUWBvrEOFzwl8yxWZ8'
 };
 

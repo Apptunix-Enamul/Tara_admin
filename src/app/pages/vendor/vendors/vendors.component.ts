@@ -45,6 +45,7 @@ export class VendorsComponent implements OnInit {
   vendorList: any;
   VendorDocOne: any;
   VerndorDocTwo: any;
+  timer: number;
   constructor(private modalService: NgbModal, private service:CommonService,private router:Router,private fb:FormBuilder,private toaster:ToastrService) {
     this.dataSource = new MatTableDataSource(this.table);
   }
@@ -258,4 +259,13 @@ onPaginateChange(event) {
     this.page = event.pageIndex ;
     this.GetVendor();
 }
+
+Filter(event: any) {
+    window.clearTimeout(this.timer);
+    this.timer = window.setTimeout(() => {
+      let filterValue = (event.target as HTMLInputElement).value;
+      this.SearchValue=filterValue;
+     this.ngOnInit();
+    }, 1000)
+  }
 }

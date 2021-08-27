@@ -9,7 +9,7 @@
                     <div class="col-md-4">
                         <form>
                             <div class="mb-2">
-                                <input type="text" class="form-control" id="prenametext" placeholder="Search">
+                                <input type="text" class="form-control" id="prenametext" placeholder="Search" (keydown)="Filter($event)" placeholder="{{'Search'}}">
                             </div>
                         </form>
                     </div>
@@ -45,15 +45,17 @@
                             <!-- ID Column -->
                             <ng-container matColumnDef="serial_no">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> # </th>
-                                <td mat-cell *matCellDef="let row"> {{row.serial_no}} </td>
+                                <td mat-cell *matCellDef="let row ;let i = index;"> {{PageSize * (page) + i+1}} </td>
+
                             </ng-container>
                             <ng-container matColumnDef="name">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> First Name </th>
-                                <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+                                <td mat-cell *matCellDef="let row"> {{row?.first_name}} </td>
+
                             </ng-container>
                             <ng-container matColumnDef="lastname">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Last Name </th>
-                                <td mat-cell *matCellDef="let row"> {{row.lastname}} </td>
+                                <td mat-cell *matCellDef="let row"> {{row?.last_name}} </td>
                             </ng-container>
                             <!-- Progress Column -->
                             <!-- <ng-container matColumnDef="id">
@@ -61,9 +63,9 @@
                       <td mat-cell *matCellDef="let row"> <a routerLink="/pages/vendors/vendorsdetail" routerLinkActive="router-link-active">{{row.id}}</a> </td>
                   </ng-container> -->
                             <!-- Progress Column -->
-                            <ng-container matColumnDef="restaurant">
+                            <ng-container matColumnDef="restaurant" *ngIf="IsnotEmpty">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Store Name </th>
-                                <td mat-cell *matCellDef="let row"> {{row.restaurant}} </td>
+                                <td mat-cell *matCellDef="let row"> {{row.store_details[0].name}} </td>
                             </ng-container>
                             <!-- Progress Column -->
                             <!-- <ng-container matColumnDef="restaurant_delivery">
@@ -78,12 +80,12 @@
                             <!-- Progress Column -->
                             <ng-container matColumnDef="contact">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Phone Number </th>
-                                <td mat-cell *matCellDef="let row" class="text-nowrap"> <a href="tel:765453232">{{row.contact}}</a> </td>
+                                <td mat-cell *matCellDef="let row" class="text-nowrap"> <a href="tel:765453232">{{row?.country_code+" "+row?.phone_no||'--'}}</a> </td>
                             </ng-container>
                             <!-- Progress Column -->
                             <ng-container matColumnDef="email">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Email </th>
-                                <td mat-cell *matCellDef="let row"> <a href="mailto:example@site.com"> {{row.email}}</a> </td>
+                                <td mat-cell *matCellDef="let row"> <a href="mailto:example@site.com"> {{row.email||'--'}}</a> </td>
                             </ng-container>
                             <!-- Address -->
                             <!-- <ng-container matColumnDef="dob">
@@ -97,11 +99,11 @@
                             </ng-container>
                             <ng-container matColumnDef="message">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Bio </th>
-                                <td mat-cell *matCellDef="let row"> <span style=" width: 300px; display: inline-block;">{{row.message}}</span> </td>
+                                <td mat-cell *matCellDef="let row"> <span style=" width: 300px; display: inline-block;">{{row.about_us}}</span> </td>
                             </ng-container>
                             <ng-container matColumnDef="doc">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Documents </th>
-                                <td mat-cell *matCellDef="let row"> <button class="btn theme_btn" (click)="openWindowCustomClass(content3)">{{row.doc}}</button> </td>
+                                <td mat-cell *matCellDef="let row"> <button class="btn theme_btn" (click)="openWindowCustomClass(content3,row?.vendor_document)">View</button> </td>
                             </ng-container>
                             <!-- pendingOrder -->
                             <!-- <ng-container matColumnDef="pendingOrders">
@@ -126,9 +128,8 @@
                             <!-- Color Column -->
                             <ng-container matColumnDef="status">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Status </th>
-                                <td mat-cell *matCellDef="let row" class="text-nowrap"> {{row.status}}
-                                    <mat-slide-toggle>
-                                    </mat-slide-toggle>
+                                <td mat-cell *matCellDef="let row" class="text-nowrap" >
+                                <button [ngClass]="[ (row?.is_active)? 'btn theme_btn text-white' : 'btn theme_btn text-danger']">{{row.is_active?'Active':'Inactive'}}</button>
                                 </td>
                             </ng-container>
                             <ng-container matColumnDef="action">
@@ -140,14 +141,14 @@
           </button>
 
                                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                            <a href="javascript:void()" class="dropdown-item" (click)="vendorConfirmModal(vendorConfirm)"><i
+                                            <a href="javascript:void()" class="dropdown-item" (click)="vendorConfirmModal(vendorConfirm,row?.id,'True')"><i
                 class=" sl-icon-check"></i>
               Accept
             </a>
                                             <!-- <button class="dropdown-item" (click)="userDetailModal(userDetail)"><i _ngcontent-axh-c146=""
                 class="ti-marker-alt"></i> Edit</button> -->
 
-                                            <a href="javascript:void()" class="dropdown-item" (click)="vendorUnconfirmModal(vendorUnconfirm)"><i
+                                            <a href="javascript:void()" class="dropdown-item" (click)="vendorUnconfirmModal(vendorUnconfirm,row?.id,'False')"><i
                 class="sl-icon-close"></i>
               Reject</a>
                                         </div>
@@ -176,7 +177,7 @@
 
                     </div>
                     <div class="col-md-12 text-right">
-                        <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+                        <mat-paginator [length]="count" [pageSize]="PageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPaginateChange($event)">
                         </mat-paginator>
                     </div>
                 </div>
@@ -195,10 +196,13 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col-md-6">
-                    <figure class=""><img src="assets/images/gallery/driving-licence.jpg" class="img-fluid"></figure>
+                    <figure class=""><img [src]="VendorDocOne?VendorDocOne:'assets/images/gallery/driving-licence.jpg'"
+                            class="img-fluid"></figure>
                 </div>
                 <div class="col-md-6">
-                    <figure class=""><img src="assets/images/gallery/driving-licence.jpg" class="img-fluid"></figure>
+                    <figure class=""><img
+                            [src]="VerndorDocTwo?VerndorDocTwo:'assets/images/gallery/driving-licence.jpg'"
+                            class="img-fluid"></figure>
                 </div>
             </div>
         </div>
@@ -464,7 +468,7 @@
                 </div>
                 <!--/span-->
                 <div class="col-md-12">
-                    <button class="btn btn-primary" (click)="modal.close()">Save</button>
+                    <button class="btn btn-primary" (click)="submitCommission()">Accept</button>
                 </div>
             </div>
             <!--/row-->
@@ -476,7 +480,7 @@
             <div class=" mb-3">
                 <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
                 <div class="input-group-append">
-                    <button class="btn mr-0 btn-primary mt-2" type="button" (click)="modal.close()">Submit</button>
+                    <button class="btn mr-0 btn-primary mt-2" type="button" (click)="submitCommission()">Reject</button>
                 </div>
             </div>
 

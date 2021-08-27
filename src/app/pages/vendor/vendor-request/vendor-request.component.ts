@@ -1,10 +1,13 @@
 
 import { Component, OnInit,ViewChild} from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import {FormControl} from '@angular/forms';
+import {FormBuilder, FormControl} from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource, } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { CommonService } from 'src/app/_services/common.service';
 export interface UserData {
   serial_no:string,
   name: string,    
@@ -32,19 +35,37 @@ export interface UserData {
 })
 export class VendorRequestComponent implements OnInit {
   closeResult: string;
+  SearchValue:any = ''
+  timer: number;
+  page:number = 0
+  PageSize:number = 10
+  count:number = 0
+  VendorDocOne: any;
+  VerndorDocTwo: any;
   // displayedColumns: string[] = [ 'serial_no','name','lastname' ,'id','restaurant','email','contact','address','status','action'];
-  displayedColumns: string[] = [ 'serial_no','name', 'lastname', 'restaurant', 'contact', 'email','address','message', 'doc','status','action'];
+  displayedColumns: string[] =[]
   dataSource: MatTableDataSource<UserData>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  constructor(private modalService: NgbModal) {
-    this.dataSource = new MatTableDataSource(this.table);
+  IsnotEmpty: any;
+  localID: string;
+  IsApproved: any;
+  constructor(private modalService: NgbModal,private service:CommonService,private router:Router,private fb:FormBuilder,private toaster:ToastrService) {
+    // this.dataSource = new MatTableDataSource(this.table);
   }
   toppings = new FormControl();
   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   ngOnInit(): void {
+    this.GetVendorRequest()
   }
-
+  Filter(event: any) {
+      window.clearTimeout(this.timer);
+      this.timer = window.setTimeout(() => {
+        let filterValue = (event.target as HTMLInputElement).value;
+        this.SearchValue=filterValue;
+        this.GetVendorRequest()
+      }, 1000)
+    }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -54,72 +75,72 @@ export class VendorRequestComponent implements OnInit {
   discountModal(discount) {
     this.modalService.open(discount, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
   }
-  table = [
-    {    
-      serial_no:'1',
-      name: 'Sandy', 
-      lastname:'Doe',  
-      id: "#sand334553",
-      restaurant:'Big Bazar',
-      restaurant_delivery:"Yes",
-      restaurant_type:"Italian",
-      contact:"+91-33434343",
-      dob:"12-02-1991",
-      email:"sand@example.com",
-      message:"It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-      address:"#454 1st Block, Rammurthy, Bangalore-560016",
-      doc:"View",
-      // completedOrders:"50",
-      // cancelledOrders:"0",
-      // pendingOrders:"0",
-      // totalOrders:"50",
-      status:"",
-      action:"1",      
-    },
-    {  
-      serial_no:'2', 
-      name: 'Rohan',  
-      lastname:'Doe',  
-      id: "#rohan334553", 
-      restaurant:'Big Bazar',
-      restaurant_delivery:"Yes", 
-      restaurant_type:"Indian",
-      contact:"+91-33434343",
-      dob:"12-02-1991",
-      email:"sand@example.com",  
-      message:"It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-      address:"#454 1st Block, Rammurthy, Bangalore-560016",
-      doc:"View",
-      // completedOrders:"10",
-      // cancelledOrders:"0",
-      // pendingOrders:"30",
-      // totalOrders:"40",
-      status:"",
-      action:"1",      
-    },
-    {    
-      serial_no:'3',
-      name: 'john',  
-      lastname:'Root',  
-      id: "#rohan334553",
-      restaurant:'Big Bazar',
-      restaurant_delivery:"Yes", 
-      restaurant_type:"Chiness",
-      contact:"+91-33434343",
-      dob:"12-02-1991",
-      email:"sand@example.com", 
-      message:"It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-      address:"#454 1st Block, Rammurthy, Bangalore-560016",   
-      doc:"View",
-      // completedOrders:"20",
-      // cancelledOrders:"10",
-      // pendingOrders:"10",
-      // totalOrders:"30",
-      status:"",
-      action:"1",      
-    },
+  // table = [
+  //   {    
+  //     serial_no:'1',
+  //     name: 'Sandy', 
+  //     lastname:'Doe',  
+  //     id: "#sand334553",
+  //     restaurant:'Big Bazar',
+  //     restaurant_delivery:"Yes",
+  //     restaurant_type:"Italian",
+  //     contact:"+91-33434343",
+  //     dob:"12-02-1991",
+  //     email:"sand@example.com",
+  //     message:"It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+  //     address:"#454 1st Block, Rammurthy, Bangalore-560016",
+  //     doc:"View",
+  //     // completedOrders:"50",
+  //     // cancelledOrders:"0",
+  //     // pendingOrders:"0",
+  //     // totalOrders:"50",
+  //     status:"",
+  //     action:"1",      
+  //   },
+  //   {  
+  //     serial_no:'2', 
+  //     name: 'Rohan',  
+  //     lastname:'Doe',  
+  //     id: "#rohan334553", 
+  //     restaurant:'Big Bazar',
+  //     restaurant_delivery:"Yes", 
+  //     restaurant_type:"Indian",
+  //     contact:"+91-33434343",
+  //     dob:"12-02-1991",
+  //     email:"sand@example.com",  
+  //     message:"It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+  //     address:"#454 1st Block, Rammurthy, Bangalore-560016",
+  //     doc:"View",
+  //     // completedOrders:"10",
+  //     // cancelledOrders:"0",
+  //     // pendingOrders:"30",
+  //     // totalOrders:"40",
+  //     status:"",
+  //     action:"1",      
+  //   },
+  //   {    
+  //     serial_no:'3',
+  //     name: 'john',  
+  //     lastname:'Root',  
+  //     id: "#rohan334553",
+  //     restaurant:'Big Bazar',
+  //     restaurant_delivery:"Yes", 
+  //     restaurant_type:"Chiness",
+  //     contact:"+91-33434343",
+  //     dob:"12-02-1991",
+  //     email:"sand@example.com", 
+  //     message:"It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+  //     address:"#454 1st Block, Rammurthy, Bangalore-560016",   
+  //     doc:"View",
+  //     // completedOrders:"20",
+  //     // cancelledOrders:"10",
+  //     // pendingOrders:"10",
+  //     // totalOrders:"30",
+  //     status:"",
+  //     action:"1",      
+  //   },
    
-  ]
+  // ]
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -136,7 +157,9 @@ open1(content1) {
     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
   });
 }
-openWindowCustomClass(content3) {
+openWindowCustomClass(content3,doc) {
+  this.VendorDocOne = doc[0].image?.media_file_url
+  this.VerndorDocTwo = doc[1].image?.media_file_url
   this.modalService.open(content3, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
 }
 userprofileModal(userDelete) {
@@ -151,10 +174,14 @@ edituserModal(edituser) {
 addUserModal(addUser) {
   this.modalService.open(addUser, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
 }
-vendorConfirmModal(vendorConfirm) {
+vendorConfirmModal(vendorConfirm,id,IsApproved) {
+  this.localID = id
+  this.IsApproved = IsApproved
   this.modalService.open(vendorConfirm, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
 }
-vendorUnconfirmModal(vendorUnconfirm) {
+vendorUnconfirmModal(vendorUnconfirm,id,IsApproved) {
+  this.IsApproved = IsApproved
+  this.localID = id
   this.modalService.open(vendorUnconfirm, {backdropClass: 'light-blue-backdrop',centered: true,size: 'sm'});
 }
 private getDismissReason(reason: any): string {
@@ -166,5 +193,104 @@ private getDismissReason(reason: any): string {
     return  `with: ${reason}`;
   }
 }
+GetVendorRequest(){
+  let obj = {
+    "draw": 2,
+    "is_approved":false,
+    "columns": [
+        {
+            "data": "first_name",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "last_name",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "phone_number",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "email",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "id",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        }
+    ],
+    "order": [
+        {
+            "column": 3,
+            "dir": "undefined"        }
+    ],
+    "start": this.page,
+    "length": this.PageSize,
+    "search": {
+        "value": this.SearchValue,
+        "regex": false
+    }
+}
+  this.service.post(`vendor/vendor-list-pagination/`,obj).subscribe((res:any)=>{
+    console.log('Vendor get',res);
+    if([200,201].includes(res.code)){
+      this.displayedColumns = [ 'serial_no','name', 'lastname', 'restaurant', 'contact', 'email','address','message', 'doc','status','action'];
+     this.dataSource = new MatTableDataSource(res.data);
+    this.count = res?.recordsTotal
+    this.IsnotEmpty = res.data
+    console.log('Total',this.count);
+    
+}
+  })
+}
+onPaginateChange(event) {
+  this.PageSize =  event.pageSize
+    this.page = event.pageIndex ;
+    this.GetVendorRequest();
+}
+submitCommission(){
+  this.toaster.clear()
+    let obj = {
+      "is_approved":this.IsApproved,
+         };
+     this.service.put(`vendor/approve-reject-request/${this.localID}/`,obj).subscribe((res:any)=>{
+      if([200,201].includes(res.code)){
+        this.toaster.success(this.IsApproved=="True"?'Vendor request accepted':'Vendor request rejected',this.IsApproved=="True"?'Accepted':'Rejected')
+        this.modalService.dismissAll();
+        this.GetVendorRequest();
+      }
+    })
+ }
+  
 }
 
