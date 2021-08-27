@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -22,7 +22,10 @@ export class Login2Component implements OnInit ,AfterViewInit{
       rememberMe:[false]
     })
    }
-
+   @ViewChild('ngOtpInput') ngOtpInputRef:any;
+   ResetOtp(){
+    this.ngOtpInputRef.setValue('');
+  }
   loginform = true;
   recoverform = false;
   loginnumber= false;
@@ -139,10 +142,10 @@ export class Login2Component implements OnInit ,AfterViewInit{
    })
   }
   CallResendOTP(){
+    this.ResetOtp()
   let obj = {
     "email":this.LoginByEmailform.value.email,
      }
      this.ResendOtp(obj,'to email id')
    }
-  
-}
+  }

@@ -1,9 +1,12 @@
 import { Component, OnInit,ViewChild} from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import {FormControl} from '@angular/forms';
+import {FormBuilder, FormControl} from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource, } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { CommonService } from 'src/app/_services/common.service';
 export interface UserData {
   serial_no:string,
   name: string,    
@@ -31,25 +34,31 @@ export interface UserData {
 })
 export class VendorsComponent implements OnInit {
   closeResult: string;
+  SearchValue:any = ''
+  page:number = 0
+  PageSize:number = 10
+  count:number = 0
   displayedColumns: string[] = [ 'serial_no','name', 'lastname', 'restaurant', 'contact', 'email','address','message', 'doc','status','action'];
   dataSource: MatTableDataSource<UserData>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  constructor(private modalService: NgbModal) {
+  vendorList: any;
+  VendorDocOne: any;
+  VerndorDocTwo: any;
+  constructor(private modalService: NgbModal, private service:CommonService,private router:Router,private fb:FormBuilder,private toaster:ToastrService) {
     this.dataSource = new MatTableDataSource(this.table);
   }
   toppings = new FormControl();
   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   ngOnInit(): void {
+    this.GetVendor()
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-
-  
-  discountModal(discount) {
+ discountModal(discount) {
     this.modalService.open(discount, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
   }
   table = [
@@ -134,7 +143,9 @@ open1(content1) {
     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
   });
 }
-openWindowCustomClass(content3) {
+openWindowCustomClass(content3,doc) {
+  this.VendorDocOne = doc[0].image?.media_file_url
+  this.VerndorDocTwo = doc[1].image?.media_file_url
   this.modalService.open(content3, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
 }
 userprofileModal(userDelete) {
@@ -163,5 +174,88 @@ private getDismissReason(reason: any): string {
   } else {
     return  `with: ${reason}`;
   }
+}
+GetVendor(){
+  let obj = {
+    "draw": 2,
+    "is_approved":true,
+    "columns": [
+        {
+            "data": "first_name",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "last_name",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "phone_number",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "email",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "id",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        }
+    ],
+    "order": [
+        {
+            "column": 3,
+            "dir": "undefined"        }
+    ],
+    "start": this.page,
+    "length": this.PageSize,
+    "search": {
+        "value": this.SearchValue,
+        "regex": false
+    }
+}
+  this.service.post(`vendor/vendor-list-pagination/`,obj).subscribe((res:any)=>{
+    console.log('Vendor get',res);
+    if([200,201].includes(res.code)){
+     this.dataSource = new MatTableDataSource(res.data);
+    this.count = res?.recordsTotal
+}
+  })
+}
+onPaginateChange(event) {
+  console.log("page",event);
+  
+    this.PageSize =  event.pageSize
+    this.page = event.pageIndex ;
+    this.GetVendor();
 }
 }

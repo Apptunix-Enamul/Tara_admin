@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://192.168.1.87:8888/api/',
+ // baseUrl: 'http://192.168.1.87:8888/api/',
+  baseUrl: 'http://182.72.246.251:8888/api/' ,
 	storageKey: 'TaraAdmin',
 	dateFormatWithTime: 'MM-DD-YYYY hh:mm A',
 	dateFormat: 'MM-DD-YYYY',
