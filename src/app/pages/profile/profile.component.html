@@ -91,7 +91,8 @@
                                         <input type="text" placeholder="Enter first name" class="form-control form-control-line" formControlName="firstName" #name (keydown.space)="!name.value?$event.preventDefault():null">
                                         <span class="error" *ngIf="ProfileForm.get('firstName').hasError('required') && ProfileForm.get('firstName').touched">Please enter first name.</span>
                                         <span class="error" *ngIf="ProfileForm.get('firstName').hasError('maxlength') && !ProfileForm.get('firstName').hasError('pattern')">Maxlength should 30.</span>
-                                        <span class="error" *ngIf="ProfileForm.get('firstName').hasError('pattern')">Please enter alphabetic only.</span>
+                                        <span class="error" *ngIf="ProfileForm.get('firstName').hasError('minlength') && !ProfileForm.get('firstName').hasError('pattern')">Minlength should 3.</span>
+                                        <span class="error" *ngIf="ProfileForm.get('firstName').hasError('pattern')">Please enter aplhabet only.</span>
                                     </div>
                                 </div>
                                 <div class="col-12 form-group">
@@ -100,7 +101,8 @@
                                         <input type="text" placeholder="Enter last name" class="form-control form-control-line" formControlName="lastName" #nam (keydown.space)="!nam.value?$event.preventDefault():null">
                                         <span class="error" *ngIf="ProfileForm.get('lastName').hasError('required') && ProfileForm.get('lastName').touched">Please enter last name.</span>
                                         <span class="error" *ngIf="ProfileForm.get('lastName').hasError('maxlength') && !ProfileForm.get('lastName').hasError('pattern')">Maxlength should 30.</span>
-                                        <span class="error" *ngIf="ProfileForm.get('lastName').hasError('pattern')">Please enter alphabetic only.</span>
+                                        <span class="error" *ngIf="ProfileForm.get('lastName').hasError('minlength') && !ProfileForm.get('lastName').hasError('pattern')">Minlength should 3.</span>
+                                        <span class="error" *ngIf="ProfileForm.get('lastName').hasError('pattern')">Please enter aplhabet only.</span>
                                     </div>
                                 </div>
                                 <div class="col-12 form-group">
@@ -118,21 +120,21 @@
                                     </div>
                                 </div> -->
                                 <div class="col-12 form-group">
-                                    <label class="col-md-12">Phone no</label>
+                                    <label class="col-md-12">Phone number</label>
                                     <div class="col-md-12">
-                                        <input type="text" max="15" placeholder="123 456 7890" class="form-control form-control-line" formControlName="phoneNo">
+                                        <input type="text" max="15" placeholder="Enter phone number" class="form-control form-control-line" formControlName="phoneNo">
                                         <span *ngIf="ProfileForm.get('phoneNo').hasError('required') && ProfileForm.get('phoneNo').touched" class="error">
-                                            Please enter phone no.
+                                            Please enter phone number.
                                           </span>
                                         <span *ngIf="ProfileForm.get('phoneNo').hasError('pattern')" class="error">
-                                            Phone no is Invaid.
+                                            Phone number is Invaid.
                                           </span>
-                                          <!-- <span *ngIf="!ProfileForm.get('phoneNo').hasError('pattern') && ProfileForm.get('phoneNo').hasError('maxlength') && !ProfileForm.get('phoneNo').hasError('minlength')" class="error">
-                                            Maximum length of contact no should 15.
+                                          <span *ngIf="!ProfileForm.get('phoneNo').hasError('pattern') && ProfileForm.get('phoneNo').hasError('maxlength') && !ProfileForm.get('phoneNo').hasError('minlength')" class="error">
+                                            Maxlength of phone number should 15.
                                           </span>
                                           <span *ngIf="!ProfileForm.get('phoneNo').hasError('pattern') && !ProfileForm.get('phoneNo').hasError('maxlength') && ProfileForm.get('phoneNo').hasError('minlength')" class="error">
-                                            Minimum length of contact no should 7.
-                                          </span> -->
+                                            Minlength of phone number should 7.
+                                          </span>
                                     </div>
                                 
                                 </div>
@@ -146,7 +148,7 @@
                                 <div class="col-12 form-group">
                                     <label class="col-md-12">Address</label>
                                     <div class="col-md-12">
-                                        <input class="form-control form-control-lg" type="text" placeholder="Vendor address" formControlName="address" #addr (keydown.space)="!addr.value?$event.preventDefault():null" ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="AddressChange($event,addr)">
+                                        <input class="form-control form-control-lg" type="text" placeholder="Enter address" formControlName="address" #addr (keydown.space)="!addr.value?$event.preventDefault():null" ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="AddressChange($event,addr)">
                                         <span class="error" *ngIf="ProfileForm.get('address').hasError('required') && ProfileForm.get('address').touched">Please enter address.</span>
                                     </div>
                                 </div>  

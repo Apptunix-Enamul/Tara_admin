@@ -32,8 +32,8 @@ ProfileImageUrl: string | ArrayBuffer;
   ngOnInit(){
     this.ProfileForm = this.fb.group({
       address:['',[Validators.required]],
-      firstName:['',[Validators.required,Validators.maxLength(30),Validators.pattern(/^[a-zA-Z ]*$/i)]],
-      lastName:['',[Validators.required,Validators.maxLength(30),Validators.pattern(/^[a-zA-Z ]*$/i)]],
+      firstName:['',[Validators.required,Validators.minLength(3),Validators.maxLength(30),Validators.pattern(/^[a-zA-Z ]*$/i)]],
+      lastName:['',[Validators.required,Validators.minLength(3),Validators.maxLength(30),Validators.pattern(/^[a-zA-Z ]*$/i)]],
       phoneNo:['',[Validators.required,Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$')
       ,Validators.maxLength(15),Validators.minLength(7)]],
       email:['',[Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],

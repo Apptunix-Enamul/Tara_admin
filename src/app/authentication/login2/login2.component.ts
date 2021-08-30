@@ -36,6 +36,12 @@ export class Login2Component implements OnInit ,AfterViewInit{
     this.loginform = !this.loginform;
     this.recoverform = !this.recoverform;
   }
+  Openotp(){
+    this.recoverform = !this.recoverform;
+    this.otpform = true;
+    this.numberform = !this.numberform
+    this.loginnumber = !this.loginnumber
+  }
   shownumbrForm() {
     this.loginform = !this.loginform;
     this.loginnumber = !this.loginnumber;
@@ -83,7 +89,7 @@ export class Login2Component implements OnInit ,AfterViewInit{
     if([200,201].includes(res.code)){
    this.router.navigate(['dashboard']);
    sessionStorage.setItem(environment.storageKey,JSON.stringify(res?.data));
-     this.toaster.success('You are logged in successfully','',{
+     this.toaster.success('You logged in successfully','',{
     timeOut: 2000,
   })
     }
@@ -109,8 +115,10 @@ export class Login2Component implements OnInit ,AfterViewInit{
     this.toaster.clear()
     this.service.put(`user/forgot-password/`,obj).subscribe((res:any)=>{
       if([200,201].includes(res.code)){
-      this.toaster.success(res.message,'Success')
-        $('#exampleModalCenter').modal({backdrop: 'static', keyboard: false}) 
+      this.toaster.success(res.message,'Success',{timeOut:1000})
+     //   $('#exampleModalCenter').modal({backdrop: 'static', keyboard: false}) 
+     this.Openotp()
+
       }
     })
   }
@@ -118,8 +126,8 @@ export class Login2Component implements OnInit ,AfterViewInit{
     this.service.put(`user/forgot-verify-otp/`,obj).subscribe((res:any)=>{
       if([200,201].includes(res.code)){
       this.service.SaveObj = obj
-       this.toaster.success('Otp verified successfully')
-       $('#exampleModalCenter').modal('hide')
+       this.toaster.success('Otp verified successfully','',{timeOut:1000})
+   //    $('#exampleModalCenter').modal('hide')
        this.router.navigate(['/changepassword'])
       }
     })
@@ -128,8 +136,8 @@ export class Login2Component implements OnInit ,AfterViewInit{
     this.service.post(`user/verify-otp/`,obj).subscribe((res:any)=>{
       if([200,201].includes(res.code)){
      sessionStorage.setItem("OtpDetails",JSON.stringify(obj));
-     this.toaster.success('Otp verified successfully')
-       $('#exampleModalCenter').modal('hide')
+     this.toaster.success('Otp verified successfully','',{timeOut:1000})
+   //    $('#exampleModalCenter').modal('hide')
        this.router.navigate(['/changepassword'])
       }
     })
@@ -146,8 +154,8 @@ export class Login2Component implements OnInit ,AfterViewInit{
   ResendOtp(obj,msg){
   this.service.post(`user/send-otp-to-old-user/`,obj).subscribe((res:any)=>{
      if([200,201].includes(res.code)){
-      $('#exampleModalCenter').modal({backdrop: 'static', keyboard: false}) 
-       this.toaster.success(` Otp sent ${msg}`,'Resend OTP')
+    //  $('#exampleModalCenter').modal({backdrop: 'static', keyboard: false}) 
+       this.toaster.success(` Otp sent ${msg}`,'Resend OTP',{timeOut:1000})
      }
    })
   }
