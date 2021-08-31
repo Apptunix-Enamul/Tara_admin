@@ -130,10 +130,10 @@
                                             Phone number is Invaid.
                                           </span>
                                           <span *ngIf="!ProfileForm.get('phoneNo').hasError('pattern') && ProfileForm.get('phoneNo').hasError('maxlength') && !ProfileForm.get('phoneNo').hasError('minlength')" class="error">
-                                            Maxlength of phone number should 15.
+                                            Maxlength of phone number should be 15.
                                           </span>
                                           <span *ngIf="!ProfileForm.get('phoneNo').hasError('pattern') && !ProfileForm.get('phoneNo').hasError('maxlength') && ProfileForm.get('phoneNo').hasError('minlength')" class="error">
-                                            Minlength of phone number should 7.
+                                            Minlength of phone number should be 7.
                                           </span>
                                     </div>
                                 

@@ -143,12 +143,18 @@ export class Login2Component implements OnInit ,AfterViewInit{
     })
   }
   VerifyOtp(){
-     let obj = {
-     "email":this.ForgotPasswordForm.value.email,
-     "otp":this.optValue
-      }
-      // this.SendOtp(obj)
-      this.ForgotOtp(obj)
+    this.toaster.clear()
+    if(this.optValue && this.optValue.length===4){
+      let obj = {
+        "email":this.ForgotPasswordForm.value.email,
+        "otp":this.optValue
+         }
+         // this.SendOtp(obj)
+         this.ForgotOtp(obj)
+    }else{
+      this.toaster.error('Please enter 4-digit OTP','Error')
+    }
+     
     }
   
   ResendOtp(obj,msg){
