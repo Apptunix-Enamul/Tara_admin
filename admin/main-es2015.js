@@ -1692,14 +1692,14 @@ const ROUTES = [
     //     extralink: true,
     //     submenu: []
     // },
-    // {
-    //     path: '/pages/foodcategories',
-    //     title: 'Categories',
-    //     icon: 'sl-icon-grid',
-    //     class: '',
-    //     extralink: false,
-    //     submenu: []
-    // },
+    {
+        path: '/pages/foodcategories',
+        title: 'Categories',
+        icon: 'sl-icon-grid',
+        class: '',
+        extralink: false,
+        submenu: []
+    },
     {
         path: '/pages/fooditem',
         title: 'Product',
