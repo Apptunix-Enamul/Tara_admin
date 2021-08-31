@@ -67,7 +67,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         Ng2SearchPipeModule,
         MatSlideToggleModule,
         NgMultiSelectDropDownModule.forRoot(),
-        AgmCoreModule.forRoot({ apiKey: 'AIzaSyBUb3jDWJQ28vDJhuQZxkC0NXr_zycm8D0' }),
+        // AgmCoreModule.forRoot({ apiKey: 'AIzaSyBUb3jDWJQ28vDJhuQZxkC0NXr_zycm8D0' }),
+        AgmCoreModule.forRoot({
+            apiKey: "AIzaSyBUb3jDWJQ28vDJhuQZxkC0NXr_zycm8D0",
+            libraries: ["places", "drawing", "geometry"],
+          }),
         DragDropModule,
         NgxSpinnerModule
 

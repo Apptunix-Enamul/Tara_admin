@@ -4,231 +4,194 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/_services/common.service';
-
+declare const google: any;
 @Component({
   selector: 'app-geofenceedit',
   templateUrl: './geofenceedit.component.html',
   styleUrls: ['./geofenceedit.component.css']
 })
 export class GeofenceeditComponent implements OnInit {
-  @ViewChild('map2', { static: true }) map1;
- 
 
-  lat = -34.397;
-  lng = 150.644;
-  latA = -34.754764;
-  lngA = 149.736246;
-  
-
-  address: string;
-  driverName: any;
-  selectedZoom: number;
-  latitude: number;
-  longitude: number;
-  zoom: number = 11;
-  searchString: any;
-  polyarray: any = [];
-  geoId: any
-  driverId: any
+  lat = 20.5937;
+  lng = 78.9629;
+  pointList: { lng: number; lat: number }[] = [];
   drawingManager: any;
-  addgeofence: boolean = true;
-  fencingList: any = [];
-  constructTriangle: any;
-  @ViewChild("AgmMap", { static: true }) Map: any;
-  adminId: any;
-  vacantDriversList: any = [];
-  selected: any[];
-  otherDriversList: any = [];
-  vacantDriverView: boolean = false;
-  fancingDriverName: any;
-  vacantDrivers: any = [];
-  fencingDrivers: any;
-  geoFenceId: any;
-  fencingDriversList: any;
-  geoFenceList: any;
-  formGroup: any;
-  list: any;
-  multiple: any;
-  usersession: any;
-  permissions: any;
+  selectedShape: any;
+  selectedArea = 0;
   locationPoints: any;
-  progress: any;
-  sub: any;
-  
-  //zoom: number;
-  geoCoder: google.maps.Geocoder;
-  geofenceForm: FormGroup
+  constructTriangle:any;
+  @ViewChild("AgmMap", { static: true }) Map: any;
 
-  styles: any = [
-    {
-      featureType: 'all',
-      stylers: [
-        {
-          saturation: -80
-        }
-      ]
-    },
-    {
-      featureType: 'road.arterial',
-      elementType: 'geometry',
-      stylers: [
-        {
-          hue: '#00ffee'
-        },
-        {
-          saturation: 50
-        }
-      ]
-    },
-    {
-      featureType: 'poi.business',
-      elementType: 'labels',
-      stylers: [
-        {
-          visibility: 'off'
-        }
-      ]
-    }
-  ];
-  id: any;
-  UserList: any;
-  submitted: any;
-  constructor(private act:ActivatedRoute,private toaster:ToastrService,public service:CommonService,private mapsAPILoader: MapsAPILoader, private router: Router, private fb: FormBuilder) { 
-    this.act.params.subscribe((res:any)=>{
-      this.id = res.id
-    })
-  }
-  ngOnInit(): void {
-    // this.getCustomer()
-    this.geofenceForm = this.fb.group({
-      geofenceName: ['', [Validators.required,Validators.maxLength(30)]],
-      deliverycharges:['',Validators.required]
-    })
-    this.mapsAPILoader.load().then(() => {
-      this.geoCoder = new google.maps.Geocoder;
-    });
-  }
-  getCustomer(){
-    let url= `/getGeofencebyid/${this.id}`
-    this.service.get(url).subscribe((res:any)=>{
-     if (res.message=='SUCCESS') {
-      //  this.UserList = res.data.find(ele=>ele._id=this.id)
-      console.log(res);
-       this.geofenceForm.patchValue({
-        geofenceName: res.data[0].name,
-        deliverycharges:res.data[0].deliveryPrice
-       })
-       console.log("this is geo obj",res.data[0].geoPoints.coordinates)
-       this.geoFenceId = res.data[0]._id;
-       this.locationPoints = res.data[0].geoPoints.coordinates[0];
-       console.log("hoi there",this.locationPoints);
-       this.onEdit(this.locationPoints, this.geoFenceId);
-     } else {
-      //  this.toaster.error(res.message);
-     }
-    }, error => {
-    //  this.toaster.error('Something went wrong');
-    })
-  }
+  test=null;
+  getZoom;
+  constructor(private service:CommonService,private toastr:ToastrService,private fb:FormBuilder,private router:Router) {
 
-  back() {
-    history.back()
-  }
-
-  onEdit(locationPoints, geoId) {
-
-    this.geoFenceId = '';
-    // console.log('geoId', geoId);
-
-    this.geoFenceId = geoId;
     var drawPolygonArr = [];
-    locationPoints.forEach(element => {
-      drawPolygonArr.push({
-        lat: element[1],
-        lng: element[0]
-      })
-      this.latitude = element[1];
-      this.longitude = element[0];
-    });
-    console.log(drawPolygonArr);
-    if (this.constructTriangle) {
-      this.constructTriangle.setMap(null)
-    }
-    // Construct the polygon.
-    this.constructTriangle = new google.maps.Polygon({
-      paths: drawPolygonArr,
-      strokeColor: '#FF0000',
-      strokeOpacity: 0.8,
-      strokeWeight: 3,
-      fillColor: '#FF0000',
-      fillOpacity: 0.35,
-      editable: true,
-      draggable: true
-    })
-    this.constructTriangle.setMap(null);
 
+    this.service.get(``).subscribe((data:any)=>{
+      if(data.statusCode == 200){
+        this.getZoom=data.data.zoom;
+        this.lng=data.data.geoPoints.coordinates[0][data.data.geoPoints.coordinates[0].length-1][0];
+        this.lat=data.data.geoPoints.coordinates[0][data.data.geoPoints.coordinates[0].length-1][1];
+
+        //console.log(this.lat);
+        this.editForm.controls['name'].setValue(data.data.name);
+        for(let i=0;i<data.data.geoPoints.coordinates[0].length;i++){
+          // drawPolygonArr.push(data.data.geoFence.coordinates[0][i]);
+        drawPolygonArr.push({
+          lat: data.data.geoPoints.coordinates[0][i][1],
+          lng: data.data.geoPoints.coordinates[0][i][0]
+        })
+
+        }
+        this.constructTriangle = new google.maps.Polygon({
+          paths: drawPolygonArr,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 3,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35,
+          editable: true,
+          draggable: true
+        })
+        this.constructTriangle.setMap(null);
+        //this.pointList=drawPolygonArr;
     this.constructTriangle.setMap(this.Map);
-
-
-
-    console.log("this.polyarray ", this.polyarray)
-   
+       // console.log(data.data.geoFence.coordinates[0]);
+      }
+      else{
+        this.router.navigate(['/pages/geofencelist']);
+      }
+    })
+    this.test=drawPolygonArr;
   }
 
-  save() {
-    this.getPolygonCoordinates(this.constructTriangle);
-  }
 
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+  editForm=this.fb.group({
+    name:['',Validators.required]
+  });
+  ngOnInit() {
 
-    });
+   // console.log(this.pointList);
+
   }
 
   onMapReady(map) {
-    this.Map = map;
-    // this.initDrawingManager(this.Map);
+
+    this.Map=map;
+    // console.log("ooooooooooooooo",this.test);
+    if(this.test == null){
+    this.initDrawingManager(map);
+    }
   }
-  onMapReady1(map) {
-    this.Map = map;
-    this.initDrawingManager(this.Map);
 
-  }
-
-
-  initDrawingManager(map: any) {
-    this.drawingManager = new google.maps.drawing.DrawingManager({
+  initDrawingManager = (map: any) => {
+   // debugger
+    const self = this;
+    const options = {
       drawingControl: true,
       drawingControlOptions: {
-
-        drawingModes: [google.maps.drawing.OverlayType.POLYGON]
+        drawingModes: ['polygon'],
       },
       polygonOptions: {
         draggable: true,
-        editable: true
+        editable: true,
       },
+
       drawingMode: google.maps.drawing.OverlayType.POLYGON
-    });
-
+    };
+    this.drawingManager = new google.maps.drawing.DrawingManager(options);
     this.drawingManager.setMap(map);
-
-
-    google.maps.event.addListener(this.drawingManager, 'overlaycomplete',
+    google.maps.event.addListener(
+      this.drawingManager,
+      'overlaycomplete',
       (event) => {
-        if (event.type === google.maps.drawing.OverlayType.POLYGON) { //this is the coordinate, you can assign it to a variable or pass into another function. 
-
-          this.polyarray = event.overlay.getPath().getArray();
+        if (event.type === google.maps.drawing.OverlayType.POLYGON) {
+          const paths = event.overlay.getPaths();
+          for (let p = 0; p < paths.getLength(); p++) {
+            google.maps.event.addListener(
+              paths.getAt(p),
+              'set_at',
+              () => {
+                if (!event.overlay.drag) {
+                  self.updatePointList(event.overlay.getPath());
+                }
+              }
+            );
+            google.maps.event.addListener(
+              paths.getAt(p),
+              'insert_at',
+              () => {
+                self.updatePointList(event.overlay.getPath());
+              }
+            );
+            google.maps.event.addListener(
+              paths.getAt(p),
+              'remove_at',
+              () => {
+                self.updatePointList(event.overlay.getPath());
+              }
+            );
+          }
+          self.updatePointList(event.overlay.getPath());
+          this.selectedShape = event.overlay;
+          this.selectedShape.type = event.type;
         }
+        if (event.type !== google.maps.drawing.OverlayType.MARKER) {
+          // Switch back to non-drawing mode after drawing a shape.
+          self.drawingManager.setDrawingMode(null);
+          // To hide:
+          self.drawingManager.setOptions({
+            drawingControl: false,
+          });
+        }
+      }
+    );
+  }
+  private setCurrentPosition() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
       });
-
+    }
   }
 
-  submitData()
-  {
-    this.submitted=true
-    this.getPolygonCoordinates(this.constructTriangle);
+  deleteSelectedShape() {
+    if (this.selectedShape) {
+      // console.log("hi");
+      this.selectedShape.setMap(null);
+      this.selectedArea = 0;
+      this.pointList = [];
+
+
+      // To show:
+      this.drawingManager.setOptions({
+        drawingControl: true,
+      });
+      this.onMapReady(this.Map);
+    }
+    else{
+      // console.log("bye");
+    this.test=null;
+    this.onMapReady(this.Map);
+    //this.Map=null;
+    this.constructTriangle.setMap(null);
+    this.constructTriangle=null;}
   }
 
+  updatePointList(path) {
+    this.pointList = [];
+    const len = path.getLength();
+    for (let i = 0; i < len; i++) {
+      this.pointList.push(
+        path.getAt(i).toJSON()
+      );
+    }
+    this.selectedArea = google.maps.geometry.spherical.computeArea(
+      path
+    );
+  }
 
   getPolygonCoordinates(draggablePolygon) {
 
@@ -240,34 +203,47 @@ export class GeofenceeditComponent implements OnInit {
       const vertexLatLng = { lat: vertex.lat(), lng: vertex.lng() };
       polyArrayLatLng.push(vertexLatLng);
     }
-
-    if (this.geofenceForm.valid && polyArrayLatLng.length) {
-      this.addgeofence = false;
-      var geofenceData = {
-        "name": this.geofenceForm.get('geofenceName').value,
-        "deliveryPrice": this.geofenceForm.get('deliverycharges').value,
-
-        "points": polyArrayLatLng
-      }
-      // this.service.UpdateGeo(this.geoFenceId,geofenceData).subscribe((res:any) => {  change this by required api
-       this.service.put(this.geoFenceId,geofenceData).subscribe((res:any) => {
-
-        if (res['success'] == true) {
-          this.addgeofence = false;
-          this.toaster.success(res.message);
-
-          this.router.navigate(['/pages/geofencelist'])
-        } else {
-          this.toaster.error(res.message);
-        }
-
-      });
-    } else {
-      // this.commonService.errorToast('Please Select a region')
-    }
-
-    
+    this.pointList=null;
+    this.pointList=polyArrayLatLng;
   }
 
+
+  updateZoom(event){
+    this.getZoom=event;
+  }
+
+  updateGeoFence(){
+   // console.log("list",this.pointList);
+   // console.log("test,",this.test);
+    if(this.pointList.length !=0 || this.constructTriangle!=null ){
+      if(this.test!=null){
+      this.getPolygonCoordinates(this.constructTriangle);}
+      let body;
+
+      body={
+       'name':this.editForm.controls['name'].value,
+       'points':[],
+       'zoom':this.getZoom
+     }
+    // console.log("data sending",this.pointList);
+ body.points=this.pointList;
+
+
+
+
+ this.service.put(body).subscribe((data:any)=>{
+   if(data.statusCode == 200){
+     this.toastr.success("Updated successfully");
+     this.router.navigate(['/pages/geofencelist']);
+   }
+ })
+
+    }
+
+    else{
+      this.toastr.error("Please Add Geofence");
+    }
+
+  }
 
 }

@@ -5,167 +5,199 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/_services/common.service';
 import {Loader, LoaderOptions} from 'google-maps';
+declare const google: any;
 @Component({
   selector: 'app-geofenceadd',
   templateUrl: './geofenceadd.component.html',
   styleUrls: ['./geofenceadd.component.css']
 })
 export class GeofenceaddComponent implements OnInit {
-  @ViewChild("AgmMap", { static: true }) Map: any;
-  lat = -34.397;
-  lng = 150.644;
-  latA = -34.754764;
-  lngA = 149.736246;
-  zoom = 8;
-  longitude: number;
-  //zoom: number;
-  geoCoder: google.maps.Geocoder;
-  drawingManager: google.maps.drawing.DrawingManager;
-  polyarray: any = [];
-  geofenceForm: FormGroup
-  submitted:boolean = false
-  progress: boolean;
-  sub: any;
-  styles: any = [
-    {
-      featureType: 'all',
-      stylers: [
-        {
-          saturation: -80
-        }
-      ]
-    },
-    {
-      featureType: 'road.arterial',
-      elementType: 'geometry',
-      stylers: [
-        {
-          hue: '#00ffee'
-        },
-        {
-          saturation: 50
-        }
-      ]
-    },
-    {
-      featureType: 'poi.business',
-      elementType: 'labels',
-      stylers: [
-        {
-          visibility: 'off'
-        }
-      ]
-    }
-  ];
-  constructor(private toaster: ToastrService, private mapsAPILoader: MapsAPILoader, private router: Router, private fb: FormBuilder, private apiService: CommonService) { 
-    this.setCurrentLocation()
-  }
+  @ViewChild("map2", { static: true }) map1;
 
-  AlphabetOnly(event){
-    let pattAlpha = /^([a-zA-Z ])*$/;
-    let resultAlpha = pattAlpha.test(event.key);
-    return resultAlpha;
-     }
-  
-     NumberOnly(event){
-      let pattAlpha = /^([0-9])*$/;
-      let resultAlpha = pattAlpha.test(event.key);
-      return resultAlpha;
-       }
+  // lat = -34.397;
+  // lng = 150.644;
+  // latA = -34.754764;
+  // lngA = 149.736246;
+  // zoom = 8;
+
+  // styles: any = [
+  //   {
+  //     featureType: "all",
+  //     stylers: [
+  //       {
+  //         saturation: -80,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     featureType: "road.arterial",
+  //     elementType: "geometry",
+  //     stylers: [
+  //       {
+  //         hue: "#00ffee",
+  //       },
+  //       {
+  //         saturation: 50,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     featureType: "poi.business",
+  //     elementType: "labels",
+  //     stylers: [
+  //       {
+  //         visibility: "off",
+  //       },
+  //     ],
+  //   },
+  // ];
+
+  lat = 40.7128;
+  lng = -74.0060;
+  pointList: { lat: number; lng: number }[] = [];
+  drawingManager: any;
+  selectedShape: any;
+  selectedArea = 0;
+  sendZoom = 14;
+
+  constructor(
+    
+    private router: Router,
+    private Srvc: CommonService,
+    private toaster: ToastrService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
-    this.geofenceForm = this.fb.group({
-      geofenceName: ['', [Validators.required,Validators.maxLength(30)]],
-      deliverycharges:['',Validators.required]
-    })
-    this.mapsAPILoader.load().then(() => {
-      this.geoCoder = new google.maps.Geocoder;
-    });
+    this.setCurrentPosition();
   }
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
- });
-  }
-  setCurrentLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
 
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-        this.zoom = 11;
-        this.getAddress(this.lat, this.lng);
-      });
-    }
+  Map: any;
+  onMapReady(map) {
+    this.Map = map;
+    this.initDrawingManager(map);
   }
-  initDrawingManager(map: any) { // method is used to create POLYGON
 
+  getZoom(event) {
+    console.log(event);
+    this.sendZoom = event;
+  }
+  initDrawingManager = (map: any) => {
+    const self = this;
     const options = {
       drawingControl: true,
       drawingControlOptions: {
-
-        drawingModes: [google.maps.drawing.OverlayType.POLYGON]
+        drawingModes: ["polygon"],
       },
       polygonOptions: {
         draggable: true,
-        editable: true
+        editable: true,
       },
-      drawingMode: google.maps.drawing.OverlayType.POLYGON
+
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
     };
-
-
     this.drawingManager = new google.maps.drawing.DrawingManager(options);
     this.drawingManager.setMap(map);
-
-
-    google.maps.event.addListener(this.drawingManager, 'overlaycomplete',
+    google.maps.event.addListener(
+      this.drawingManager,
+      "overlaycomplete",
       (event) => {
+        if (event.type === google.maps.drawing.OverlayType.POLYGON) {
+          const paths = event.overlay.getPaths();
+          for (let p = 0; p < paths.getLength(); p++) {
+            google.maps.event.addListener(paths.getAt(p), "set_at", () => {
+              if (!event.overlay.drag) {
+                self.updatePointList(event.overlay.getPath());
+              }
+            });
+            google.maps.event.addListener(paths.getAt(p), "insert_at", () => {
+              self.updatePointList(event.overlay.getPath());
+            });
+            google.maps.event.addListener(paths.getAt(p), "remove_at", () => {
+              self.updatePointList(event.overlay.getPath());
+            });
+          }
+          self.updatePointList(event.overlay.getPath());
+          this.selectedShape = event.overlay;
+          this.selectedShape.type = event.type;
+        }
+        if (event.type !== google.maps.drawing.OverlayType.MARKER) {
+          // Switch back to non-drawing mode after drawing a shape.
+          self.drawingManager.setDrawingMode(null);
+          // To hide:
+          self.drawingManager.setOptions({
+            drawingControl: false,
+          });
+        }
+      }
+    );
+  };
 
-        if (event.type === google.maps.drawing.OverlayType.POLYGON) { //this is the coordinate, you can assign it to a variable or pass into another function. 
-          this.polyarray = event.overlay.getPath().getArray();
+  private setCurrentPosition() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
+      });
+    }
+  }
+
+  deleteSelectedShape() {
+    if (this.selectedShape) {
+      this.selectedShape.setMap(null);
+      this.selectedArea = 0;
+      this.pointList = [];
+      // To show:
+      this.drawingManager.setOptions({
+        drawingControl: true,
+      });
+      this.onMapReady(this.Map);
+    }
+  }
+
+  updatePointList(path) {
+    this.pointList = [];
+    const len = path.getLength();
+    for (let i = 0; i < len; i++) {
+      this.pointList.push(path.getAt(i).toJSON());
+    }
+    this.selectedArea = google.maps.geometry.spherical.computeArea(path);
+  }
+
+  addGeofenceForm = this.fb.group({
+    name: ["",
+     [Validators.required,Validators.maxLength(45),Validators.minLength(2)]
+    ],
+  });
+
+   // Avoid empty Blank Space
+   avoidBlankSpace(e, ref) {
+    if (!ref.length) {
+      e.preventDefault();
+    }
+  }
+
+
+  addGeoFence() {
+    if (this.pointList.length != 0) {
+      let body = {
+        name: this.addGeofenceForm.controls["name"].value,
+        points: [],
+        zoom: this.sendZoom,
+      };
+      body.points = this.pointList;
+      this.Srvc.postApi(``,body).subscribe((data: any) => {
+        if (data.statusCode == 200) {
+          this.toaster.success("Geofence Added");
+          this.router.navigate(["/pages/geofencelist"]);
+        } else {
+          this.toaster.error("Failed to add Geofence");
         }
       });
-
-  }
-  onMapReady(map) {
-    this.Map = map;
-    this.initDrawingManager(this.Map);
-  }
-  save() {
-    this.submitted = true
-let url = `/addGeofence`
-    if (this.geofenceForm.valid && this.polyarray.length > 0) {
-   this.progress = true
-      var geofenceData = {
-        "name": this.geofenceForm.get('geofenceName').value,
-        "deliveryPrice":this.geofenceForm.get('deliverycharges').value,
-        "points": this.polyarray
-      }
-if(this.geofenceForm.valid){
-  this.apiService.postApi(url,geofenceData).subscribe((res:any) => {
-    console.log('This is ')
-    if (res.success) {
-      this.progress = false
-      this.toaster.success(res.message)
-      this.router.navigate(['pages/geofencelist'])
-      this.geofenceForm.reset()
-      this.submitted = false
     } else {
-      this.progress = false
-      this.toaster.error(res.message)
+      this.toaster.error("Please Add geofence");
     }
-  },
-  error => {
-    this.toaster.error('Something went wrong');
-   });
-  
-} else {
-  this.toaster.error('Make Sure you have typed in the name and selected the area for geofence')
-
-}
-}else if(this.geofenceForm.invalid){
-  this.toaster.error('Please fill all field')
-}}
-
+  }
 }     
 
   
