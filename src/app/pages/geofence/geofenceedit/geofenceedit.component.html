@@ -1,1 +1,34 @@
-<p>geofenceedit works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="geofenceForm" class="row">
+                    <div class="form-group col-md-6">
+                        <label>Name</label>
+                        <input type="text" class="form-control" (keydown.space)="$event.preventDefault()" formControlName="geofenceName" placeholder="Geofence Name">
+                        <mat-error *ngIf="submitted && geofenceForm.get('geofenceName').hasError('required')">
+                            Please enter name
+                        </mat-error>
+                        <mat-error *ngIf="submitted && geofenceForm.get('geofenceName').hasError('maxlength')">
+                            Maximum 30 character allowed
+                        </mat-error>
+
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label> Insert delivery price </label>
+                        <input type="text" class="form-control" (keydown.space)="$event.preventDefault()" placeholder="Insert delivery price" formControlName="deliverycharges">
+                        <mat-error *ngIf="submitted && geofenceForm.get('deliverycharges').hasError('required')">
+                            Please enter delivery charges
+                        </mat-error>
+                    </div>
+                </form>
+                <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="14" (mapReady)="onMapReady1($event)">
+                </agm-map>
+
+                <button class="btn btn-primary mt-3" [disabled]="geofenceForm.invalid"  (click)="submitData()">Update</button>
+                <button class="btn btn-warning mt-3 ml-3"  [routerLink]="['/pages/geofencelist']" routerLinkActive="router-link-active" >Back</button>
+                <!-- <a routerLink="/pages/geofenceList" class="btn btn-primary mt-3">Veiw</a> -->
+            </div>
+        </div>
+    </div>
+</div>

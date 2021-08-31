@@ -39,6 +39,7 @@
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
     "date-fns": "^2.16.1",
+    "google-maps": "^4.3.3",
     "lodash": "^4.17.15",
     "ng-chartist": "^4.1.0",
     "ng-multiselect-dropdown": "^0.2.10",

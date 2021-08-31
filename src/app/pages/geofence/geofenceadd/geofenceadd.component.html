@@ -1,1 +1,33 @@
-<p>geofenceadd works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="geofenceForm" class="row">
+                    <div class="form-group col-md-6">
+                        <label>Name</label>
+                        <input type="text" (keypress)="AlphabetOnly($event)" (keydown.space)="$event.preventDefault()" class="form-control" formControlName="geofenceName" placeholder="Geofence Name">
+                        <mat-error *ngIf="submitted && geofenceForm.get('geofenceName').hasError('required')">
+                            Please enter name
+                        </mat-error>
+                        <mat-error *ngIf="submitted && geofenceForm.get('geofenceName').hasError('maxlength')">
+                            Maximum 30 character allowed
+                        </mat-error>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label> Insert delivery price </label>
+                        <input type="text" class="form-control" (keypress)="NumberOnly($event)" (keydown.space)="$event.preventDefault()" placeholder="Insert delivery price" formControlName="deliverycharges">
+                        <mat-error *ngIf="submitted && geofenceForm.get('deliverycharges').hasError('required')">
+                            Please insert delivery price
+                        </mat-error>
+                    </div>
+                </form>
+                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [styles]="styles" #map2 (mapReady)="onMapReady($event)">
+                    <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="false"></agm-marker>
+                </agm-map>
+
+                <button class="btn btn-primary mt-3" (click)="save()">Save</button>
+                <!-- <a routerLink="/pages/geofenceList" class="btn btn-primary mt-3">Veiw</a> -->
+            </div>
+        </div>
+    </div>
+</div>
