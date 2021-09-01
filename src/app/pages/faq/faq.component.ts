@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-faq',
@@ -6,10 +7,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./faq.component.css']
 })
 export class FaqComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  SubcategoryForm:FormGroup
+  constructor(private fb:FormBuilder) { }
+  ngOnInit() {
+    this.buildForm();
+    this.addUser();
+  }
+  buildForm() {
+    this.SubcategoryForm = new FormGroup({
+      productLabels: new FormArray([])
+    })
+  }
+  createRow() {
+    return this.fb.group({
+      question: new FormControl('',[Validators.required]),
+      answer:new FormControl('',[Validators.required]),
+     
+    })
+  }
+addUser() {
+    const add = this.SubcategoryForm.get('productLabels') as FormArray;
+    add.push(this.createRow());
+  }
+  removeUser(i) {
+    const remove = this.SubcategoryForm.get('productLabels') as FormArray;
+    remove.removeAt(i);
   }
   add(){ 
     let row = document.createElement('div');   

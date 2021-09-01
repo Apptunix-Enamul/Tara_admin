@@ -1,12 +1,17 @@
 <div class="row">
     <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <quill-editor [style]="{height: '300px',display: 'inline-block'}"></quill-editor>
-                <div class="col-12">
-                    <button class="btn btn-primary mt-3">Save</button>
+        <form [formGroup]="TermConditionForm">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <quill-editor [style]="{height: '300px',display: 'inline-block'}" formControlName="privacy"></quill-editor>
+                        <span class="error" *ngIf="TermConditionForm.get('privacy').hasError('required') && TermConditionForm.get('privacy').touched">Please enter privacy policy.</span>
+                      </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary mt-3" (click)="SaveTerms()">Save</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </form>
+         </div>
 </div>

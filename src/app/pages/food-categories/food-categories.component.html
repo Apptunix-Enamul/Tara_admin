@@ -269,7 +269,6 @@
                   <div class="d-flex form-group" *ngFor="let user of SubcategoryForm.get('productLabels')['controls']; let i = index">
                     <input type="text" [formControlName]="i" class="form-control" placeholder="Give suitable label">
                    <button class="btn btn-danger" (click)="removeUser(i)"><i class="mdi mdi-minus" title="Remove"></i></button> 
-                   
                   </div>
                 </div><br>
                 <button class="btn btn-primary" (click)="addUser()"><i class="mdi mdi-plus" title="Add row"></i></button>

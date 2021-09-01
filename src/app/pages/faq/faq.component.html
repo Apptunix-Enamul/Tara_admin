@@ -2,18 +2,27 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="card card-body">           
-            <form class="form-horizontal">
+            <form class="form-horizontal" [formGroup]="SubcategoryForm">
                 <div class="bg-light p-3 mb-3">
-                    <div class="form-group">
-                        <input type="text" id="que" name="que" class="form-control" placeholder="Quetions">
-                    </div>                 
-                    <div class="">
-                        <textarea class="form-control" rows="3" placeholder="Add Answer here"></textarea>
-                    </div>
+                
+                        <div formArrayName='productLabels'>
+                          <label>Faq's</label>
+                          <div *ngFor="let user of SubcategoryForm.get('productLabels')['controls']; let i = index">
+                            <div class="form-group">
+                                <input type="text" formControlName="question" class="form-control" placeholder="Add question">
+                              </div>
+                              <div class="form-group">
+                                <textarea class="form-control" rows="3" formControlName="answer" placeholder="Add Answer"></textarea>
+                            </div>
+                            <button class="btn btn-danger" (click)="removeUser(i)"><i class="mdi mdi-minus" title="Remove"></i></button> 
+                          </div>
+                        </div>
+                            
                 </div>  
                 <div class="showInputField"></div> 
                 <div class="form-group">
-                <button (click)="add()" class="btn btn-success"><i class="mdi mdi-plus"></i></button>
+                    <button class="btn btn-primary" (click)="addUser()"><i class="mdi mdi-plus" title="Add row"></i></button>
+
                 </div>
 
                 <button class="btn btn-primary">Save</button>
