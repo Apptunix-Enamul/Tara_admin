@@ -240,7 +240,7 @@
 <ng-template #addsubCategory let-modal>
   <div class="modal-body">
     <div class="card">
-      <form action="#">
+      <form [formGroup]="SubcategoryForm">
         <div class="form-body">
           <div class="card-body">
             <div class="row p-t-20">
@@ -263,17 +263,16 @@
                 </div>
               </div>
               <!--/span-->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Opening Time</label>
-                  <input type="time" class="form-control"></div>
+              <div class="col-md-10">
+                <div formArrayName='productLabels'>
+                  <label>Product options</label>
+                  <div *ngFor="let user of SubcategoryForm.get('productLabels')['controls']; let i = index">
+                    <input type="text" [formControlName]="i" class="form-control" placeholder="Give suitable label">
+                   <button (click)="removeUser(i)"><i class="mdi mdi-minus" title="Remove"></i></button> 
+                  </div>
+                </div><br>
+                <button (click)="addUser()"><i class="mdi mdi-plus" title="Add row"></i></button>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Closing Time</label>
-                  <input type="time" class="form-control"></div>
-              </div>
-           
             </div>
             <!--/row-->
           </div>

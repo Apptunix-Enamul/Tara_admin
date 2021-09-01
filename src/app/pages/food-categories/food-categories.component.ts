@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import {FormControl} from '@angular/forms';
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import { CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
@@ -13,6 +13,8 @@ import { CdkDragDrop,
 export class FoodCategoriesComponent implements OnInit {
   panelOpenState = false;
   closeResult: string;
+  SubcategoryForm:FormGroup
+  
   movies = [
     'Episode I - The Phantom Menace',
     'Episode II - Attack of the Clones',
@@ -36,8 +38,26 @@ export class FoodCategoriesComponent implements OnInit {
   dishType: string[] = ['Veg', 'Non-Veg'];
   cusinine: string[] = ['Indian', 'Italian ', 'Chiness',];
   active = 1;
-  constructor(private modalService: NgbModal) {}
-  ngOnInit(): void {
+  constructor(private modalService: NgbModal) {
+  }
+  ngOnInit() {
+    this.buildForm();
+    this.addUser();
+  }
+
+  buildForm() {
+    this.SubcategoryForm = new FormGroup({
+      name:new FormControl(''),
+      productLabels: new FormArray([])
+    })
+  }
+addUser() {
+    const add = this.SubcategoryForm.get('productLabels') as FormArray;
+    add.push(new FormControl(''));
+  }
+  removeUser(i) {
+    const remove = this.SubcategoryForm.get('productLabels') as FormArray;
+    remove.removeAt(i);
   }
   deleteBoxModal(userDelete) {
     this.modalService.open(userDelete, {backdropClass: 'light-blue-backdrop',centered: true,size: 'sm'});
