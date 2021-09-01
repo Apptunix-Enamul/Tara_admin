@@ -266,12 +266,12 @@
               <div class="col-md-10">
                 <div formArrayName='productLabels'>
                   <label>Product options</label>
-                  <div *ngFor="let user of SubcategoryForm.get('productLabels')['controls']; let i = index">
+                  <div class="d-flex" *ngFor="let user of SubcategoryForm.get('productLabels')['controls']; let i = index">
                     <input type="text" [formControlName]="i" class="form-control" placeholder="Give suitable label">
-                   <button (click)="removeUser(i)"><i class="mdi mdi-minus" title="Remove"></i></button> 
+                   <button class="btn btn-danger" (click)="removeUser(i)"><i class="mdi mdi-minus" title="Remove"></i></button> 
                   </div>
                 </div><br>
-                <button (click)="addUser()"><i class="mdi mdi-plus" title="Add row"></i></button>
+                <button class="btn btn-primary" (click)="addUser()"><i class="mdi mdi-plus" title="Add row"></i></button>
               </div>
             </div>
             <!--/row-->
