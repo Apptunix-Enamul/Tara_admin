@@ -1,0 +1,8 @@
+.ssb{
+	position: relative;
+    top: 36px;
+    font-size: 13px;
+}
+.error{
+    color: red;
+}

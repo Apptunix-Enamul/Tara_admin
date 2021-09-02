@@ -1,5 +1,62 @@
-<!-- .row -->
-<div class="row">
+
+  <div class="card-body">
+    <form [formGroup]="Faqcheck">
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-bordered" formArrayName="specification">
+            <!-- <tr>
+              <th width="20%">
+                <div class="input_button input_button2">
+                  <button type="button" (click)="addNewSpecification()" class="btn btn-primary">
+                    Add More
+                  </button>
+                </div>
+              </th>
+            </tr> -->
+            <tr *ngFor="let quantity of specification().controls; let i = index" [formGroupName]="i">
+              <td style="width: 40%">
+                
+                <div class="row col-12 form-group">
+                  <label> Question:</label>
+                  <textarea type="text" class="form-control" min="0" formControlName="question" placeholder="Enter question"></textarea>
+                <span class="error" *ngIf="quantity.get('question').hasError('required') && quantity.get('question').touched">
+                      Please enter question!
+                  </span>
+              
+                </div>
+               </td>
+              <td style="width: 40%">
+                <div class="row col-12 form-group ">
+                  <label>Answer:</label>
+                  <textarea class="form-control" type="text" min="0" formControlName="answer" placeholder="Enter answer"></textarea>
+                <span class="error" *ngIf="quantity.get('answer').hasError('required') && quantity.get('answer').touched">
+                    Please enter answer!
+                  </span>
+                </div>
+              </td>
+         <td style=" vertical-align: middle">
+                <button class="btn btn-primary" (click)="removeSpecification(i)">
+                  Remove
+                </button>
+              </td>
+            </tr>
+          </table>
+    <button class="btn btn-primary" (click)="saveFaq()">Save</button>&nbsp;&nbsp;
+    <button type="button" (click)="addNewSpecification()" class="btn btn-info">
+      {{IdData?'Add More':"Add faq's"}}
+    </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+
+
+
+
+
+<!-- <div class="row">
     <div class="col-sm-12">
         <div class="card card-body">           
             <form class="form-horizontal" [formGroup]="SubcategoryForm">
@@ -29,5 +86,4 @@
             </form>
         </div>
     </div>
-</div>
-<!-- /.row -->
+</div> -->
