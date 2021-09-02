@@ -46,6 +46,8 @@ export class VendorsComponent implements OnInit {
   VendorDocOne: any;
   VerndorDocTwo: any;
   timer: number;
+  IsnotEmpty:any
+  VendorId: any;
   constructor(private modalService: NgbModal, private service:CommonService,private router:Router,private fb:FormBuilder,private toaster:ToastrService) {
     this.dataSource = new MatTableDataSource(this.table);
   }
@@ -152,7 +154,8 @@ openWindowCustomClass(content3,doc) {
 userprofileModal(userDelete) {
   this.modalService.open(userDelete, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
 }
-userDeleteModal(userDelete) {
+userDeleteModal(userDelete,id) {
+  this.VendorId = id
   this.modalService.open(userDelete, {backdropClass: 'light-blue-backdrop',centered: true,size: 'sm'});
 }
 edituserModal(edituser) {
@@ -249,13 +252,22 @@ GetVendor(){
     if([200,201].includes(res.code)){
      this.dataSource = new MatTableDataSource(res.data);
     this.count = res?.recordsTotal
+    this.IsnotEmpty = res.data
 }
+  })
+}
+DeleteVendor(){
+  this.service.delete(`vendor/delete-by-id/${this.VendorId}/`).subscribe((res:any)=>{
+    if([200,201].includes(res.code)){
+      this.GetVendor()
+      this.modalService.dismissAll()
+      this.toaster.success('Vendor deleted Successfully','Deleted')
+    }
   })
 }
 onPaginateChange(event) {
   console.log("page",event);
-  
-    this.PageSize =  event.pageSize
+  this.PageSize =  event.pageSize
     this.page = event.pageIndex ;
     this.GetVendor();
 }
@@ -265,7 +277,7 @@ Filter(event: any) {
     this.timer = window.setTimeout(() => {
       let filterValue = (event.target as HTMLInputElement).value;
       this.SearchValue=filterValue;
-     this.ngOnInit();
+     this.GetVendor();
     }, 1000)
   }
 }

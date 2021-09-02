@@ -1,5 +1,5 @@
 <div class="card">
-    <form action="#">
+    
         <div class="form-body">
             <div class="card-body">
                 <div class="row">
@@ -8,89 +8,142 @@
                     </div>
                 </div>
                 <!-- end row -->
-                <div class="row p-t-20">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">First Name</label>
-                            <input type="text" id="FirstName" class="form-control" placeholder="First Name">
-                        </div>
-                    </div>
-                    <!--/span-->
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Last Name</label>
-                            <input type="text" id="LastName" class="form-control" placeholder="Last Name">
-                        </div>
-                    </div>
-                    <!--/span-->
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Store Name</label>
-                            <input type="text" id="StoreName" class="form-control" placeholder="Store Name">
-                        </div>
-                    </div>
-                    <!--/span-->
-                    <div class="col-md-6">
-                        <div class="form-group has-success">
+                <form [formGroup]="VendorForm">
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Upload Vendor Profile</label>
-                                <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"><label class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
+                                <label class="control-label">First name</label>
+                                <input type="text" id="FirstName" class="form-control" placeholder="First name" formControlName="firstName" #name (keydown.space)="!name.value?$event.preventDefault():null">
+                                <span class="error" *ngIf="VendorForm.get('firstName').hasError('required') && VendorForm.get('firstName').touched">Please enter first name.</span>
+                                <span class="error" *ngIf="VendorForm.get('firstName').hasError('maxlength') && !VendorForm.get('firstName').hasError('pattern')">Maxlength should 30.</span>
+                                <span class="error" *ngIf="VendorForm.get('firstName').hasError('minlength') && !VendorForm.get('firstName').hasError('pattern')">Minlength should 3.</span>
+                                <span class="error" *ngIf="VendorForm.get('firstName').hasError('pattern')">Please enter alphabet only.</span>
                             </div>
                         </div>
-                    </div>
-                    <!--/span-->
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Phone Number</label>
-                            <input type="email" id="firstName" class="form-control" placeholder="example@gmail.com">
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Last name</label>
+                                <input type="text" id="LastName" class="form-control" placeholder="Last name" formControlName="lastName" #nam (keydown.space)="!nam.value?$event.preventDefault():null">
+                                <span class="error" *ngIf="VendorForm.get('lastName').hasError('required') && VendorForm.get('lastName').touched">Please enter last name.</span>
+                                <span class="error" *ngIf="VendorForm.get('lastName').hasError('maxlength') && !VendorForm.get('lastName').hasError('pattern')">Maxlength should 30.</span>
+                                <span class="error" *ngIf="VendorForm.get('lastName').hasError('minlength') && !VendorForm.get('lastName').hasError('pattern')">Minlength should 3.</span>
+                                <span class="error" *ngIf="VendorForm.get('lastName').hasError('pattern')">Please enter alphabet only.</span>
+                            </div>
                         </div>
-                    </div>
-                    <!--/span-->
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Email</label>
-                            <input type="email" id="firstName" class="form-control" placeholder="example@gmail.com">
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Store name</label>
+                                <input type="text" id="StoreName" class="form-control" placeholder="Store name" formControlName="StoreName" #na (keydown.space)="!na.value?$event.preventDefault():null">
+                                <span class="error" *ngIf="VendorForm.get('StoreName').hasError('required') && VendorForm.get('StoreName').touched">Please enter store name.</span>
+                            </div>
                         </div>
-                    </div>
-                    <!--/span-->
-                    <div class="col-md-12">
-                        <div class="form-group has-danger">
-                            <label class="control-label">Address</label>
-                            <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="#433 New garden Complex"></textarea>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group has-success">
+                                <div class="form-group">
+                                    <label class="control-label">Upload vendor profile</label>
+                                    <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file" (change)="uploadFile($event,'profile')"><label class="custom-file-label text-truncate" for="inputGroupFile01">{{ProfileImageUrl?ProfileImageUrl:'Choose file'}}</label></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group has-danger">
-                            <label class="control-label">Bio</label>
-                            <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="#433 New garden Complex"></textarea>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Phone number</label>
+                                <ngx-intl-tel-input
+                                [cssClass]="'form-control form-control-lg'"
+                                [preferredCountries]="[CountryISO.UnitedStates, CountryISO.UnitedKingdom]"
+                                [enableAutoCountrySelect]="false"
+                                [enablePlaceholder]="true"
+                                [separateDialCode]="true"
+                                [searchCountryFlag]="true"
+                                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                [selectFirstCountry]="false"
+                                [selectedCountryISO]="selectedCountry"
+                                [phoneValidation]="true"
+                                [maxLength]="15"
+                                [inputId]="'my-input-id'"
+                                name="phoneNo"
+                                formControlName="phoneNo"
+                              
+                            ></ngx-intl-tel-input><br>
+            <!-- <span class="error" *ngIf="VendorForm.get('phoneNo').hasError('required') && VendorForm.get('phoneNo').touched">Please enter phone number.</span> -->
+            <span class="error" *ngIf="VendorForm.get('phoneNo').hasError('validatePhoneNumber')">Invalid phone number.</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-12">
-                        <h4>Documents</h4>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="file" id="file" class="form-control">
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Email</label>
+                                <input type="email" id="firstName" class="form-control" placeholder="example@gmail.com" formControlName="email" #ema (keydown.space)="!ema.value?$event.preventDefault():null">
+                                <!-- <span class="error" *ngIf="VendorForm.get('email').hasError('required') && VendorForm.get('email').touched">Please enter email.</span> -->
+                                <span class="error" *ngIf="VendorForm.get('email').hasError('pattern')">Please enter valid email.</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="file" id="file" class="form-control">
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group has-danger">
+                                <label class="control-label">Address</label>
+                                <textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="#433 New garden Complex" formControlName="address" #add (keydown.space)="!add.value?$event.preventDefault():null" ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="AddressChange($event,add,'personal')"></textarea>
+                                <span class="error" *ngIf="VendorForm.get('address').hasError('required') && VendorForm.get('address').touched">Please enter address.</span>
+                      
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <button class="btn theme_btn">Add Document</button>
+                        <div class="col-md-6">
+                            <div class="form-group has-danger">
+                                <label class="control-label">Bio</label>
+                                <textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="About yourself" formControlName="about" #bio (keydown.space)="!bio.value?$event.preventDefault():null"></textarea>
+                                <span class="error" *ngIf="VendorForm.get('about').hasError('required') && VendorForm.get('about').touched">Please enter about yourself.</span>
+                         
+                            </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Store address</label>
+                                <textarea type="text" id="StoreName" class="form-control" placeholder="Store address" formControlName="StoreAddress" #n (keydown.space)="!n.value?$event.preventDefault():null" ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="AddressChange($event,n,'store')"></textarea>
+                                <span class="error" *ngIf="VendorForm.get('StoreAddress').hasError('required') && VendorForm.get('StoreAddress').touched">Please enter store address.</span>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group has-success">
+                                <div class="form-group">
+                                    <label class="control-label">Upload store images</label>
+                                    <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file" (change)="uploadFile($event,'store')"><label class="custom-file-label text-truncate" for="inputGroupFile01">{{StoreImage?StoreImage:'Choose file'}}</label></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <h4>Documents</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="custom-file"><input class="custom-file-input" (change)="uploadFile($event,'one')" accept="image/*" id="inputGroupFile01" type="file"
+                                    ><label class="custom-file-label text-truncate" for="inputGroupFile01">{{Doc1?Doc1:'Choose file'}}</label></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="custom-file"><input class="custom-file-input" (change)="uploadFile($event,'two')" accept="image/*" id="inputGroupFile01" type="file"
+                                ><label class="custom-file-label text-truncate" for="inputGroupFile01">{{Doc2?Doc2:'Choose file'}}</label></div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-6">
+                            <div class="form-group">
+                                <button class="btn theme_btn">Add Document</button>
+                            </div>
+                        </div> -->
+                        <!--/span-->
                     </div>
-                    <!--/span-->
-                </div>
+                </form>
                 <!--/row-->
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary mr-3"> Update </button>
+                    <button type="submit" class="btn btn-primary mr-3" (click)="UpdateVendor()"> Update </button>
                     <!-- <button type="button" class="btn btn-dark" >Cancel</button> -->
                 </div>
             </div>
         </div>
-    </form>
+ 
 </div>

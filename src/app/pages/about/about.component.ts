@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/_services/common.service';
-
+import Quill from 'quill';
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
@@ -15,6 +15,7 @@ TermConditionForm:FormGroup
     this.TermConditionForm = this.fb.group({
       terms_and_conditions:['',Validators.required]
     })
+    
    }
 
   ngOnInit(): void {

@@ -3,6 +3,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource, } from '@angular/material/table';
+import { CommonService } from 'src/app/_services/common.service';
+import { ActivatedRoute } from '@angular/router';
 
 export interface UserData {
   // hotelName: string,    
@@ -34,15 +36,18 @@ export class VendordetailComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  id: any;
 
-  ngOnInit(){
-    
-  }
-  constructor(private modalService: NgbModal) {
-    // const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(this.table);
+  ngOnInit(){}
+  constructor(private modalService: NgbModal,private service:CommonService,private route:ActivatedRoute) {
+    this.route.queryParams.subscribe((params)=>{
+      this.id = params.id;
+      this.service.get(`vendor/get-vendor-by-id/${params?.id}/`).subscribe((data:any)=>{
+      if([200,201].includes(data.code)){
+     this.dataSource = new MatTableDataSource(data.data);
+      }
+      })
+   })
   }
 
   ngAfterViewInit() {

@@ -80,7 +80,7 @@ import { SOSComponent } from './sos/sos.component';
 import { SpeechRecognitionComponent } from './speech-recognition/speech-recognition.component';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { AgmCoreModule } from '@agm/core';
-
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input'
 @NgModule({
   imports: [
 CommonModule,
@@ -105,6 +105,7 @@ CommonModule,
     MatNativeDateModule,
     GooglePlaceModule,
     AgmCoreModule,
+    NgxIntlTelInputModule
   ],
   declarations: [
     // HelperclassesComponent,

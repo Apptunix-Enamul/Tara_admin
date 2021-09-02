@@ -41,7 +41,7 @@
                 Vendor</button> -->
                     </div>
                     <div class="table-responsive">
-                        <table mat-table class=" w-100" [dataSource]="dataSource" matSort>
+                        <table mat-table class=" w-100" [dataSource]="dataSource" matSort *ngIf="IsnotEmpty">
                             <!-- ID Column -->
                             <ng-container matColumnDef="serial_no">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> # </th>
@@ -63,7 +63,7 @@
                       <td mat-cell *matCellDef="let row"> <a routerLink="/pages/vendors/vendorsdetail" routerLinkActive="router-link-active">{{row.id}}</a> </td>
                   </ng-container> -->
                             <!-- Progress Column -->
-                            <ng-container matColumnDef="restaurant" *ngIf="IsnotEmpty">
+                            <ng-container matColumnDef="restaurant">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Store Name </th>
                                 <td mat-cell *matCellDef="let row"> {{row.store_details[0].name}} </td>
                             </ng-container>
@@ -80,7 +80,7 @@
                             <!-- Progress Column -->
                             <ng-container matColumnDef="contact">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Phone Number </th>
-                                <td mat-cell *matCellDef="let row" class="text-nowrap"> <a href="tel:765453232">{{row?.country_code+" "+row?.phone_no||'--'}}</a> </td>
+                                <td mat-cell *matCellDef="let row" class="text-nowrap"> <a href="tel:765453232">{{(row?.country_code&&row?.phone_no)?row?.country_code+" "+row?.phone_no:'--'}}</a> </td>
                             </ng-container>
                             <!-- Progress Column -->
                             <ng-container matColumnDef="email">
@@ -99,7 +99,7 @@
                             </ng-container>
                             <ng-container matColumnDef="message">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Bio </th>
-                                <td mat-cell *matCellDef="let row"> <span style=" width: 300px; display: inline-block;">{{row.about_us}}</span> </td>
+                                <td mat-cell *matCellDef="let row"> <span>{{row.about_us}}</span> </td>
                             </ng-container>
                             <ng-container matColumnDef="doc">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Documents </th>

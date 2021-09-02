@@ -17,6 +17,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 
 @NgModule({
@@ -30,9 +33,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     VendorRoutingModule,
     MatSelectModule,
     MatDatepickerModule,
+    ReactiveFormsModule,
     MatTableModule,
     MatFormFieldModule,
     MatPaginatorModule,
@@ -41,6 +46,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatNativeDateModule,
     MatSlideToggleModule,
     MatExpansionModule,
+    NgxIntlTelInputModule,
+    GooglePlaceModule
   ]
 })
 export class VendorModule { }

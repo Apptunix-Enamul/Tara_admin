@@ -114,7 +114,14 @@ input[type=number] {
 .cursor_pointer {
     cursor: pointer;
 }
+.iti{
+    width: -webkit-fill-available;
+    
+}
 
+.iti--allow-dropdown input, .iti--allow-dropdown input[type=text], .iti--allow-dropdown input[type=tel]{
+    height: 37px;
+}
 /* .logo {
     background: #fff;
     padding: 10px;

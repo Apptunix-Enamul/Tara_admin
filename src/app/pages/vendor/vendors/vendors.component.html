@@ -39,11 +39,11 @@
                                 class="sl-icon-plus"></i> Add Vendor</button>
                     </div>
                     <div class="table-responsive">
-                        <table mat-table class=" w-100" [dataSource]="dataSource" matSort>
+                        <table mat-table class=" w-100" [dataSource]="dataSource" matSort *ngIf="IsnotEmpty">
                             <!-- ID Column -->
                             <ng-container matColumnDef="serial_no">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> # </th>
-                                <td mat-cell *matCellDef="let row ;let i = index;"> {{i+1}} </td>
+                                <td mat-cell *matCellDef="let row ;let i = index;"> {{PageSize * (page) + i+1}} </td>
                             </ng-container>
                             <ng-container matColumnDef="name">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> First name
@@ -64,7 +64,7 @@
                             <ng-container matColumnDef="restaurant">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Store name
                                 </th>
-                                <td mat-cell *matCellDef="let row"> Static </td>
+                                <td mat-cell *matCellDef="let row">  {{row.store_details[0].name}} </td>
                             </ng-container>
                             <!-- Progress Column -->
                             <!-- <ng-container matColumnDef="restaurant_delivery">
@@ -81,7 +81,7 @@
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Phone number
                                 </th>
                                 <td mat-cell *matCellDef="let row" class="text-nowrap"> <a
-                                        href="tel:765453232">{{row?.country_code+" "+row?.phone_no||'--'}}</a> </td>
+                                        href="tel:765453232">{{(row?.country_code&&row?.phone_no)?row?.country_code+" "+row?.phone_no:'--'}}</a> </td>
                             </ng-container>
                             <!-- Progress Column -->
                             <ng-container matColumnDef="email">
@@ -104,7 +104,7 @@
                             <ng-container matColumnDef="message">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Bio </th>
                                 <td mat-cell *matCellDef="let row"> <span
-                                        style=" width: 300px; display: inline-block;">{{row.about_us}}</span> </td>
+                                        >{{row.about_us}}</span> </td>
                             </ng-container>
                             <ng-container matColumnDef="doc">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Documents
@@ -150,7 +150,7 @@
                                             Action
                                         </button>
 
-                                        <div *ngIf="row.action==0" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                        <!-- <div *ngIf="row.action==0" ngbDropdownMenu aria-labelledby="dropdownBasic1">
                                             <a href="javascript:void()" class="dropdown-item"
                                                 (click)="vendorConfirmModal(vendorConfirm)"><i
                                                     class=" sl-icon-check"></i>
@@ -162,17 +162,17 @@
                                                 (click)="vendorUnconfirmModal(vendorUnconfirm)"><i
                                                     class="sl-icon-close"></i>
                                                 Reject</a>
-                                        </div>
+                                        </div> -->
 
-                                        <div *ngIf="row.action==1" ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                            <button class="dropdown-item" routerLink="/pages/vendors/editvendor"><i
+                                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                            <button class="dropdown-item" routerLink="/pages/vendors/editvendor" [queryParams]="{ id: row.id}"><i
                                                     _ngcontent-axh-c146="" class="ti-marker-alt"></i> Edit</button>
-                                            <a class="dropdown-item" routerLink="/pages/vendors/vendorsdetail"><i
+                                            <a class="dropdown-item" routerLink="/pages/vendors/vendorsdetail"[queryParams]="{ id: row.id}"><i
                                                     class="ti-eye"></i>
                                                 View
                                             </a>
 
-                                            <button class="dropdown-item" (click)="userDeleteModal(userDelete)"><i
+                                            <button class="dropdown-item" (click)="userDeleteModal(userDelete,row.id)"><i
                                                     class="ti-trash"></i>
                                                 Delete</button>
                                         </div>
@@ -224,10 +224,10 @@
     <!-- delete modal -->
     <ng-template #userDelete let-modal>
         <div class="modal-body">
-            <p>Are You Sure want to delete this vendor?</p>
+            <p>Are you want to delete this vendor?</p>
             <div class="btn-group">
                 <button type="button" class="btn btn-primary mr-2" aria-label="Close"
-                    (click)="modal.dismiss('Cross click')">Yes</button>
+                    (click)="DeleteVendor()">Yes</button>
                 <button type="button" class="btn btn-seconadary" aria-label="Close"
                     (click)="modal.dismiss('Cross click')">No</button>
             </div>
