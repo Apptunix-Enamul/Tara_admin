@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild} from '@angular/core';
+import { Component, OnInit,ViewChild, ViewEncapsulation} from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
@@ -7,6 +7,8 @@ import {MatTableDataSource, } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/_services/common.service';
+import { TooltipPosition } from '@angular/material/tooltip';
+import { ExportToCsv } from 'export-to-csv';
 export interface UserData {
   serial_no:string,
   name: string,    
@@ -30,9 +32,12 @@ export interface UserData {
 @Component({
   selector: 'app-vendors',
   templateUrl: './vendors.component.html',
-  styleUrls: ['./vendors.component.css']
+  styleUrls: ['./vendors.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class VendorsComponent implements OnInit {
+  positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
+  position = new FormControl(this.positionOptions[1]);
   closeResult: string;
   SearchValue:any = ''
   page:number = 0
@@ -48,8 +53,10 @@ export class VendorsComponent implements OnInit {
   timer: number;
   IsnotEmpty:any
   VendorId: any;
+  ExportPdf: any;
+  IsActive:any=''
   constructor(private modalService: NgbModal, private service:CommonService,private router:Router,private fb:FormBuilder,private toaster:ToastrService) {
-    this.dataSource = new MatTableDataSource(this.table);
+   
   }
   toppings = new FormControl();
   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
@@ -57,79 +64,14 @@ export class VendorsComponent implements OnInit {
     this.GetVendor()
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+  // ngAfterViewInit() {
+  //   this.dataSource.paginator = this.paginator;
+  //   this.dataSource.sort = this.sort;
+  // }
  discountModal(discount) {
     this.modalService.open(discount, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
   }
-  table = [
-    {    
-      serial_no:'1',
-      name: 'Sandy', 
-      lastname:'Doe',  
-      id: "#sand334553",
-      restaurant:'Big Bazar',  
-      restaurant_delivery:"Yes",
-      restaurant_type:"Italian",
-      contact:"+91-33434343",
-      dob:"12-02-1991",
-      email:"sand@example.com",
-      message:"It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-      address:"#454 1st Block, Rammurthy, Bangalore-560016",
-      doc:"View",
-      // completedOrders:"50",
-      // cancelledOrders:"0",
-      // pendingOrders:"0",
-      // totalOrders:"50",
-      status:"",
-      action:"1",      
-    },
-    {  
-      serial_no:'2', 
-      name: 'Rohan',  
-      lastname:'Doe',  
-      id: "#rohan334553", 
-      restaurant:'Big Bazar',  
-      restaurant_delivery:"Yes", 
-      restaurant_type:"Indian",
-      contact:"+91-33434343",
-      dob:"12-02-1991",
-      email:"sand@example.com",  
-      message:"It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-      address:"#454 1st Block, Rammurthy, Bangalore-560016",
-      doc:"View",
-      // completedOrders:"10",
-      // cancelledOrders:"0",
-      // pendingOrders:"30",
-      // totalOrders:"40",
-      status:"",
-      action:"1",      
-    },
-    {    
-      serial_no:'3',
-      name: 'john',  
-      lastname:'Root',  
-      id: "#rohan334553",
-      restaurant:'Big Bazar',
-      restaurant_delivery:"Yes", 
-      restaurant_type:"Chiness",
-      contact:"+91-33434343",
-      dob:"12-02-1991",
-      email:"sand@example.com", 
-      message:"It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-      address:"#454 1st Block, Rammurthy, Bangalore-560016",   
-      doc:"View",
-      // completedOrders:"20",
-      // cancelledOrders:"10",
-      // pendingOrders:"10",
-      // totalOrders:"30",
-      status:"",
-      action:"1",      
-    },
-   
-  ]
+  
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -179,10 +121,27 @@ private getDismissReason(reason: any): string {
     return  `with: ${reason}`;
   }
 }
+changeStatus(event, id) {
+  this.toaster.clear()
+  const data = {
+    is_active: event.checked,
+  };
+  this.service.put(`vendor/change-vendor-status-by-id/${id}/`, data).subscribe((res: any) => {
+    if([200,201].includes(res.code)){
+   this.toaster.success(event.checked?'Status Activated':'Status Deactivated',event.checked?'Activated':'Deactivated')
+ }
+ });
+}
+FilterByStatus(ref){
+this.IsActive = ref
+ this.GetVendor()
+
+}
 GetVendor(){
   let obj = {
     "draw": 2,
     "is_approved":true,
+    "is_active":this.IsActive,
     "columns": [
         {
             "data": "first_name",
@@ -247,9 +206,11 @@ GetVendor(){
         "regex": false
     }
 }
+if(this.IsActive==''){
+  delete obj.is_active
+}
   this.service.post(`vendor/vendor-list-pagination/`,obj).subscribe((res:any)=>{
-    console.log('Vendor get',res);
-    if([200,201].includes(res.code)){
+  if([200,201].includes(res.code)){
      this.dataSource = new MatTableDataSource(res.data);
     this.count = res?.recordsTotal
     this.IsnotEmpty = res.data
@@ -266,7 +227,7 @@ DeleteVendor(){
   })
 }
 onPaginateChange(event) {
-  console.log("page",event);
+  
   this.PageSize =  event.pageSize
     this.page = event.pageIndex ;
     this.GetVendor();
@@ -279,5 +240,42 @@ Filter(event: any) {
       this.SearchValue=filterValue;
      this.GetVendor();
     }, 1000)
+  }
+  Export(){
+    this.service.get(`vendor/get-all-vendor-list/`).subscribe((res:any)=>{
+      console.log('Called',res.data);
+      this.ExportPdf = res.data
+        this.Expotable(this.ExportPdf)
+    })
+  }
+  Expotable(Exportdata){
+    let dataArr = [];
+    Exportdata.forEach((element, ind) => {
+      dataArr.push({
+      '#': ind + 1,
+      'First name': element?.first_name ? element.first_name : '--',
+      'Last name': element?.last_name ? element?.last_name : '--',
+      'Store name':element?.store_details[0] ? element?.store_details[0].name : '--',
+       'Store address':element?.store_details[0] ? element?.store_details[0].address : '--',
+      'Phone no': (element?.country_code&&element?.phone_no)?element?.country_code+" "+element?.phone_no:'--',
+      'Email id': element.email ? element.email : '--',
+      'Address': element.address ? element.address : '--',
+      'About': element.about_us ? element.about_us : '--',
+      'Status': element.is_active ? 'Active' : 'Inactive',
+      })
+      })
+  const options = { 
+    fieldSeparator: ',',
+    quoteStrings: '"',
+    decimalSeparator: '.',
+    showLabels: true, 
+    showTitle: true,
+    title: 'Vendor details',
+    useTextFile: false,
+    useBom: true,
+    useKeysAsHeaders: true,
+  };
+const csvExporter = new ExportToCsv(options);
+csvExporter.generateCsv(dataArr);
   }
 }

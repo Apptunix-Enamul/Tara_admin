@@ -1,10 +1,12 @@
-import {  AfterViewInit,Component, OnInit,ViewChild } from '@angular/core';
+import {  AfterViewInit,Component, OnInit,ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource, } from '@angular/material/table';
 import { CommonService } from 'src/app/_services/common.service';
 import { ActivatedRoute } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { TooltipPosition } from '@angular/material/tooltip';
 
 export interface UserData {
   // hotelName: string,    
@@ -25,11 +27,16 @@ export interface UserData {
 @Component({
   selector: 'app-vendordetail',
   templateUrl: './vendordetail.component.html',
-  styleUrls: ['./vendordetail.component.css']
+  styleUrls: ['./vendordetail.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class VendordetailComponent implements OnInit {
+  positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
+  position = new FormControl(this.positionOptions[1]);
   closeResult: string;
   //table: any
+  lat:any = 40.7127753;
+  lng:any = -74.0059728;
   displayedColumns: string[] = ['serial_no','name', 'ordered_item', 'address', 'price'];
   displayedColumns2: string[] = ['serial_no','name', 'ordered_item', 'address', 'price'];
   dataSource: MatTableDataSource<UserData>;
@@ -37,6 +44,7 @@ export class VendordetailComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   id: any;
+  VendorDetails: any;
 
   ngOnInit(){}
   constructor(private modalService: NgbModal,private service:CommonService,private route:ActivatedRoute) {
@@ -45,15 +53,18 @@ export class VendordetailComponent implements OnInit {
       this.service.get(`vendor/get-vendor-by-id/${params?.id}/`).subscribe((data:any)=>{
       if([200,201].includes(data.code)){
      this.dataSource = new MatTableDataSource(data.data);
+     this.VendorDetails = data?.data
+     this.lat = Number(this.VendorDetails?.latitude)
+     this.lng = Number(this.VendorDetails?.longitude)
       }
       })
    })
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+  // ngAfterViewInit() {
+  //   this.dataSource.paginator = this.paginator;
+  //   this.dataSource.sort = this.sort;
+  // }
 
   
   discountModal(discount) {

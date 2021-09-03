@@ -20,6 +20,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { AgmCoreModule } from '@agm/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
     MatSlideToggleModule,
     MatExpansionModule,
     NgxIntlTelInputModule,
-    GooglePlaceModule
+    GooglePlaceModule,
+    AgmCoreModule,
+    MatTooltipModule,
   ]
 })
 export class VendorModule { }
