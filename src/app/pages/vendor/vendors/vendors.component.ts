@@ -1,7 +1,7 @@
 import { Component, OnInit,ViewChild, ViewEncapsulation} from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormControl} from '@angular/forms';
-import {MatPaginator} from '@angular/material/paginator';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource, } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -40,7 +40,7 @@ export class VendorsComponent implements OnInit {
   position = new FormControl(this.positionOptions[1]);
   closeResult: string;
   SearchValue:any = ''
-  page:number = 0
+  page:number = 1
   PageSize:number = 10
   count:number = 0
   displayedColumns: string[] = [ 'serial_no','name', 'lastname', 'restaurant', 'contact', 'email','address','message', 'doc','status','action'];
@@ -222,17 +222,25 @@ DeleteVendor(){
     if([200,201].includes(res.code)){
       this.GetVendor()
       this.modalService.dismissAll()
-      this.toaster.success('Vendor deleted Successfully','Deleted')
+      this.toaster.success('Vendor deleted successfully','Deleted')
     }
   })
 }
-onPaginateChange(event) {
-  
-  this.PageSize =  event.pageSize
-    this.page = event.pageIndex ;
-    this.GetVendor();
-}
 
+onPaginateChange(e): PageEvent {
+      if (e.pageIndex == 0) {
+        this.page = e.pageIndex;
+      } else {
+        if (e.previousPageIndex < e.pageIndex) {
+          this.page =this.page+ e.pageSize;
+        } else {
+          this.page =this.page-e.pageSize;
+        }
+      }
+      this.PageSize = e.pageSize
+      this.GetVendor();
+      return e;
+  }
 Filter(event: any) {
     window.clearTimeout(this.timer);
     this.timer = window.setTimeout(() => {

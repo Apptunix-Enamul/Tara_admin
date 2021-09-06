@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body">
-        <form [formGroup]="SubadminForm">
+        <form [formGroup]="SubadminForm" #inputMessage>
             <div class="form-body">
               <div class="card-body">
                 <div class="row p-t-20">
@@ -54,8 +54,8 @@
                     <div class="form-group has-success">
                       <div class="form-group">
                         <label class="control-label">Upload Profile</label>
-                        <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"><label
-                            class="custom-file-label text-truncate" for="inputGroupFile01">Choose file</label></div>
+                        <div class="custom-file"><input class="custom-file-input" (change)="uploadFile($event)" id="inputGroupFile01" type="file"><label
+                            class="custom-file-label text-truncate" for="inputGroupFile01">{{profileUrl?profileUrl:'Choose file'}}</label></div>
                       </div>
                     </div>
                   </div>
@@ -277,14 +277,14 @@
                                 <td> Geofence </td>
                                 <td>
                                     <div class="custom-control custom-checkbox">
-                                        <input   class="custom-control-input" formControlName="isGeofenceAdd" id="customCheck14" type="checkbox">
-                                        <label class="custom-control-label" for="customCheck14"></label>
+                                        <input   class="custom-control-input" formControlName="isfenceAdd" id="customCheck114" type="checkbox">
+                                        <label class="custom-control-label" for="customCheck114"></label>
                                     </div>
                                  </td>
                                  <td>
                                     <div class="custom-control custom-checkbox">
-                                        <input   class="custom-control-input" formControlName="isGeofenceView" id="customCheck15" type="checkbox">
-                                        <label class="custom-control-label" for="customCheck15"></label>
+                                        <input   class="custom-control-input" formControlName="isfenceView" id="customCheck115" type="checkbox">
+                                        <label class="custom-control-label" for="customCheck115"></label>
                                     </div>
                                  </td>    
                             </tr>

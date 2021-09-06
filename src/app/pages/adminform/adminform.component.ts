@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CountryISO, SearchCountryField, PhoneNumberFormat } from 'ngx-intl-tel-input';
@@ -17,6 +17,10 @@ export class AdminformComponent implements OnInit {
 	CountryISO = CountryISO;
   PhoneNumberFormat = PhoneNumberFormat;
 	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+  @ViewChild('inputMessage')
+inputMessageRef: ElementRef;
+  subAdminPicId: any;
+  profileUrl: any;
   constructor(private fb:FormBuilder,private service:CommonService,private toaster:ToastrService,private router:Router) {
     this.SubadminForm = this.fb.group({
       password:['',[Validators.required,Validators.minLength(8)]],
@@ -24,11 +28,6 @@ export class AdminformComponent implements OnInit {
       lastName:['',[Validators.required,Validators.minLength(3),Validators.maxLength(30),Validators.pattern(/^[a-zA-Z ]*$/i)]],
       phoneNo:['',[Validators.required]],
       email:['',[Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],
-      // permission:this.fb.array([
-
-
-      // ]),
-      //Dashboard Permissions
     isDashboardAdd: [false],
     isDashboardView: [false],
   // Users Permissions
@@ -66,8 +65,8 @@ export class AdminformComponent implements OnInit {
     isMembershipAdd: [false],
     isMembershipView: [false],
     // Geofence
-    isGeofenceAdd: [false],
-    isGeofenceView: [false],
+    isfenceAdd: [false],
+    isfenceView: [false],
     // CMS
     isCMSAdd: [false],
     isCMSView: [false],
@@ -75,11 +74,43 @@ export class AdminformComponent implements OnInit {
 }
 ngOnInit(): void {
   }
+
+  sendFile(fileData) {
+    let formdata = new FormData()
+    formdata.append('media', fileData);
+    this.service.postApi(`upload/media/`,formdata).subscribe((res: any) => {
+      console.log("Imager api called",res);
+      if ([200,201].includes(res.code)) {
+        this.toaster.success('File uploaded successfully','File')
+          this.subAdminPicId = res.data[0].id
+      }
+    });
+  }
+  uploadFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      var type = event.target.files[0].type;
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      if (type === 'image/png' || type === 'image/jpg' || type === 'image/jpeg') {
+        let fileData = event.target.files[0];
+        this.sendFile(fileData)
+        reader.onload = (event) => { // called once readAsDataURL is completed
+            this.profileUrl =fileData.name
+        }
+      }else{
+        this.toaster.error('File format not supported','File Error')
+      }
+    }
+  }
+
   SaveData(){
 if(this.SubadminForm.valid){
   this.DataSubmission()
 }else{
   this.SubadminForm.markAllAsTouched()
+  // document.body.scrollTop = 0;
+  //  document.documentElement.scrollTop = 0;
+   this.inputMessageRef.nativeElement.scrollIntoView({ behavior: 'smooth'});
 }
 }
 
@@ -87,7 +118,7 @@ DataSubmission(){
 let obj = {
   "first_name": this.SubadminForm.value.firstName,
   "last_name": this.SubadminForm.value.lastName,
-  "image": "1",
+  "image": this.subAdminPicId,
   "email":this.SubadminForm.value.email,
   "phone_no":this.SubadminForm.controls['phoneNo'].value?.number?this.SubadminForm.controls['phoneNo'].value?.number?.replace(/ /g,''):null,
   "country_code":this.SubadminForm.controls['phoneNo'].value?.dialCode?this.SubadminForm.controls['phoneNo'].value?.dialCode:null,
@@ -150,8 +181,8 @@ let obj = {
       },
       {
           "module": 'Geofence',
-          "is_add_edit": this.SubadminForm.value.isGeofenceAdd,
-          "is_view": this.SubadminForm.value.isGeofenceView
+          "is_add_edit": this.SubadminForm.value.isfenceAdd,
+          "is_view": this.SubadminForm.value.isfenceView
       },
       {
         "module": 'CMS',

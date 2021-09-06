@@ -81,6 +81,7 @@ import { SpeechRecognitionComponent } from './speech-recognition/speech-recognit
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { AgmCoreModule } from '@agm/core';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input'
+import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   imports: [
 CommonModule,
@@ -105,7 +106,8 @@ CommonModule,
     MatNativeDateModule,
     GooglePlaceModule,
     AgmCoreModule,
-    NgxIntlTelInputModule
+    NgxIntlTelInputModule,
+    MatTooltipModule,
   ],
   declarations: [
     // HelperclassesComponent,

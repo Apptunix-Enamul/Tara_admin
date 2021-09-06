@@ -1,20 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
   CdkDrag,} from '@angular/cdk/drag-drop';
+import { CommonService } from 'src/app/_services/common.service';
+import { ToastrService } from 'ngx-toastr';
+import { TooltipPosition } from '@angular/material/tooltip';
+import { PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-food-categories',
   templateUrl: './food-categories.component.html',
-  styleUrls: ['./food-categories.component.scss']
+  styleUrls: ['./food-categories.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class FoodCategoriesComponent implements OnInit {
   panelOpenState = false;
   closeResult: string;
+  SearchValue:any = ''
+  page:number = 1
+  PageSize:number = 10
+  count:number = 0
+  CategoryForm:FormGroup
   SubcategoryForm:FormGroup
-  
   movies = [
     'Episode I - The Phantom Menace',
     'Episode II - Attack of the Clones',
@@ -38,16 +47,198 @@ export class FoodCategoriesComponent implements OnInit {
   dishType: string[] = ['Veg', 'Non-Veg'];
   cusinine: string[] = ['Indian', 'Italian ', 'Chiness',];
   active = 1;
-  constructor(private modalService: NgbModal) {
+  imageId: any;
+  ImageUrl: any;
+  catId: any;
+  IsUpdate:any
+  CategoryData: any;
+  positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
+  position = new FormControl(this.positionOptions[1]);
+  SubCategoryData: any;
+  message: string;
+  constructor(private modalService: NgbModal,private fb:FormBuilder,private service:CommonService,private toaster:ToastrService) {
+    this.CategoryForm = this.fb.group({
+      name:['',[Validators.required,Validators.maxLength(30)]],
+      description:['',Validators.required],
+      tax_percentage:['',[Validators.required,Validators.maxLength(2)]]
+    })
   }
   ngOnInit() {
+    this.GetCategory()
     this.buildForm();
     this.addUser();
   }
-
+  GetSubCategory(id){
+    this.catId = id
+    let obj = {
+      "draw": 2,
+      "columns": [
+          {
+              "data": "first_name",
+              "name": "",
+              "searchable": true,
+              "orderable": true,
+              "search": {
+                  "value": "",
+                  "regex": false
+              }
+          },
+          {
+              "data": "last_name",
+              "name": "",
+              "searchable": true,
+              "orderable": true,
+              "search": {
+                  "value": "",
+                  "regex": false
+              }
+          },
+          {
+              "data": "phone_number",
+              "name": "",
+              "searchable": true,
+              "orderable": true,
+              "search": {
+                  "value": "",
+                  "regex": false
+              }
+          },
+          {
+              "data": "email",
+              "name": "",
+              "searchable": true,
+              "orderable": true,
+              "search": {
+                  "value": "",
+                  "regex": false
+              }
+          },
+          {
+              "data": "id",
+              "name": "",
+              "searchable": true,
+              "orderable": true,
+              "search": {
+                  "value": "",
+                  "regex": false
+              }
+          }
+      ],
+      "order": [
+          {
+              "column": 3,
+              "dir": "undefined"        }
+      ],
+      "start": 0,
+      "length": 10,
+      "search": {
+          "value": "",
+          "regex": false
+      }
+  }
+    this.service.post(`product/get-product-sub-category-with-pagination/${id}/`,obj).subscribe((res:any)=>{
+    if([200,201].includes(res?.code)){
+      console.log('Get sub cat called',res);
+      // this.count = res?.recordsTotal
+      // this.IsnotEmpty = res.data
+      this.SubCategoryData = res.data
+  }
+    })
+  }
+  onPaginateChange(e): PageEvent {
+    if (e.pageIndex == 0) {
+      this.page = e.pageIndex;
+    } else {
+      if (e.previousPageIndex < e.pageIndex) {
+        this.page =this.page+ e.pageSize;
+      } else {
+        this.page =this.page-e.pageSize;
+      }
+    }
+    this.PageSize = e.pageSize
+    this.GetCategory();
+    return e;
+}
+  GetCategory(){
+    
+    let obj = {
+      "draw": 2,
+      "columns": [
+          {
+              "data": "first_name",
+              "name": "",
+              "searchable": true,
+              "orderable": true,
+              "search": {
+                  "value": "",
+                  "regex": false
+              }
+          },
+          {
+              "data": "last_name",
+              "name": "",
+              "searchable": true,
+              "orderable": true,
+              "search": {
+                  "value": "",
+                  "regex": false
+              }
+          },
+          {
+              "data": "phone_number",
+              "name": "",
+              "searchable": true,
+              "orderable": true,
+              "search": {
+                  "value": "",
+                  "regex": false
+              }
+          },
+          {
+              "data": "email",
+              "name": "",
+              "searchable": true,
+              "orderable": true,
+              "search": {
+                  "value": "",
+                  "regex": false
+              }
+          },
+          {
+              "data": "id",
+              "name": "",
+              "searchable": true,
+              "orderable": true,
+              "search": {
+                  "value": "",
+                  "regex": false
+              }
+          }
+      ],
+      "order": [
+          {
+              "column": 3,
+              "dir": "undefined"        }
+      ],
+      "start": 0,
+      "length": 10,
+      "search": {
+          "value": "",
+          "regex": false
+      }
+  }
+    this.service.post(`product/get-product-category-with-pagination/`,obj).subscribe((res:any)=>{
+    if([200,201].includes(res.code)){
+      console.log('Get cat called',res);
+      this.count = res?.recordsTotal
+      // this.IsnotEmpty = res.data
+      this.CategoryData = res.data
+  }
+    })
+  }
   buildForm() {
     this.SubcategoryForm = new FormGroup({
-      name:new FormControl(''),
+      name:new FormControl('',[Validators.required,Validators.maxLength(30)]),
       productLabels: new FormArray([])
     })
   }
@@ -59,7 +250,9 @@ addUser() {
     const remove = this.SubcategoryForm.get('productLabels') as FormArray;
     remove.removeAt(i);
   }
-  deleteBoxModal(userDelete) {
+  deleteBoxModal(userDelete,id) {
+    
+    this.catId = id
     this.modalService.open(userDelete, {backdropClass: 'light-blue-backdrop',centered: true,size: 'sm'});
   }
 
@@ -72,61 +265,105 @@ addUser() {
   addsubCategoryModel(addsubCategory) {
     this.modalService.open(addsubCategory, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
   }
-  addCategoryModel(addCategory) {
+  addCategoryModel(addCategory,obj) {
+    this.IsUpdate = obj
+    if(obj==''){
+      this.ImageUrl = undefined
+      this.imageId = undefined
+      this.CategoryForm.reset()
+    }else{
+      this.ImageUrl = obj?.category_image?.media_file_url
+      this.imageId = obj?.category_image?.id
+      this.CategoryForm.patchValue(obj)
+    }
     this.modalService.open(addCategory, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
   }
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+  sendFile(fileData) {
+    let formdata = new FormData()
+    formdata.append('media', fileData);
+    this.service.postApi(`upload/media/`,formdata).subscribe((res: any) => {
+      console.log("Imager api called",res);
+      if ([200,201].includes(res.code)) {
+        this.toaster.success('File uploaded successfully','File')
+          this.imageId = res.data[0].id
+      }
+    });
   }
-
-  orientationDrop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(
-      this.horizontalOrientation,
-      event.previousIndex,
-      event.currentIndex
-    );
-  }
-
-  onDrop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+  uploadFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      var type = event.target.files[0].type;
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      if (type === 'image/png' || type === 'image/jpg' || type === 'image/jpeg') {
+        let fileData = event.target.files[0];
+        this.sendFile(fileData)
+        reader.onload = (event) => { // called once readAsDataURL is completed
+            this.ImageUrl =fileData.name
+        }
+      }else{
+        this.toaster.error('File format not supported','File Error')
+      }
     }
   }
- 
-  orientationDrop1(event: CdkDragDrop<string[]>) {
-    moveItemInArray(
-      this.listfooditems,
-      event.previousIndex,
-      event.currentIndex
-    );
-  }
-
-  onDrop1(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+  SaveCategory(ref){
+    this.toaster.clear()
+    if(ref=='cat'){
+      if(this.CategoryForm.valid){
+        this.DataSubmission(ref)
+      }else{this.CategoryForm.markAllAsTouched()
+      }
+    }else{
+if(this.SubcategoryForm.valid){
+  this.DataSubmission(ref)
+}else{
+  this.SubcategoryForm.markAllAsTouched()
+}
     }
   }
+  DataSubmission(FOR){
+let urlAdd = `product/create-category/`
+let urlUpdate = ``
+    if(FOR=='cat'){
+      let obj ={
+        "name":this.CategoryForm.value.name,
+        "category_image":this.imageId,
+        "description":this.CategoryForm.value.description,
+        "tax_percentage":this.CategoryForm.value.tax_percentage
+    }
+      this.service.post(`product/create-category/`,obj).subscribe((res:any)=>{
+        if ([200,201].includes(res.code)){
+          this.GetCategory()
+          this.toaster.success('New category created','Success')
+          this.modalService.dismissAll()
+          this.imageId = undefined
+          this.ImageUrl=undefined
+        }
+      })
+    }else{
+      let obj ={
+      "name":this.SubcategoryForm.value.name,
+      "sub_category_image":this.imageId,
+      "category":this.catId
+    }
+      this.service.post(`product/create-sub-category/`,obj).subscribe((res:any)=>{
+        if ([200,201].includes(res.code)){
+          this.toaster.success('New sub category added','Success')
+          this.GetSubCategory(this.catId)
+          this.modalService.dismissAll()
+          this.imageId = undefined
+          this.ImageUrl=undefined
+        }
+      })
+    }
+}
+DeleteVendor(){
+  this.service.delete(`product/delete-product-category/${this.catId}`).subscribe((res:any)=>{
+    if([200,201].includes(res.code)){
+      this.GetCategory()
+      this.modalService.dismissAll()
+      this.toaster.success('Category deleted successfully','Deleted')
+    }
+  })
+}
 }
 

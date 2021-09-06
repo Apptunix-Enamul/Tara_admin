@@ -2,7 +2,7 @@
 import { Component, OnInit,ViewChild} from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormControl} from '@angular/forms';
-import {MatPaginator} from '@angular/material/paginator';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource, } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -37,7 +37,7 @@ export class VendorRequestComponent implements OnInit {
   closeResult: string;
   SearchValue:any = ''
   timer: number;
-  page:number = 0
+  page:number = 1
   PageSize:number = 10
   count:number = 0
   VendorDocOne: any;
@@ -273,10 +273,19 @@ GetVendorRequest(){
 }
   })
 }
-onPaginateChange(event) {
-  this.PageSize =  event.pageSize
-    this.page = event.pageIndex ;
-    this.GetVendorRequest();
+onPaginateChange(e): PageEvent {
+  if (e.pageIndex == 0) {
+    this.page = e.pageIndex;
+  } else {
+    if (e.previousPageIndex < e.pageIndex) {
+      this.page =this.page+ e.pageSize;
+    } else {
+      this.page =this.page-e.pageSize;
+    }
+  }
+  this.PageSize = e.pageSize
+  this.GetVendorRequest();
+  return e;
 }
 submitCommission(){
   this.toaster.clear()

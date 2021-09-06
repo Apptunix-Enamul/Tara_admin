@@ -1,57 +1,42 @@
 <div class="card">
   <div class="card-body">
-    <!-- <div class="row">
-      <div class="col-md-12 text-right">
-        <div class="add-categories ">
-          <button class="btn btn-seconadary mb-2" (click)="addCategoryModel(addCategory)"><i class="sl-icon-plus"></i>
-            Add Categories</button>
-
-        </div>
-      </div>
-    </div> -->
-
     <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
       <li [ngbNavItem]="1">
         <a ngbNavLink>Category</a>
         <ng-template ngbNavContent>
           <div class="row">
             <div class="col-md-12 text-right">
-              <button class="btn btn-primary mb-2" (click)="addCategoryModel(addCategory)">Add Category</button>
+              <button class="btn btn-primary mb-2" (click)="addCategoryModel(addCategory,'')">Add Category</button>
             </div>
           </div>
           <ul
-          class="list-group list-group-horizontal-lg pl-0 mt-4"
-          cdkDropList
-          cdkDropListOrientation="vertical"
-          (cdkDropListDropped)="orientationDrop($event)"
-           *ngIf="horizontalOrientation.length>0" 
-        >
+          class="list-group list-group-horizontal-lg pl-0 mt-4">
           <li
             class="list-group-item cursor-pointer "    
-            cdkDrag
-            *ngFor="let item of horizontalOrientation; let i=index" 
+            *ngFor="let item of CategoryData; let i=index" 
           >
           <ngb-accordion #acc="ngbAccordion" [closeOthers]="true"   class="">
             <ngb-panel id="ngb-panel-1" class="mb-2">
               <ng-template  ngbPanelHeader let-opened="i==0?'opened':''"> 
                 <div class="row box-tab">
                   <div class="col-md-2">
-                    <h3 class="mb-0"> <img width="100px" class="mr-2" src="assets/images/food/1.jpg" alt=""> <span class="d-block mt-2">{{item.name}}</span> </h3>
+                    <h3 class="mb-0"> <img width="100px" height="70" class="mr-2" [src]="item?.category_image?.media_file_url?item?.category_image?.media_file_url:'assets/images/food/noTImg.jpg'" alt=""> 
+                    <span class="d-block mt-2 text-nowrap">{{item?.name}}</span> </h3>
                   </div>
                   <div class="col-md-5 text-left">
-                    <p>{{item.description}}</p>
+                    <p>{{item?.description|slice:0:50}}<a href="javascript:void()" matTooltipClass="example-tooltip-red" matTooltipPosition="above" *ngIf="item?.description?.length>50" [matTooltip]="item?.description">...Read More</a></p>
                   </div>
                   <div class="col-md-1">
-                    <p>{{item.tax}}</p>
+                    <p>{{item?.tax_percentage}}</p>
                   </div>
                   <div class="col-md-3">
                     <div class="delete-categories">
-                      <span class="btn btn-primary mr-2" (click)="addCategoryModel(addCategory)"><i class="ti-marker-alt"></i> </span>
-                      <span class="btn btn-danger" (click)="deleteBoxModal(deleteBox)"><i class="ti-trash"></i> </span>
+                      <span class="btn btn-primary mr-2" (click)="addCategoryModel(addCategory,item)"><i class="ti-marker-alt"></i> </span>
+                      <span class="btn btn-danger" (click)="deleteBoxModal(deleteBox,item?.id)"><i class="ti-trash"></i> </span>
                     </div>             
                   </div>
                   <div class="col-md-1 p-4">
-                    <button ngbPanelToggle class="btn btn-link p-0"><i class="sl-icon-arrow-down"></i></button>
+                    <button ngbPanelToggle class="btn btn-link p-0" (click)="GetSubCategory(item?.id)"><i class="sl-icon-arrow-down"></i></button>
                   </div>
                 </div>
               </ng-template>
@@ -60,30 +45,25 @@
                   <table class="table v-middle product-overview "  >
                     <tr>
                       <td>
-                      
-                      <table class=" table" cdkDropList
-                    cdkDropListOrientation="vertical"
-                    (cdkDropListDropped)="orientationDrop1($event)" >
-
-                    <tr>
-                      
+                      <table class=" table">
+                      <tr>
                       <th>Image</th>
-                      <th>Description</th>
+                      <th>Name</th>
                       <th>Action</th>
                     </tr>
                    
-                    <tr  *ngFor="let listfood of listfooditems" class="bg-white" cdkDrag>
+                    <tr  *ngFor="let objItem of SubCategoryData" class="bg-white">
                       <td>
-                        <span class="img-small"><img src="assets/images/food/1.jpg" alt="iMac" width="60"
+                        <span class="img-small"><img [src]="objItem?.sub_category_image?.media_file_url?objItem?.sub_category_image?.media_file_url:'assets/images/food/noTImg.jpg'" alt="iMac" width="60"
                             class="rounded"></span>
                       </td>
                       <td>
-                        {{listfood.name}}
+                        {{objItem?.name}}
                       </td>
                       <td>
                         <a href="javascript:void()" (click)="editBoxModal(editModel)" class="mr-2"><i
                             class="ti-marker-alt"></i> </a>
-                        <a href="javascript:void()" (click)="deleteBoxModal(deleteBox)"><i class="ti-trash"></i> </a>
+                        <a href="javascript:void()" (click)="deleteBoxModal(deleteBox,objItem?.id)"><i class="ti-trash"></i> </a>
                       </td>
                     </tr>   
                   </table>
@@ -101,136 +81,13 @@
      
           </li>      
         </ul>
+        <div class="col-md-12 text-right">
+          <mat-paginator [length]="count" [pageSize]="PageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPaginateChange($event)">
+          </mat-paginator>
+      </div>
         </ng-template>
       </li>
-      <!-- <li [ngbNavItem]="2">
-        <a ngbNavLink>Food Type</a>
-        <ng-template ngbNavContent>
-          <div class="row">
-            <div class="col-md-12 text-right">
-              <button class="btn btn-primary mb-2" (click)="addCategoryModel(cusinine)">Add Food Type</button>
-            </div>
-          </div>
-          <div class="table-reponsive">
-            <table class="table">
-              <thead>
-                <th>Name</th>
-                <th>Image</th>
-                <th>description</th>
-                <th>Action</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Non-veg</td>
-                  <td><img src="assets/images/food/1.jpg" alt="" width="60px"></td>
-    
-                  <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse blandit nisi enim, sit amet
-                    interdum purus commodo in. Fusce non molestie nibh, vitae blandit risus. Vestibulum suscipit suscipit
-                    mauris, quis gravida tortor bibendum quis. Sed mollis est at enim consectetur ullamcorper non ac arcu.
-                    Pellentesque sit amet lorem malesuada, molestie massa quis, ultricies mi. Etiam nec arcu elementum,
-                    pharetra tellus quis, tincidunt nibh. Fusce mollis eget purus at finibus. Vestibulum at lectus in eros
-                    tincidunt elementum.</td>
-    
-                    <td><a href="javascript:void()" (click)="addCategoryModel(cusinine)"><i class="mdi mdi-lead-pencil"></i></a> <a href=javascript:void(); (click)="deleteBoxModal(deleteBox)"><i class="ti-trash"></i> </a></td>
-    
-                </tr>
-                <tr>
-                  <td>Veg</td>
-                  <td><img src="assets/images/food/1.jpg" alt="" width="60px"></td>
-    
-                  <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse blandit nisi enim, sit amet
-                    interdum purus commodo in. Fusce non molestie nibh, vitae blandit risus. Vestibulum suscipit suscipit
-                    mauris, quis gravida tortor bibendum quis. Sed mollis est at enim consectetur ullamcorper non ac arcu.
-                    Pellentesque sit amet lorem malesuada, molestie massa quis, ultricies mi. Etiam nec arcu elementum,
-                    pharetra tellus quis, tincidunt nibh. Fusce mollis eget purus at finibus. Vestibulum at lectus in eros
-                    tincidunt elementum.</td>
-    
-                    <td><a href="javascript:void()" (click)="addCategoryModel(cusinine)"><i class="mdi mdi-lead-pencil"></i></a> <a href=javascript:void(); (click)="deleteBoxModal(deleteBox)"><i class="ti-trash"></i> </a></td>
-    
-                </tr>
-                <tr>
-                  <td>Vegan</td>
-                  <td><img src="assets/images/food/1.jpg" alt="" width="60px"></td>
-    
-                  <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse blandit nisi enim, sit amet
-                    interdum purus commodo in. Fusce non molestie nibh, vitae blandit risus. Vestibulum suscipit suscipit
-                    mauris, quis gravida tortor bibendum quis. Sed mollis est at enim consectetur ullamcorper non ac arcu.
-                    Pellentesque sit amet lorem malesuada, molestie massa quis, ultricies mi. Etiam nec arcu elementum,
-                    pharetra tellus quis, tincidunt nibh. Fusce mollis eget purus at finibus. Vestibulum at lectus in eros
-                    tincidunt elementum.</td>
-    
-                    <td><a href="javascript:void()" (click)="addCategoryModel(cusinine)"><i class="mdi mdi-lead-pencil"></i></a> <a href=javascript:void(); (click)="deleteBoxModal(deleteBox)"><i class="ti-trash"></i> </a></td>
-    
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </ng-template>
-      </li> -->
-      <!-- <li [ngbNavItem]="3">
-        <a ngbNavLink>Cusinine</a>
-        <ng-template ngbNavContent>
-          <div class="row">
-            <div class="col-md-12 text-right">
-              <button class="btn btn-primary mb-2" (click)="addCategoryModel(cusinine)">Add Cusinine</button>
-            </div>
-          </div>
-          <div class="table-reponsive">
-            <table class="table">
-              <thead>
-                <th>Name</th>
-                <th>Image</th>
-                <th>description</th>
-                <th>Action</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Indian</td>
-                  <td><img src="assets/images/food/1.jpg" alt="" width="60px"></td>
-                  <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse blandit nisi enim, sit amet
-                    interdum purus commodo in. Fusce non molestie nibh, vitae blandit risus. Vestibulum suscipit suscipit
-                    mauris, quis gravida tortor bibendum quis. Sed mollis est at enim consectetur ullamcorper non ac arcu.
-                    Pellentesque sit amet lorem malesuada, molestie massa quis, ultricies mi. Etiam nec arcu elementum,
-                    pharetra tellus quis, tincidunt nibh. Fusce mollis eget purus at finibus. Vestibulum at lectus in eros
-                    tincidunt elementum.</td>
-    
-                    <td><a href="javascript:void()" (click)="addCategoryModel(cusinine)"><i class="mdi mdi-lead-pencil"></i></a> <a href=javascript:void(); (click)="deleteBoxModal(deleteBox)"><i class="ti-trash"></i> </a></td>
-    
-                </tr>
-                <tr>
-                  <td>Italian</td>
-                  <td><img src="assets/images/food/1.jpg" alt="" width="60px"></td>
-    
-                  <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse blandit nisi enim, sit amet
-                    interdum purus commodo in. Fusce non molestie nibh, vitae blandit risus. Vestibulum suscipit suscipit
-                    mauris, quis gravida tortor bibendum quis. Sed mollis est at enim consectetur ullamcorper non ac arcu.
-                    Pellentesque sit amet lorem malesuada, molestie massa quis, ultricies mi. Etiam nec arcu elementum,
-                    pharetra tellus quis, tincidunt nibh. Fusce mollis eget purus at finibus. Vestibulum at lectus in eros
-                    tincidunt elementum.</td>
-    
-                    <td><a href="javascript:void()" (click)="addCategoryModel(cusinine)"><i class="mdi mdi-lead-pencil"></i></a> <a href=javascript:void(); (click)="deleteBoxModal(deleteBox)"><i class="ti-trash"></i> </a></td>
-    
-                </tr>
-                <tr>
-                  <td>Chainese</td>
-                  <td><img src="assets/images/food/1.jpg" alt="" width="60px"></td>
-    
-                  <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse blandit nisi enim, sit amet
-                    interdum purus commodo in. Fusce non molestie nibh, vitae blandit risus. Vestibulum suscipit suscipit
-                    mauris, quis gravida tortor bibendum quis. Sed mollis est at enim consectetur ullamcorper non ac arcu.
-                    Pellentesque sit amet lorem malesuada, molestie massa quis, ultricies mi. Etiam nec arcu elementum,
-                    pharetra tellus quis, tincidunt nibh. Fusce mollis eget purus at finibus. Vestibulum at lectus in eros
-                    tincidunt elementum.</td>
-    
-                    <td><a href="javascript:void()" (click)="addCategoryModel(cusinine)"><i class="mdi mdi-lead-pencil"></i></a> <a href=javascript:void(); (click)="deleteBoxModal(deleteBox)"><i class="ti-trash"></i> </a></td>
-    
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </ng-template>
-      </li>
-     -->
+   
     </ul>
     <div [ngbNavOutlet]="nav" class="mt-2"></div>
   </div>
@@ -247,7 +104,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="control-label">Name</label>
-                  <input type="text" id="firstName" class="form-control" placeholder="Add Sub Category">
+                  <input type="text" id="firstName" class="form-control" placeholder="Add Sub Category" formControlName="name" #cat (keydown.space)="!cat.value?$event.preventDefault():null">
 
                 </div>
               </div>
@@ -256,9 +113,9 @@
                 <div class="form-group has-success">
                   <div class="form-group">
                     <label class="control-label">Upload Food Image</label>
-                    <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"><label
-                        class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
-                        <p class="constraints-info afu-constraints-info">(.jpg,.png) Size limit- 1.00 MB</p>
+                    <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file" (change)="uploadFile($event)"><label
+                        class="custom-file-label" for="inputGroupFile01">{{ImageUrl?ImageUrl:'Choose file'}}</label></div>
+                        <!-- <p class="constraints-info afu-constraints-info">(.jpg,.png) Size limit- 1.00 MB</p> -->
                   </div>
                 </div>
               </div>
@@ -278,8 +135,8 @@
           </div>
           <div class="form-actions">
             <div class="card-body">
-              <button type="submit" class="btn btn-success mr-3" (click)="modal.dismiss('Cross click')">
-                <i class="fa fa-check"></i> Update</button>
+              <button type="submit" class="btn btn-success mr-3" (click)="SaveCategory('sub')">
+                <i class="fa fa-check"></i>Save</button>
               <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
             </div>
           </div>
@@ -293,10 +150,10 @@
 <!-- delete modal -->
 <ng-template #deleteBox let-modal>
   <div class="modal-body">
-    <p>Are you sure you want to delete this category?</p>
+    <p class="text-nowrap">Are you want to delete ?</p>
     <div class="btn-group">
       <button type="button" class="btn btn-primary mr-2" aria-label="Close"
-        (click)="modal.dismiss('Cross click')">Yes</button>
+        (click)="DeleteVendor()">Yes</button>
       <button type="button" class="btn btn-seconadary" aria-label="Close"
         (click)="modal.dismiss('Cross click')">No</button>
     </div>
@@ -330,13 +187,7 @@
                   </div>
                 </div>
               </div>
-              <!--/span-->
-              <!-- <div class="col-md-12">
-                <div class="form-group">
-                  <label class="control-label">Description</label>
-                  <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
-                </div>
-              </div> -->
+         
             </div>
             <!--/row-->
           </div>
@@ -359,7 +210,7 @@
 <ng-template #addsudsbCategory let-modal>
   <div class="modal-body">
     <div class="card">
-      <form action="#">
+      <form>
         <div class="form-body">
           <div class="card-body">
             <div class="row p-t-20">
@@ -403,27 +254,19 @@
 <ng-template #addCategory let-modal>
   <div class="modal-body">
     <div class="card">
-      <form action="#">
+      <form [formGroup]="CategoryForm">
         <div class="form-body">
           <div class="card-body">
             <div class="row p-t-20">
-              <!-- <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="control-label">Category Name</label>
-                                    <input type="text" id="firstName" class="form-control" placeholder="John doe">
-
-                                </div>
-                            </div> -->
-              <!--/span-->
-
-            </div>
+           </div>
             <!--/row-->
             <div class="row p-t-20">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="control-label">Categories</label>
-                  <input type="text" class="form-control">
-
+                  <label class="control-label">Category name</label>
+                  <input type="text" class="form-control" formControlName="name" #na (keydown.space)="!na.value?$event.preventDefault():null">
+                              <span class="error" *ngIf="this.CategoryForm.get('name').hasError('required') && this.CategoryForm.get('name').touched">Please enter category name</span>
+                               <span class="error" *ngIf="this.CategoryForm.get('name').hasError('maxlength')">Maxlength should be 30</span>
                 </div>
               </div>
               <!--/span-->
@@ -431,9 +274,9 @@
                 <div class="form-group has-success">
                   <div class="form-group">
                     <label class="control-label">Upload Food Image</label>
-                    <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"><label
-                        class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
-                        <p  class="constraints-info afu-constraints-info">(.jpg,.png) Size limit- 1.00 MB</p>
+                    <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file" (change)="uploadFile($event)"><label
+                        class="custom-file-label text-truncate" for="inputGroupFile01">{{ImageUrl?ImageUrl:'Choose file'}}</label></div>
+                        <!-- <p  class="constraints-info afu-constraints-info">(.jpg,.png) Size limit- 1.00 MB</p> -->
                   </div>
                 </div>
               </div>
@@ -451,57 +294,37 @@
                 </div>
               </div> -->
               <div class="col-md-12">
-                <div class="form-group has-success">
-                  <div class="form-group">
-                    <label class="control-label">Description</label>
-                   <textarea name="" id="" cols="30" rows="2" class="form-control"></textarea>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12">
                 <div class="form-group">
                   <label>Tax Percentage</label>
                   <div class="input-group">
                     <div class="input-group-prepend w-100">
                       <span  class="input-group-text" id="basic-addon1"><i class="fas fa-percent"></i></span>
-                  <input type="number" placeholder="add tax "  class="form-control">
+                  <input type="number" placeholder="add tax "  class="form-control" formControlName="tax_percentage">
                 </div>
                 </div>
+                <span class="error" *ngIf="this.CategoryForm.get('tax_percentage').hasError('required') && this.CategoryForm.get('tax_percentage').touched">Please enter category name</span>
+                <span class="error" *ngIf="this.CategoryForm.get('tax_percentage').hasError('maxlength')">Maxlength should be 2</span>
                 </div>
               </div>
-              <!--/span-->
-              <!-- <div class="col-md-6">
-                <div class="form-group">
-                  <label class="control-label">Type Of Dish</label>
-                  <mat-form-field class="w-100">
-                    <mat-label>Type Of Dish</mat-label>
-                    <mat-select [formControl]="toppings" multiple>
-                      <mat-option *ngFor="let topping of dishType" [value]="topping">{{topping}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+              <div class="col-md-12">
+                <div class="form-group has-success">
+                  <div class="form-group">
+                    <label class="control-label">Description</label>
+                   <textarea name="" id="" cols="30" rows="2" class="form-control" formControlName="description" #des (keydown.space)="!des.value?$event.preventDefault():null"></textarea>
+                   <span class="error" *ngIf="this.CategoryForm.get('description').hasError('required') && this.CategoryForm.get('description').touched">Please enter description</span>
+               
+                  </div>
                 </div>
-              </div> -->
-              <!--/span-->
-              <!-- <div class="col-md-6">
-                <div class="form-group">
-                  <label class="control-label">Cusinine </label>
-                  <mat-form-field class="w-100">
-                    <mat-label>Cusinine </mat-label>
-                    <mat-select [formControl]="toppings" multiple>
-                      <mat-option *ngFor="let topping of cusinine" [value]="topping">{{topping}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div> -->
-              <!--/span-->
+              </div>
+             
             </div>
             <!--/row-->
           </div>
           <div class="form-actions">
             <div class="card-body">
-              <button type="submit" class="btn btn-success mr-3" (click)="modal.dismiss('Cross click')">
+              <button type="submit" class="btn btn-success mr-3" (click)="SaveCategory('cat')">
                 <i class="fa fa-check"></i> Save</button>
-              <!-- <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button> -->
+              <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
             </div>
           </div>
         </div>
@@ -514,7 +337,7 @@
 
 
 
-<ng-template #cusinine let-modal>
+<!-- <ng-template #cusinine let-modal>
   <div class="modal-body">
     <div class="card">
       <div class="card-body">
@@ -532,10 +355,7 @@
                 <label class="control-label">Upload Image</label>
                 <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"><label
                     class="custom-file-label" for="inputGroupFile01">Choose File</label>
-                  <!-- <div class="invalid-feedback" *ngIf=" editVendorForm.get('image').touched
-                       &&editVendorForm.get('image').hasError('required')">
-                   Please enter Profile Pic
-                 </div> -->
+                 
                  <p  class="constraints-info afu-constraints-info">(.jpg,.png) Size limit- 1.00 MB</p>
                 </div>
               </div>
@@ -553,4 +373,4 @@
       </div>
     </div>
   </div>
-</ng-template>
+</ng-template> -->
