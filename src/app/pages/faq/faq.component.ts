@@ -64,7 +64,7 @@ saveFaq()
       {
         if(res.code == 200)
         {
-         this.noti.success(res.message,'Success')
+         this.noti.success("Faq's updated successfully",'Success')
          
         }
       })

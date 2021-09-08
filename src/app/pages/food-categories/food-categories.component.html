@@ -20,7 +20,7 @@
               <ng-template  ngbPanelHeader let-opened="i==0?'opened':''"> 
                 <div class="row box-tab">
                   <div class="col-md-2">
-                    <h3 class="mb-0"> <img width="100px" height="70" class="mr-2" [src]="item?.category_image?.media_file_url?item?.category_image?.media_file_url:'assets/images/food/noTImg.jpg'" alt=""> 
+                    <h3 class="mb-0"> <img width="100px" height="70" class="mr-2 ShaddowImg" [src]="item?.category_image?.media_file_url?item?.category_image?.media_file_url:'assets/images/food/noTImg.jpg'" alt=""> 
                     <span class="d-block mt-2 text-nowrap">{{item?.name}}</span> </h3>
                   </div>
                   <div class="col-md-5 text-left">
@@ -55,7 +55,7 @@
                     <tr  *ngFor="let objItem of SubCategoryData" class="bg-white">
                       <td>
                         <span class="img-small"><img [src]="objItem?.sub_category_image?.media_file_url?objItem?.sub_category_image?.media_file_url:'assets/images/food/noTImg.jpg'" alt="iMac" width="60"
-                            class="rounded"></span>
+                            class="rounded ShaddowImg"></span>
                       </td>
                       <td>
                         {{objItem?.name}}
@@ -107,9 +107,78 @@
             <div class="row p-t-20">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="control-label">Name</label>
+                  <label class="control-label">Sub category name</label>
                   <input type="text" id="firstName" class="form-control" placeholder="Add Sub Category" formControlName="name" #cat (keydown.space)="!cat.value?$event.preventDefault():null">
+                  <span class="error" *ngIf="this.SubcategoryForm.get('name').hasError('required') && this.SubcategoryForm.get('name').touched">Please enter sub category name</span>
+                  <span class="error" *ngIf="this.SubcategoryForm.get('name').hasError('maxlength')">Maxlength should be 30</span>
+                </div>
+              </div>
+              <!--/span-->
+              <div class="col-md-6">
+                <div class="form-group has-success">
+                  <div class="form-group">
+                    <label class="control-label">Upload Food Image</label>
+                    <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file" (change)="uploadFile($event)"><label
+                        class="custom-file-label" for="inputGroupFile01">{{ImageUrl?ImageUrl:'Choose file'}}</label></div>
+                        <!-- <p class="constraints-info afu-constraints-info">(.jpg,.png) Size limit- 1.00 MB</p> -->
+                  </div>
+                </div>
+              </div>
+              <!--/span-->
+              <div class="col-md-10">
+                <div formArrayName='productLabels'>
+                  <label>Product options</label>
+                  <div class="d-flex form-group" *ngFor="let user of SubcategoryForm.get('productLabels')['controls']; let i = index">
+                    <input type="text" [formControlName]="i" class="form-control" placeholder="Give suitable label">
+                   <button class="btn btn-danger" (click)="removeUser(i)"><i class="mdi mdi-minus" title="Remove"></i></button> 
+                  </div>
+                </div><br>
+                <button class="btn btn-primary" (click)="addUser()"><i class="mdi mdi-plus" title="Add row"></i></button>
+              </div>
+            </div>
+            <!--/row-->
+          </div>
+          <div class="form-actions">
+            <div class="card-body">
+              <button type="submit" class="btn btn-success mr-3" (click)="SaveCategory('sub')">
+                <i class="fa fa-check"></i>Save</button>
+              <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
 
+  </div>
+</ng-template>
+
+<!-- delete modal -->
+<ng-template #deleteBox let-modal>
+  <div class="modal-body">
+    <p class="text-nowrap">Are you want to delete ?</p>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary mr-2" aria-label="Close"
+        (click)="DeleteVendor()">Yes</button>
+      <button type="button" class="btn btn-seconadary" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">No</button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- edit user detail -->
+<ng-template #editModel let-modal>
+  <div class="modal-body">
+    <div class="card">
+      <form [formGroup]="SubcategoryForm">
+        <div class="form-body">
+          <div class="card-body">
+            <div class="row p-t-20">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="control-label">Sub Category Name</label>
+                  <input type="text" id="firstName" class="form-control" placeholder="Add Sub Category" formControlName="name" #cat (keydown.space)="!cat.value?$event.preventDefault():null">
+                  <span class="error" *ngIf="this.SubcategoryForm.get('name').hasError('required') && this.SubcategoryForm.get('name').touched">Please enter sub category name</span>
+                  <span class="error" *ngIf="this.SubcategoryForm.get('name').hasError('maxlength')">Maxlength should be 30</span>
                 </div>
               </div>
               <!--/span-->
@@ -151,64 +220,6 @@
   </div>
 </ng-template>
 
-<!-- delete modal -->
-<ng-template #deleteBox let-modal>
-  <div class="modal-body">
-    <p class="text-nowrap">Are you want to delete ?</p>
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary mr-2" aria-label="Close"
-        (click)="DeleteVendor()">Yes</button>
-      <button type="button" class="btn btn-seconadary" aria-label="Close"
-        (click)="modal.dismiss('Cross click')">No</button>
-    </div>
-  </div>
-</ng-template>
-
-<!-- edit user detail -->
-<ng-template #editModel let-modal>
-  <div class="modal-body">
-    <div class="card">
-      <form action="#">
-        <div class="form-body">
-          <div class="card-body">
-            <div class="row p-t-20">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="control-label"> Edit Sub Categories Name</label>
-                  <input type="text" id="firstName" class="form-control" placeholder="Edit Sub Category">
-
-
-                </div>
-              </div>
-              <!--/span-->
-              <div class="col-md-6">
-                <div class="form-group has-success">
-                  <div class="form-group">
-                    <label class="control-label">Upload Food Image</label>
-                    <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"><label
-                        class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
-                        <p  class="constraints-info afu-constraints-info">(.jpg,.png) Size limit- 1.00 MB</p>
-                  </div>
-                </div>
-              </div>
-         
-            </div>
-            <!--/row-->
-          </div>
-          <div class="form-actions">
-            <div class="card-body">
-              <button type="submit" class="btn btn-success mr-3" (click)="modal.dismiss('Cross click')">
-                <i class="fa fa-check"></i> Update</button>
-              <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-
-  </div>
-</ng-template>
-
 
 <!-- edit user detail -->
 <ng-template #addsudsbCategory let-modal>
@@ -221,8 +232,8 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="control-label">Name</label>
-                  <input type="text" id="firstName" class="form-control" placeholder="John doe">
-
+                  <input type="text" id="firstName" class="form-control" placeholder="Enter sub category">
+ 
                 </div>
               </div>
               <!--/span-->
@@ -327,7 +338,7 @@
           <div class="form-actions">
             <div class="card-body">
               <button type="submit" class="btn btn-success mr-3" (click)="SaveCategory('cat')">
-                <i class="fa fa-check"></i> Save</button>
+                <i class="fa fa-check"></i> {{(IsUpdate=='')?'Save':'Update'}}</button>
               <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
             </div>
           </div>

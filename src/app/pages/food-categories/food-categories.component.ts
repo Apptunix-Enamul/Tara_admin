@@ -136,8 +136,8 @@ export class FoodCategoriesComponent implements OnInit {
               "column": 3,
               "dir": "undefined"        }
       ],
-      "start": 0,
-      "length": 10,
+      "start": this.subCatpage,
+      "length": this.subCatPageSize,
       "search": {
           "value": "",
           "regex": false
@@ -241,8 +241,8 @@ export class FoodCategoriesComponent implements OnInit {
               "column": 3,
               "dir": "undefined"        }
       ],
-      "start": 0,
-      "length": 10,
+      "start": this.page,
+      "length": this.PageSize,
       "search": {
           "value": "",
           "regex": false
@@ -281,9 +281,14 @@ addUser() {
     this.modalService.open(addUser, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
   }
   editBoxModal(editModel) {
+    this.SubcategoryForm.reset()
+    this.ImageUrl =undefined
+    
     this.modalService.open(editModel, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
   }
   addsubCategoryModel(addsubCategory) {
+    this.SubcategoryForm.reset()
+    this.ImageUrl =undefined
     this.modalService.open(addsubCategory, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
   }
   addCategoryModel(addCategory,obj) {
@@ -335,7 +340,8 @@ addUser() {
       }
     }else{
 if(this.SubcategoryForm.valid){
-  this.DataSubmission(ref)
+  (this.ImageUrl)? this.DataSubmission(ref):this.toaster.error('Please upload sub category image')
+  // this.DataSubmission(ref)
 }else{
   this.SubcategoryForm.markAllAsTouched()
 }
