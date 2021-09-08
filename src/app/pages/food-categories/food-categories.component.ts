@@ -22,6 +22,9 @@ export class FoodCategoriesComponent implements OnInit {
   page:number = 1
   PageSize:number = 10
   count:number = 0
+  subCatpage = 1
+  subCatPageSize = 10
+  subCatCount = 0
   CategoryForm:FormGroup
   SubcategoryForm:FormGroup
   movies = [
@@ -56,6 +59,8 @@ export class FoodCategoriesComponent implements OnInit {
   position = new FormControl(this.positionOptions[1]);
   SubCategoryData: any;
   message: string;
+  REFERENCE: any;
+  MainCatId: any;
   constructor(private modalService: NgbModal,private fb:FormBuilder,private service:CommonService,private toaster:ToastrService) {
     this.CategoryForm = this.fb.group({
       name:['',[Validators.required,Validators.maxLength(30)]],
@@ -69,6 +74,8 @@ export class FoodCategoriesComponent implements OnInit {
     this.addUser();
   }
   GetSubCategory(id){
+    this.MainCatId = id
+    this.SubCategoryData = []
     this.catId = id
     let obj = {
       "draw": 2,
@@ -139,14 +146,14 @@ export class FoodCategoriesComponent implements OnInit {
     this.service.post(`product/get-product-sub-category-with-pagination/${id}/`,obj).subscribe((res:any)=>{
     if([200,201].includes(res?.code)){
       console.log('Get sub cat called',res);
-      // this.count = res?.recordsTotal
+       this.subCatCount = res?.recordsTotal
       // this.IsnotEmpty = res.data
       this.SubCategoryData = res.data
   }
     })
   }
-  onPaginateChange(e): PageEvent {
-    if (e.pageIndex == 0) {
+  onPaginateChange(e,ref): PageEvent {
+    if(ref=='cat'){if (e.pageIndex == 0) {
       this.page = e.pageIndex;
     } else {
       if (e.previousPageIndex < e.pageIndex) {
@@ -158,6 +165,20 @@ export class FoodCategoriesComponent implements OnInit {
     this.PageSize = e.pageSize
     this.GetCategory();
     return e;
+  }else{
+    if (e.pageIndex == 0) {
+      this.subCatpage = e.pageIndex;
+    } else {
+      if (e.previousPageIndex < e.pageIndex) {
+        this.subCatpage =this.subCatpage+ e.pageSize;
+      } else {
+        this.subCatpage =this.subCatpage-e.pageSize;
+      }
+    }
+    this.subCatPageSize = e.pageSize
+    this.GetSubCategory(this.catId);
+    return e;
+  }
 }
   GetCategory(){
     
@@ -250,8 +271,8 @@ addUser() {
     const remove = this.SubcategoryForm.get('productLabels') as FormArray;
     remove.removeAt(i);
   }
-  deleteBoxModal(userDelete,id) {
-    
+  deleteBoxModal(userDelete,id,ref) {
+    this.REFERENCE = ref
     this.catId = id
     this.modalService.open(userDelete, {backdropClass: 'light-blue-backdrop',centered: true,size: 'sm'});
   }
@@ -309,7 +330,7 @@ addUser() {
     this.toaster.clear()
     if(ref=='cat'){
       if(this.CategoryForm.valid){
-        this.DataSubmission(ref)
+        (this.ImageUrl)? this.DataSubmission(ref):this.toaster.error('Please upload category image')
       }else{this.CategoryForm.markAllAsTouched()
       }
     }else{
@@ -357,13 +378,22 @@ let urlUpdate = ``
     }
 }
 DeleteVendor(){
-  this.service.delete(`product/delete-product-category/${this.catId}`).subscribe((res:any)=>{
+  if(this.REFERENCE=='cat'){
+    this.service.delete(`product/delete-product-category/${this.catId}`).subscribe((res:any)=>{
+      if([200,201].includes(res.code)){
+        this.GetCategory()
+        this.modalService.dismissAll()
+        this.toaster.success('Category deleted successfully','Deleted')
+      }
+    })
+  }else{this.service.delete(`product/delete-product-sub-category/${this.catId}/`).subscribe((res:any)=>{
     if([200,201].includes(res.code)){
-      this.GetCategory()
+      this.GetSubCategory(this.MainCatId)
       this.modalService.dismissAll()
-      this.toaster.success('Category deleted successfully','Deleted')
+      this.toaster.success('Sub category deleted successfully','Deleted')
     }
-  })
+  })}
+  
 }
 }
 

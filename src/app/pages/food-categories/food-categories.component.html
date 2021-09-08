@@ -13,10 +13,10 @@
           class="list-group list-group-horizontal-lg pl-0 mt-4">
           <li
             class="list-group-item cursor-pointer "    
-            *ngFor="let item of CategoryData; let i=index" 
+             
           >
           <ngb-accordion #acc="ngbAccordion" [closeOthers]="true"   class="">
-            <ngb-panel id="ngb-panel-1" class="mb-2">
+            <ngb-panel id="ngb-panel-{{i}}" class="mb-2" *ngFor="let item of CategoryData; let i=index">
               <ng-template  ngbPanelHeader let-opened="i==0?'opened':''"> 
                 <div class="row box-tab">
                   <div class="col-md-2">
@@ -32,7 +32,7 @@
                   <div class="col-md-3">
                     <div class="delete-categories">
                       <span class="btn btn-primary mr-2" (click)="addCategoryModel(addCategory,item)"><i class="ti-marker-alt"></i> </span>
-                      <span class="btn btn-danger" (click)="deleteBoxModal(deleteBox,item?.id)"><i class="ti-trash"></i> </span>
+                      <span class="btn btn-danger" (click)="deleteBoxModal(deleteBox,item?.id,'cat')"><i class="ti-trash"></i> </span>
                     </div>             
                   </div>
                   <div class="col-md-1 p-4">
@@ -63,14 +63,18 @@
                       <td>
                         <a href="javascript:void()" (click)="editBoxModal(editModel)" class="mr-2"><i
                             class="ti-marker-alt"></i> </a>
-                        <a href="javascript:void()" (click)="deleteBoxModal(deleteBox,objItem?.id)"><i class="ti-trash"></i> </a>
+                        <a href="javascript:void()" (click)="deleteBoxModal(deleteBox,objItem?.id,'sub')"><i class="ti-trash"></i> </a>
                       </td>
                     </tr>   
+                    <tr *ngIf="SubCategoryData.length == 0"><td colspan="4"><h3>No sub category</h3></td></tr>
                   </table>
                 </td>                
                 </tr>
                   </table>
-      
+                  <div class="col-md-12 text-right" *ngIf="SubCategoryData.length > 0">
+                    <mat-paginator [length]="subCatCount" [pageSize]="subCatPageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPaginateChange($event,'sub')">
+                    </mat-paginator>
+                </div>
                   <div class=""> <button class="btn btn-primary mr-2" (click)="addsubCategoryModel(addsubCategory)"><i
                         class="sl-icon-plus"></i> Add New Sub Categories </button></div>
                
@@ -81,8 +85,8 @@
      
           </li>      
         </ul>
-        <div class="col-md-12 text-right">
-          <mat-paginator [length]="count" [pageSize]="PageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPaginateChange($event)">
+        <div class="col-md-12 text-right"  *ngIf="count > 0">
+          <mat-paginator [length]="count" [pageSize]="PageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPaginateChange($event,'cat')">
           </mat-paginator>
       </div>
         </ng-template>
@@ -136,7 +140,7 @@
           <div class="form-actions">
             <div class="card-body">
               <button type="submit" class="btn btn-success mr-3" (click)="SaveCategory('sub')">
-                <i class="fa fa-check"></i>Save</button>
+                <i class="fa fa-check"></i>Update</button>
               <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
             </div>
           </div>
@@ -264,7 +268,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="control-label">Category name</label>
-                  <input type="text" class="form-control" formControlName="name" #na (keydown.space)="!na.value?$event.preventDefault():null">
+                  <input type="text" class="form-control" placeholder="Enter category name" formControlName="name" #na (keydown.space)="!na.value?$event.preventDefault():null">
                               <span class="error" *ngIf="this.CategoryForm.get('name').hasError('required') && this.CategoryForm.get('name').touched">Please enter category name</span>
                                <span class="error" *ngIf="this.CategoryForm.get('name').hasError('maxlength')">Maxlength should be 30</span>
                 </div>
@@ -299,7 +303,7 @@
                   <div class="input-group">
                     <div class="input-group-prepend w-100">
                       <span  class="input-group-text" id="basic-addon1"><i class="fas fa-percent"></i></span>
-                  <input type="number" placeholder="add tax "  class="form-control" formControlName="tax_percentage">
+                  <input type="number" placeholder="Enter tax percentage"  class="form-control" formControlName="tax_percentage">
                 </div>
                 </div>
                 <span class="error" *ngIf="this.CategoryForm.get('tax_percentage').hasError('required') && this.CategoryForm.get('tax_percentage').touched">Please enter category name</span>
@@ -310,7 +314,7 @@
                 <div class="form-group has-success">
                   <div class="form-group">
                     <label class="control-label">Description</label>
-                   <textarea name="" id="" cols="30" rows="2" class="form-control" formControlName="description" #des (keydown.space)="!des.value?$event.preventDefault():null"></textarea>
+                   <textarea name="" id="" cols="30" rows="2" class="form-control" formControlName="description" #des (keydown.space)="!des.value?$event.preventDefault():null" placeholder="Enter category description"></textarea>
                    <span class="error" *ngIf="this.CategoryForm.get('description').hasError('required') && this.CategoryForm.get('description').touched">Please enter description</span>
                
                   </div>
