@@ -43501,21 +43501,28 @@
       /* harmony import */
 
 
-      var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var ngx_spinner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ngx-spinner */
+      "./node_modules/ngx-spinner/__ivy_ngcc__/fesm2015/ngx-spinner.js");
+      /* harmony import */
+
+
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/forms */
       "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
       /* harmony import */
 
 
-      var ng2_charts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var ng2_charts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! ng2-charts */
       "./node_modules/ng2-charts/__ivy_ngcc__/fesm2015/ng2-charts.js");
 
       var SalesComponent = /*#__PURE__*/function () {
-        function SalesComponent() {
+        function SalesComponent(spinner) {
           _classCallCheck(this, SalesComponent);
 
-          // Barchart
+          this.spinner = spinner; // Barchart
+
           this.barChart = {
             type: 'Bar',
             data: {
@@ -43592,6 +43599,7 @@
             label: 'Revenue'
           }];
           this.barChartLabels2 = ['Area 1', 'Area 2', 'Area 3', 'Area 4', 'Area 5', 'Area 6', 'Area 7', 'Area 8', 'Area 9'];
+          this.spinner.hide();
         }
 
         _createClass(SalesComponent, [{
@@ -43647,7 +43655,7 @@
       }();
 
       SalesComponent.ɵfac = function SalesComponent_Factory(t) {
-        return new (t || SalesComponent)();
+        return new (t || SalesComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_spinner__WEBPACK_IMPORTED_MODULE_2__["NgxSpinnerService"]));
       };
 
       SalesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -43843,7 +43851,7 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("datasets", ctx.barChartData1)("labels", ctx.barChartLabels2)("options", ctx.barChartOptions)("legend", ctx.barChartLegend)("chartType", ctx.barChartType)("colors", ctx.barChartColors1);
           }
         },
-        directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ɵangular_packages_forms_forms_x"], ng2_charts__WEBPACK_IMPORTED_MODULE_3__["BaseChartDirective"]],
+        directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ɵangular_packages_forms_forms_x"], ng2_charts__WEBPACK_IMPORTED_MODULE_4__["BaseChartDirective"]],
         styles: ["@-webkit-keyframes dasharray-craziness {\n  0% {\n    stroke-dasharray: 5px;\n  }\n  50% {\n    stroke-dasharray: 6px;\n  }\n  100% {\n    stroke-dasharray: 7px;\n  }\n}\n\n@keyframes dasharray-craziness {\n  0% {\n    stroke-dasharray: 5px;\n  }\n  50% {\n    stroke-dasharray: 6px;\n  }\n  100% {\n    stroke-dasharray: 7px;\n  }\n}\n\n#ct-weather[_ngcontent-%COMP%]   .ct-series-a[_ngcontent-%COMP%]   .ct-line[_ngcontent-%COMP%], #ct-weather[_ngcontent-%COMP%]   .ct-series-a[_ngcontent-%COMP%]   .ct-point[_ngcontent-%COMP%] {\n  stroke: rgba(0, 0, 0, 0.4);\n  stroke-width: 2;\n}\n\n#ct-weather[_ngcontent-%COMP%]   .ct-series-a[_ngcontent-%COMP%]   .ct-area[_ngcontent-%COMP%] {\n  fill: none;\n}\n\n#ct-weather[_ngcontent-%COMP%]   .ct-grid[_ngcontent-%COMP%] {\n  stroke: rgba(255, 255, 255, 0.2);\n  stroke-dasharray: 0px;\n}\n\n#ct-weather[_ngcontent-%COMP%]   .ct-series-a[_ngcontent-%COMP%]   .ct-line[_ngcontent-%COMP%] {\n  -webkit-animation: dasharray-craziness 2s infinite;\n          animation: dasharray-craziness 2s infinite;\n}\n\n#weeksales-bar[_ngcontent-%COMP%]   .ct-series-a[_ngcontent-%COMP%]   .ct-bar[_ngcontent-%COMP%] {\n  stroke: rgba(0, 0, 0, 0.15);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZGFzaGJvYXJkcy9kYXNoYm9hcmQtY29tcG9uZW50cy9zYWxlcy9zYWxlcy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFO0lBQ0UscUJBQXFCO0VBQ3ZCO0VBQ0E7SUFDRSxxQkFBcUI7RUFDdkI7RUFDQTtJQUNFLHFCQUFxQjtFQUN2QjtBQUNGOztBQVZBO0VBQ0U7SUFDRSxxQkFBcUI7RUFDdkI7RUFDQTtJQUNFLHFCQUFxQjtFQUN2QjtFQUNBO0lBQ0UscUJBQXFCO0VBQ3ZCO0FBQ0Y7O0FBRUE7O0VBR0ksMEJBQTBCO0VBQzFCLGVBQWU7QUFBbkI7O0FBSkE7RUFRSSxVQUFVO0FBQWQ7O0FBUkE7RUFXSSxnQ0FBZ0M7RUFDaEMscUJBQXFCO0FBQ3pCOztBQWJBO0VBZUksa0RBQTBDO1VBQTFDLDBDQUEwQztBQUU5Qzs7QUFDQTtFQUVJLDJCQUEyQjtBQUMvQiIsImZpbGUiOiJzcmMvYXBwL2Rhc2hib2FyZHMvZGFzaGJvYXJkLWNvbXBvbmVudHMvc2FsZXMvc2FsZXMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAa2V5ZnJhbWVzIGRhc2hhcnJheS1jcmF6aW5lc3Mge1xuICAwJSB7XG4gICAgc3Ryb2tlLWRhc2hhcnJheTogNXB4O1xuICB9XG4gIDUwJSB7XG4gICAgc3Ryb2tlLWRhc2hhcnJheTogNnB4O1xuICB9XG4gIDEwMCUge1xuICAgIHN0cm9rZS1kYXNoYXJyYXk6IDdweDtcbiAgfVxufVxuXG4jY3Qtd2VhdGhlciB7XG4gIC5jdC1zZXJpZXMtYSAuY3QtbGluZSxcbiAgLmN0LXNlcmllcy1hIC5jdC1wb2ludCB7XG4gICAgc3Ryb2tlOiByZ2JhKDAsIDAsIDAsIDAuNCk7XG4gICAgc3Ryb2tlLXdpZHRoOiAyO1xuICB9XG5cbiAgLmN0LXNlcmllcy1hIC5jdC1hcmVhIHtcbiAgICBmaWxsOiBub25lO1xuICB9XG4gIC5jdC1ncmlkIHtcbiAgICBzdHJva2U6IHJnYmEoMjU1LCAyNTUsIDI1NSwgMC4yKTtcbiAgICBzdHJva2UtZGFzaGFycmF5OiAwcHg7XG4gIH1cbiAgLmN0LXNlcmllcy1hIC5jdC1saW5lIHtcbiAgICBhbmltYXRpb246IGRhc2hhcnJheS1jcmF6aW5lc3MgMnMgaW5maW5pdGU7XG4gIH1cbn1cbiN3ZWVrc2FsZXMtYmFyIHtcbiAgLmN0LXNlcmllcy1hIC5jdC1iYXIge1xuICAgIHN0cm9rZTogcmdiYSgwLCAwLCAwLCAwLjE1KTtcbiAgfVxufSJdfQ== */"]
       });
       /*@__PURE__*/
@@ -43857,7 +43865,9 @@
             styleUrls: ['./sales.component.scss']
           }]
         }], function () {
-          return [];
+          return [{
+            type: ngx_spinner__WEBPACK_IMPORTED_MODULE_2__["NgxSpinnerService"]
+          }];
         }, null);
       })();
       /***/
@@ -47013,25 +47023,34 @@
       /* harmony import */
 
 
-      var _dashboard_components_info_box_info_box_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      var ngx_spinner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ngx-spinner */
+      "./node_modules/ngx-spinner/__ivy_ngcc__/fesm2015/ngx-spinner.js");
+      /* harmony import */
+
+
+      var _dashboard_components_info_box_info_box_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! ../dashboard-components/info-box/info-box.component */
       "./src/app/dashboards/dashboard-components/info-box/info-box.component.ts");
       /* harmony import */
 
 
-      var _dashboard_components_sales_sales_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _dashboard_components_sales_sales_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! ../dashboard-components/sales/sales.component */
       "./src/app/dashboards/dashboard-components/sales/sales.component.ts");
       /* harmony import */
 
 
-      var _dashboard_components_user_map_usermap_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _dashboard_components_user_map_usermap_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! ../dashboard-components/user-map/usermap.component */
       "./src/app/dashboards/dashboard-components/user-map/usermap.component.ts");
 
       var Dashboard1Component = /*#__PURE__*/function () {
-        function Dashboard1Component() {
+        function Dashboard1Component(spinner) {
           _classCallCheck(this, Dashboard1Component);
+
+          this.spinner = spinner;
+          this.spinner.hide();
         }
 
         _createClass(Dashboard1Component, [{
@@ -47043,7 +47062,7 @@
       }();
 
       Dashboard1Component.ɵfac = function Dashboard1Component_Factory(t) {
-        return new (t || Dashboard1Component)();
+        return new (t || Dashboard1Component)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_spinner__WEBPACK_IMPORTED_MODULE_1__["NgxSpinnerService"]));
       };
 
       Dashboard1Component.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -47075,7 +47094,7 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
           }
         },
-        directives: [_dashboard_components_info_box_info_box_component__WEBPACK_IMPORTED_MODULE_1__["InfoBoxComponent"], _dashboard_components_sales_sales_component__WEBPACK_IMPORTED_MODULE_2__["SalesComponent"], _dashboard_components_user_map_usermap_component__WEBPACK_IMPORTED_MODULE_3__["UsermapComponent"]],
+        directives: [_dashboard_components_info_box_info_box_component__WEBPACK_IMPORTED_MODULE_2__["InfoBoxComponent"], _dashboard_components_sales_sales_component__WEBPACK_IMPORTED_MODULE_3__["SalesComponent"], _dashboard_components_user_map_usermap_component__WEBPACK_IMPORTED_MODULE_4__["UsermapComponent"]],
         styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2Rhc2hib2FyZHMvZGFzaGJvYXJkMS9kYXNoYm9hcmQxLmNvbXBvbmVudC5jc3MifQ== */"]
       });
       /*@__PURE__*/
@@ -47088,7 +47107,9 @@
             styleUrls: ['./dashboard1.component.css']
           }]
         }], function () {
-          return [];
+          return [{
+            type: ngx_spinner__WEBPACK_IMPORTED_MODULE_1__["NgxSpinnerService"]
+          }];
         }, null);
       })();
       /***/

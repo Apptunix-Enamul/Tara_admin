@@ -2,6 +2,7 @@ import { Component, AfterViewInit } from '@angular/core';
 import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
 import * as c3 from 'c3';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var require: any;
 
@@ -19,7 +20,9 @@ export interface Chart {
     styleUrls: ['./sales.component.scss']
 })
 export class SalesComponent implements AfterViewInit {
-    constructor() { }
+    constructor(private spinner:NgxSpinnerService) {
+        this.spinner.hide()
+      }
 
     // Barchart
     barChart: Chart = {

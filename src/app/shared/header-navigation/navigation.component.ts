@@ -7,6 +7,7 @@ import {
   NgbCarouselConfig
 } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonService } from 'src/app/_services/common.service';
 import { environment } from 'src/environments/environment';
 declare var $: any;
@@ -26,8 +27,9 @@ export class NavigationComponent implements AfterViewInit, OnInit{
   VendorId: any;
   VendorDetails: any;
   ProfileImageUrl: any;
-  constructor(private modalService: NgbModal,private router:Router,private service:CommonService) {
+  constructor(private modalService: NgbModal,private router:Router,private service:CommonService,private spinner:NgxSpinnerService) {
     this.VendorId= JSON.parse(sessionStorage.getItem(environment.storageKey)).id;
+    this.spinner.hide()
   }
   ngOnInit(){
     this.GetVendorProfile()

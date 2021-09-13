@@ -65,7 +65,7 @@ export class CommonService {
 	  Showspinner(){
      this.spinner.show()
 	 setTimeout(() => {
-		 this.spinner.hide()
-	 }, 1000000);
+	 this.spinner.hide()
+	 }, 5000);
 	}
 }

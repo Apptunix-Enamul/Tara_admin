@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/_services/common.service';
 import { environment } from 'src/environments/environment';
@@ -15,7 +17,7 @@ export class Login2Component implements OnInit ,AfterViewInit{
   LoginByEmailform:FormGroup
   ForgotPasswordForm:FormGroup
   optValue: any;
-  constructor(private fb:FormBuilder,private router:Router,private service:CommonService,private toaster:ToastrService) {
+  constructor(private fb:FormBuilder,private router:Router,private service:CommonService,private toaster:ToastrService,private spinner:NgxSpinnerService) {
     this.LoginByEmailform = this.fb.group({
       email:['',[Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],
       password:['',[Validators.required,Validators.minLength(8),Validators.maxLength(16)]],
@@ -58,6 +60,7 @@ export class Login2Component implements OnInit ,AfterViewInit{
     this.RememberMe()
   }
   ngOnInit(){
+
     this.ForgotPasswordForm = this.fb.group({
       email:['',[Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],
     })
@@ -68,7 +71,6 @@ export class Login2Component implements OnInit ,AfterViewInit{
   CallLoginFunction(){
     
    if(this.LoginByEmailform.valid){  
-     this.service.Showspinner()
        let rememberMe=this.LoginByEmailform.controls['rememberMe'].value;
         let obj = {
          "email":this.LoginByEmailform.value.email,
@@ -89,6 +91,9 @@ export class Login2Component implements OnInit ,AfterViewInit{
     {
   this.service.postApi(`auth/admin/login/`,obj).subscribe((res:any)=>{
     if([200,201].includes(res.code)){
+      setTimeout(() => {
+        this.service.Showspinner()
+      }, 100);
    this.router.navigate(['dashboard']);
    sessionStorage.setItem(environment.storageKey,JSON.stringify(res?.data));
      this.toaster.success('You logged in successfully','',{
@@ -174,5 +179,4 @@ export class Login2Component implements OnInit ,AfterViewInit{
      }
      this.ResendOtp(obj,'to email id')
    }
-   
   }
