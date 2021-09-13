@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { urls } from './urls';
 import { map } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class CommonService {
   profileUpdate(): Observable<any> {
     return this.subject.asObservable()
   }
-	constructor(private _http: HttpClient) { }
+	constructor(private _http: HttpClient,private spinner:NgxSpinnerService) { }
 
 	post(url: string, postData: any = {}) {
 		return this._http.post<any>(`${environment.baseUrl}${url}`,postData).pipe(map((data: any) => {
@@ -61,4 +62,10 @@ export class CommonService {
     putApi(url, data) {
       return this._http.put(`${environment.baseUrl}` + url, data);
       }
+	  Showspinner(){
+     this.spinner.show()
+	 setTimeout(() => {
+		 this.spinner.hide()
+	 }, 1000000);
+	}
 }

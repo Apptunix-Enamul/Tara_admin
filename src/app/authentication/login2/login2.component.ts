@@ -66,7 +66,9 @@ export class Login2Component implements OnInit ,AfterViewInit{
    this.showRecoverForm()
   }
   CallLoginFunction(){
+    
    if(this.LoginByEmailform.valid){  
+     this.service.Showspinner()
        let rememberMe=this.LoginByEmailform.controls['rememberMe'].value;
         let obj = {
          "email":this.LoginByEmailform.value.email,
@@ -172,4 +174,5 @@ export class Login2Component implements OnInit ,AfterViewInit{
      }
      this.ResendOtp(obj,'to email id')
    }
+   
   }

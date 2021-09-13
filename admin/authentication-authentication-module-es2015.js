@@ -1256,6 +1256,7 @@ class Login2Component {
     }
     CallLoginFunction() {
         if (this.LoginByEmailform.valid) {
+            this.service.Showspinner();
             let rememberMe = this.LoginByEmailform.controls['rememberMe'].value;
             let obj = {
                 "email": this.LoginByEmailform.value.email,

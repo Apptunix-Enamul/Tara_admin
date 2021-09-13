@@ -2292,6 +2292,7 @@
           key: "CallLoginFunction",
           value: function CallLoginFunction() {
             if (this.LoginByEmailform.valid) {
+              this.service.Showspinner();
               var rememberMe = this.LoginByEmailform.controls['rememberMe'].value;
               var obj = {
                 "email": this.LoginByEmailform.value.email,

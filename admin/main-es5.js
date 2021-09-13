@@ -450,12 +450,19 @@
       var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! rxjs/operators */
       "./node_modules/rxjs/_esm2015/operators/index.js");
+      /* harmony import */
+
+
+      var ngx_spinner__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ngx-spinner */
+      "./node_modules/ngx-spinner/__ivy_ngcc__/fesm2015/ngx-spinner.js");
 
       var CommonService = /*#__PURE__*/function () {
-        function CommonService(_http) {
+        function CommonService(_http, spinner) {
           _classCallCheck(this, CommonService);
 
           this._http = _http;
+          this.spinner = spinner;
           this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](false);
         }
 
@@ -518,13 +525,23 @@
           value: function putApi(url, data) {
             return this._http.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl) + url, data);
           }
+        }, {
+          key: "Showspinner",
+          value: function Showspinner() {
+            var _this3 = this;
+
+            this.spinner.show();
+            setTimeout(function () {
+              _this3.spinner.hide();
+            }, 1000000);
+          }
         }]);
 
         return CommonService;
       }();
 
       CommonService.ɵfac = function CommonService_Factory(t) {
-        return new (t || CommonService)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]));
+        return new (t || CommonService)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](ngx_spinner__WEBPACK_IMPORTED_MODULE_6__["NgxSpinnerService"]));
       };
 
       CommonService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({
@@ -543,6 +560,8 @@
         }], function () {
           return [{
             type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]
+          }, {
+            type: ngx_spinner__WEBPACK_IMPORTED_MODULE_6__["NgxSpinnerService"]
           }];
         }, null);
       })();
@@ -2261,7 +2280,7 @@
 
       var BreadcrumbComponent = /*#__PURE__*/function () {
         function BreadcrumbComponent(router, activatedRoute, titleService) {
-          var _this3 = this;
+          var _this4 = this;
 
           _classCallCheck(this, BreadcrumbComponent);
 
@@ -2271,7 +2290,7 @@
           this.router.events.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])(function (event) {
             return event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"];
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function () {
-            return _this3.activatedRoute;
+            return _this4.activatedRoute;
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (route) {
             while (route.firstChild) {
               route = route.firstChild;
@@ -2283,9 +2302,9 @@
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (route) {
             return route.data;
           })).subscribe(function (event) {
-            _this3.titleService.setTitle(event['title']);
+            _this4.titleService.setTitle(event['title']);
 
-            _this3.pageInfo = event;
+            _this4.pageInfo = event;
           });
         }
 
@@ -2717,12 +2736,12 @@
         _createClass(NavigationComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this4 = this;
+            var _this5 = this;
 
             this.GetVendorProfile();
             this.service.subject.subscribe(function (res) {
               if (res == true) {
-                _this4.GetVendorProfile();
+                _this5.GetVendorProfile();
               }
             });
           }
@@ -2735,7 +2754,7 @@
         }, {
           key: "GetVendorProfile",
           value: function GetVendorProfile() {
-            var _this5 = this;
+            var _this6 = this;
 
             this.service.get("vendor/get-vendor-by-id/".concat(this.VendorId, "/")).subscribe(function (res) {
               var _a, _b;
@@ -2743,8 +2762,8 @@
               console.log('Vendor get fromnav', res);
 
               if ([200, 201].includes(res.code)) {
-                _this5.VendorDetails = res.data;
-                _this5.ProfileImageUrl = (_b = (_a = res === null || res === void 0 ? void 0 : res.data) === null || _a === void 0 ? void 0 : _a.image) === null || _b === void 0 ? void 0 : _b.media_file_url;
+                _this6.VendorDetails = res.data;
+                _this6.ProfileImageUrl = (_b = (_a = res === null || res === void 0 ? void 0 : res.data) === null || _a === void 0 ? void 0 : _a.image) === null || _b === void 0 ? void 0 : _b.media_file_url;
               }
             });
           }
@@ -3908,7 +3927,7 @@
 
       var SpinnerComponent = /*#__PURE__*/function () {
         function SpinnerComponent(router, document) {
-          var _this6 = this;
+          var _this7 = this;
 
           _classCallCheck(this, SpinnerComponent);
 
@@ -3918,12 +3937,12 @@
           this.backgroundColor = 'rgba(0, 115, 170, 0.69)';
           this.router.events.subscribe(function (event) {
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationStart"]) {
-              _this6.isSpinnerVisible = true;
+              _this7.isSpinnerVisible = true;
             } else if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"] || event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationCancel"] || event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationError"]) {
-              _this6.isSpinnerVisible = false;
+              _this7.isSpinnerVisible = false;
             }
           }, function () {
-            _this6.isSpinnerVisible = false;
+            _this7.isSpinnerVisible = false;
           });
         }
 
