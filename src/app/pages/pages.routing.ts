@@ -588,10 +588,10 @@ export const PagesRoutes: Routes = [
     path: 'vendors',
     loadChildren: () => import('./vendor/vendor.module').then(m => m.VendorModule)
   },
-  {
-    path: 'drivers',
-    loadChildren: () => import('./drivermodule/drivermodule.module').then(m => m.DrivermoduleModule)
-  },
+  // {
+  //   path: 'drivers',
+  //   loadChildren: () => import('./drivermodule/drivermodule.module').then(m => m.DrivermoduleModule)
+  // },
   {
     path: 'order',
     loadChildren: () => import('./order/order.module').then(m => m.OrderModule)

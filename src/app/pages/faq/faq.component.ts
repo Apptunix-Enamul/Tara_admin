@@ -58,7 +58,7 @@ saveFaq()
     this.noti.clear()
     this.Faqcheck.controls['specification'].value.forEach(v => (v.id=="")?delete v.id:'')
  
-    if(this.Faqcheck.valid)
+    if( this.Faqcheck.valid && this.Faqcheck.controls['specification'].value.length>0)
     {
       this.Srvc.post(`cms/get-create-update-delete-faq/`,this.Faqcheck.get('specification').value).subscribe((res:any)=>
       {

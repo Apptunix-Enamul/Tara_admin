@@ -2,7 +2,39 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/_services/common.service';
-
+import Quill from 'quill';
+import QuillResize from 'quill-resize-module';
+Quill.register('modules/resize', QuillResize);
+var quill = new Quill("editor", {
+  // ...
+  modules: {
+      // ...
+      resize: {
+          // ...
+          // set parchment key to enable resize module
+          parchment: {
+              image: {
+                  attribute: ['width'],  // ['width', 'height']
+                  limit: {
+                      minWidth: 200,
+                      maxWidth: 600,
+                      minHeight: 200,
+                      maxHeight: 450,
+                      ratio: .5625  // keep width/height ratio. (ratio=height/width)
+                  }
+              }
+          },
+          styles: {
+              handle: {
+                  backgroundColor: 'black',
+                  border: 'none',
+                  color: "white"
+                  // other camelCase styles for size display
+              }
+          }
+      }
+  }
+});
 @Component({
   selector: 'app-privacy',
   templateUrl: './privacy.component.html',

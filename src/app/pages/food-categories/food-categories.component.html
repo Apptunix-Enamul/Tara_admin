@@ -19,25 +19,58 @@
             <ngb-panel id="ngb-panel-{{i}}" class="mb-2" *ngFor="let item of CategoryData; let i=index">
               <ng-template  ngbPanelHeader let-opened="i==0?'opened':''"> 
                 <div class="row box-tab">
+                  
+                <table class="table v-middle product-overview ">
+                  <thead>
+                      <tr>
+                      <th>Image</th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Tax</th>
+                      <th>Action</th>
+                      <th>Sub Category</th>
+                      </tr>
+                    </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <h3 class="mb-0"> <img width="100px" height="70" class="mr-2 ShaddowImg" [src]="item?.category_image?.media_file_url?item?.category_image?.media_file_url:'assets/images/food/noTImg.jpg'" alt="">
+                            </h3>
+                          </td>
+                          <td>
+                         <p class="text-nowrap">{{item?.name}}</p> 
+                          </td>
+                          <td>
+                            <p>{{item?.description|slice:0:10}}<a href="javascript:void()" matTooltipClass="example-tooltip-red" matTooltipPosition="above" *ngIf="item?.description?.length>10" [matTooltip]="item?.description">...Read More</a></p>
+                          </td>
+                          <td>
+                            <p>{{item?.tax_percentage|slice:0:2 ||'0'}}% </p>
+                          </td>
+                          <td>
+                              <span class="btn btn-primary mr-2" (click)="addCategoryModel(addCategory,item)"><i class="ti-marker-alt"></i> </span>
+                              <span class="btn btn-danger" (click)="deleteBoxModal(deleteBox,item?.id,'cat')"><i class="ti-trash"></i> </span>
+                          </td>
+                          <td>
+                            <div class="col-md-1 p-4">
+                              <button ngbPanelToggle class="btn btn-link p-0" (click)="GetSubCategory(item?.id)"><i class="sl-icon-arrow-down"></i></button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                  </table>
                   <div class="col-md-2">
-                    <h3 class="mb-0"> <img width="100px" height="70" class="mr-2 ShaddowImg" [src]="item?.category_image?.media_file_url?item?.category_image?.media_file_url:'assets/images/food/noTImg.jpg'" alt=""> 
-                    <span class="d-block mt-2 text-nowrap">{{item?.name}}</span> </h3>
+                    
                   </div>
                   <div class="col-md-5 text-left">
-                    <p>{{item?.description|slice:0:50}}<a href="javascript:void()" matTooltipClass="example-tooltip-red" matTooltipPosition="above" *ngIf="item?.description?.length>50" [matTooltip]="item?.description">...Read More</a></p>
+                   
                   </div>
                   <div class="col-md-1">
-                    <p>{{item?.tax_percentage}}</p>
+                    
                   </div>
                   <div class="col-md-3">
-                    <div class="delete-categories">
-                      <span class="btn btn-primary mr-2" (click)="addCategoryModel(addCategory,item)"><i class="ti-marker-alt"></i> </span>
-                      <span class="btn btn-danger" (click)="deleteBoxModal(deleteBox,item?.id,'cat')"><i class="ti-trash"></i> </span>
-                    </div>             
+                           
                   </div>
-                  <div class="col-md-1 p-4">
-                    <button ngbPanelToggle class="btn btn-link p-0" (click)="GetSubCategory(item?.id)"><i class="sl-icon-arrow-down"></i></button>
-                  </div>
+                 
                 </div>
               </ng-template>
               <ng-template ngbPanelContent>
@@ -61,7 +94,7 @@
                         {{objItem?.name}}
                       </td>
                       <td>
-                        <a href="javascript:void()" (click)="editBoxModal(editModel)" class="mr-2"><i
+                        <a href="javascript:void()" (click)="editBoxModal(editModel,objItem)" class="mr-2"><i
                             class="ti-marker-alt"></i> </a>
                         <a href="javascript:void()" (click)="deleteBoxModal(deleteBox,objItem?.id,'sub')"><i class="ti-trash"></i> </a>
                       </td>
@@ -119,18 +152,24 @@
                   <div class="form-group">
                     <label class="control-label">Upload Food Image</label>
                     <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file" (change)="uploadFile($event)"><label
-                        class="custom-file-label" for="inputGroupFile01">{{ImageUrl?ImageUrl:'Choose file'}}</label></div>
+                        class="custom-file-label text-truncate text-truncate text-truncate" for="inputGroupFile01">{{ImageUrl?ImageUrl:'Choose file'}}</label></div>
                         <!-- <p class="constraints-info afu-constraints-info">(.jpg,.png) Size limit- 1.00 MB</p> -->
                   </div>
                 </div>
               </div>
               <!--/span-->
               <div class="col-md-10">
-                <div formArrayName='productLabels'>
+                <div formArrayName='specification'>
                   <label>Product options</label>
-                  <div class="d-flex form-group" *ngFor="let user of SubcategoryForm.get('productLabels')['controls']; let i = index">
-                    <input type="text" [formControlName]="i" class="form-control" placeholder="Give suitable label">
+                  <div class="form-group" *ngFor="let user of specification().controls; let i = index" 
+                  [formGroupName]="i">
+                  <div class="d-flex">
+                  <input type="text" formControlName="name" class="form-control" placeholder="Give suitable label">
                    <button class="btn btn-danger" (click)="removeUser(i)"><i class="mdi mdi-minus" title="Remove"></i></button> 
+                  </div>
+                   <span class="error" *ngIf="user.get('name').hasError('required') && user.get('name').touched">
+                    Please enter product options!
+                </span>
                   </div>
                 </div><br>
                 <button class="btn btn-primary" (click)="addUser()"><i class="mdi mdi-plus" title="Add row"></i></button>
@@ -187,18 +226,23 @@
                   <div class="form-group">
                     <label class="control-label">Upload Food Image</label>
                     <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file" (change)="uploadFile($event)"><label
-                        class="custom-file-label" for="inputGroupFile01">{{ImageUrl?ImageUrl:'Choose file'}}</label></div>
+                        class="custom-file-label text-truncate text-truncate" for="inputGroupFile01">{{ImageUrl?ImageUrl:'Choose file'}}</label></div>
                         <!-- <p class="constraints-info afu-constraints-info">(.jpg,.png) Size limit- 1.00 MB</p> -->
                   </div>
                 </div>
               </div>
               <!--/span-->
               <div class="col-md-10">
-                <div formArrayName='productLabels'>
+                <div formArrayName='specification'>
                   <label>Product options</label>
-                  <div class="d-flex form-group" *ngFor="let user of SubcategoryForm.get('productLabels')['controls']; let i = index">
-                    <input type="text" [formControlName]="i" class="form-control" placeholder="Give suitable label">
+                  <div class="form-group" *ngFor="let user of specification().controls; let i = index" [formGroupName]="i">
+                    <div class="d-flex">
+                    <input type="text" formControlName="name" class="form-control" placeholder="Give suitable label">
                    <button class="btn btn-danger" (click)="removeUser(i)"><i class="mdi mdi-minus" title="Remove"></i></button> 
+                  </div>
+                   <span class="error" *ngIf="user.get('name').hasError('required') && user.get('name').touched">
+                    Please enter product options!
+                </span>
                   </div>
                 </div><br>
                 <button class="btn btn-primary" (click)="addUser()"><i class="mdi mdi-plus" title="Add row"></i></button>
@@ -208,7 +252,7 @@
           </div>
           <div class="form-actions">
             <div class="card-body">
-              <button type="submit" class="btn btn-success mr-3" (click)="SaveCategory('sub')">
+              <button type="submit" class="btn btn-success mr-3" (click)="SaveCategory('subUpdate')">
                 <i class="fa fa-check"></i>Update</button>
               <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
             </div>
@@ -242,7 +286,7 @@
                   <div class="form-group">
                     <label class="control-label">Upload Food Image</label>
                     <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"><label
-                        class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
+                        class="custom-file-label text-truncate text-truncate" for="inputGroupFile01">Choose file</label></div>
                         <p  class="constraints-info afu-constraints-info">(.jpg,.png) Size limit- 1.00 MB</p>
                   </div>
                 </div>
@@ -290,7 +334,7 @@
                   <div class="form-group">
                     <label class="control-label">Upload Food Image</label>
                     <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file" (change)="uploadFile($event)"><label
-                        class="custom-file-label text-truncate" for="inputGroupFile01">{{ImageUrl?ImageUrl:'Choose file'}}</label></div>
+                        class="custom-file-label text-truncate text-truncate text-truncate" for="inputGroupFile01">{{ImageUrl?ImageUrl:'Choose file'}}</label></div>
                         <!-- <p  class="constraints-info afu-constraints-info">(.jpg,.png) Size limit- 1.00 MB</p> -->
                   </div>
                 </div>
@@ -350,42 +394,3 @@
 </ng-template>
 
 
-
-
-<!-- <ng-template #cusinine let-modal>
-  <div class="modal-body">
-    <div class="card">
-      <div class="card-body">
-        <form action="">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Name</label>
-                <input type="text" placeholder="Add Name" class="form-control">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-
-                <label class="control-label">Upload Image</label>
-                <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"><label
-                    class="custom-file-label" for="inputGroupFile01">Choose File</label>
-                 
-                 <p  class="constraints-info afu-constraints-info">(.jpg,.png) Size limit- 1.00 MB</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="form-group">
-                <label>Description</label>
-                <textarea type="text" placeholder="Description" class="form-control"></textarea>
-              </div>
-            </div>
-           <div class="col-md-12"><button type="submit" class="btn btn-success mr-3" (click)="modal.dismiss('Cross click')">
-            <i class="fa fa-check"></i> Add</button></div> 
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</ng-template> -->

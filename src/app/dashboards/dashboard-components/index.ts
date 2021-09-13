@@ -4,7 +4,7 @@ export * from './info-card/info-card.component';
 export * from './recent-chats/chat.component';
 export * from './recent-comments/comment.component';
 export * from './user-map/usermap.component';
-export * from './activity/activity.component';
+// export * from './activity/activity.component';
 export * from './browser-stats/browser-stats.component';
 export * from './device-visits/device-visits.component';
 export * from './earnings/earnings.component';

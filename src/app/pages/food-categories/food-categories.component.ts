@@ -25,6 +25,7 @@ export class FoodCategoriesComponent implements OnInit {
   subCatpage = 1
   subCatPageSize = 10
   subCatCount = 0
+  SubCatId:any
   CategoryForm:FormGroup
   SubcategoryForm:FormGroup
   movies = [
@@ -52,6 +53,7 @@ export class FoodCategoriesComponent implements OnInit {
   active = 1;
   imageId: any;
   ImageUrl: any;
+  productLabels:FormArray
   catId: any;
   IsUpdate:any
   CategoryData: any;
@@ -71,7 +73,7 @@ export class FoodCategoriesComponent implements OnInit {
   ngOnInit() {
     this.GetCategory()
     this.buildForm();
-    this.addUser();
+  
   }
   GetSubCategory(id){
     this.MainCatId = id
@@ -258,19 +260,30 @@ export class FoodCategoriesComponent implements OnInit {
     })
   }
   buildForm() {
-    this.SubcategoryForm = new FormGroup({
-      name:new FormControl('',[Validators.required,Validators.maxLength(30)]),
-      productLabels: new FormArray([])
+    this.SubcategoryForm = this.fb.group({
+      name:['',[Validators.required,Validators.maxLength(30)]],
+      specification: this.fb.array([], [Validators.required]),
     })
   }
+ 
+  
+
 addUser() {
-    const add = this.SubcategoryForm.get('productLabels') as FormArray;
-    add.push(new FormControl(''));
+  this.specification().push(this.newSpecifiaction())
+    
   }
-  removeUser(i) {
-    const remove = this.SubcategoryForm.get('productLabels') as FormArray;
-    remove.removeAt(i);
+  removeUser(i: number) {
+    this.specification().removeAt(i);
   }
+  newSpecifiaction(): FormGroup {
+    return this.fb.group({
+      name: new FormControl('', [Validators.required]),
+    })
+  }
+  specification(): FormArray {
+    return this.SubcategoryForm.get('specification') as FormArray;
+  }
+  
   deleteBoxModal(userDelete,id,ref) {
     this.REFERENCE = ref
     this.catId = id
@@ -280,10 +293,15 @@ addUser() {
   addUserModal(addUser) {
     this.modalService.open(addUser, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
   }
-  editBoxModal(editModel) {
+  editBoxModal(editModel,obj) {
     this.SubcategoryForm.reset()
     this.ImageUrl =undefined
-    
+    this.setSubCategoryForm(obj)
+    console.log('OBJ',obj);
+    this.ImageUrl = obj?.sub_category_image?.media_file_url
+    this.imageId = obj?.sub_category_image?.id
+    this.catId = obj?.category
+    this.SubCatId = obj?.id
     this.modalService.open(editModel, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
   }
   addsubCategoryModel(addsubCategory) {
@@ -338,18 +356,22 @@ addUser() {
         (this.ImageUrl)? this.DataSubmission(ref):this.toaster.error('Please upload category image')
       }else{this.CategoryForm.markAllAsTouched()
       }
-    }else{
-if(this.SubcategoryForm.valid){
-  (this.ImageUrl)? this.DataSubmission(ref):this.toaster.error('Please upload sub category image')
-  // this.DataSubmission(ref)
-}else{
+    }
+    else if('sub'){
+   if(this.SubcategoryForm.valid){
+   (this.ImageUrl)? this.DataSubmission(ref):this.toaster.error('Please upload sub category image')
+  }else{
   this.SubcategoryForm.markAllAsTouched()
 }
+    }else if('subUpdate'){
+      if(this.SubcategoryForm.valid){
+        (this.ImageUrl)? this.DataSubmission(ref):this.toaster.error('Please upload sub category image')
+       }else{
+       this.SubcategoryForm.markAllAsTouched()
+     }
     }
   }
   DataSubmission(FOR){
-let urlAdd = `product/create-category/`
-let urlUpdate = ``
     if(FOR=='cat'){
       let obj ={
         "name":this.CategoryForm.value.name,
@@ -366,11 +388,13 @@ let urlUpdate = ``
           this.ImageUrl=undefined
         }
       })
-    }else{
+    }
+    else if(FOR=='sub'){
       let obj ={
       "name":this.SubcategoryForm.value.name,
       "sub_category_image":this.imageId,
-      "category":this.catId
+      "category":this.catId,
+      "sub_category_option":this.SubcategoryForm.get('specification').value
     }
       this.service.post(`product/create-sub-category/`,obj).subscribe((res:any)=>{
         if ([200,201].includes(res.code)){
@@ -382,24 +406,55 @@ let urlUpdate = ``
         }
       })
     }
+    else if(FOR=='subUpdate'){
+      let obj ={
+        "id":this.SubCatId,
+      "name":this.SubcategoryForm.value.name,
+      "sub_category_image":this.imageId,
+      "category":this.catId,
+      "sub_category_option":this.SubcategoryForm.get('specification').value
+    }
+      this.service.put(`product/update-sub-category/${this.SubCatId}/`,obj).subscribe((res:any)=>{
+        if ([200,201].includes(res.code)){
+          this.toaster.success('Sub category updated','Success')
+          this.GetSubCategory(this.catId)
+          this.modalService.dismissAll()
+          this.imageId = undefined
+          this.ImageUrl=undefined
+        }
+      })
+    }
 }
 DeleteVendor(){
+  let obj = {
+    "is_force":false
+}
   if(this.REFERENCE=='cat'){
-    this.service.delete(`product/delete-product-category/${this.catId}`).subscribe((res:any)=>{
+    this.service.put(`product/delete-product-category/${this.catId}/`,obj).subscribe((res:any)=>{
       if([200,201].includes(res.code)){
         this.GetCategory()
         this.modalService.dismissAll()
         this.toaster.success('Category deleted successfully','Deleted')
       }
     })
-  }else{this.service.delete(`product/delete-product-sub-category/${this.catId}/`).subscribe((res:any)=>{
+  }else{this.service.put(`product/delete-product-sub-category/${this.catId}/`,obj).subscribe((res:any)=>{
     if([200,201].includes(res.code)){
       this.GetSubCategory(this.MainCatId)
       this.modalService.dismissAll()
       this.toaster.success('Sub category deleted successfully','Deleted')
     }
   })}
-  
-}
+  }
+  setSubCategoryForm(data){
+    this.SubcategoryForm.controls['name'].setValue(data?.name)
+    const formArray = new FormArray([]);
+    for (let x of data?.sub_category_option) {
+      console.log(x)
+      formArray.push(this.fb.group({
+        name: [x.name,[Validators.required]],
+      }));
+    }
+    this.SubcategoryForm.setControl('specification',formArray)
+  }
 }
 

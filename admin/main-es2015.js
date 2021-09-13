@@ -115,7 +115,8 @@ class ErrorInterceptor {
                 return data.body;
             }
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(err => {
-            if (err.error.data != null && err.error.data != undefined) {
+            var _a, _b, _c, _d, _e, _f;
+            if (((_a = err.error) === null || _a === void 0 ? void 0 : _a.data) != null && ((_b = err.error) === null || _b === void 0 ? void 0 : _b.data) != undefined) {
                 if (typeof err.error.data == 'object') {
                     var errr = '';
                     Object.keys(err.error.data).forEach(key => {
@@ -134,7 +135,7 @@ class ErrorInterceptor {
                 }
             }
             else {
-                var error = err.error.error_description || err.error.message || err.statusText || err.message;
+                var error = ((_c = err.error) === null || _c === void 0 ? void 0 : _c.error_description) || ((_d = err.error) === null || _d === void 0 ? void 0 : _d.message) || err.statusText || (err === null || err === void 0 ? void 0 : err.message);
                 this._noti.clear();
                 this._noti.error(error, 'Error', {
                     timeOut: 2000,
@@ -148,7 +149,7 @@ class ErrorInterceptor {
                 sessionStorage.removeItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].storageKey);
                 this.router.navigate(['/login']);
             }
-            var error = err.error.error_description || err.error.message || err.statusText || err.message;
+            var error = ((_e = err.error) === null || _e === void 0 ? void 0 : _e.error_description) || ((_f = err.error) === null || _f === void 0 ? void 0 : _f.message) || err.statusText || (err === null || err === void 0 ? void 0 : err.message);
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(error);
         }));
     }
@@ -342,7 +343,7 @@ const Approutes = [
             { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
             {
                 path: 'dashboard', canActivate: [src_app_guards_auth_guard__WEBPACK_IMPORTED_MODULE_0__["AuthGuard"]],
-                loadChildren: () => Promise.all(/*! import() | dashboards-dashboard-module */[__webpack_require__.e("default~apps-apps-module~dashboards-dashboard-module~pages-pages-module"), __webpack_require__.e("default~dashboards-dashboard-module~pages-pages-module"), __webpack_require__.e("default~apps-apps-module~dashboards-dashboard-module"), __webpack_require__.e("dashboards-dashboard-module")]).then(__webpack_require__.bind(null, /*! ./dashboards/dashboard.module */ "./src/app/dashboards/dashboard.module.ts")).then(m => m.DashboardModule)
+                loadChildren: () => Promise.all(/*! import() | dashboards-dashboard-module */[__webpack_require__.e("default~dashboards-dashboard-module~pages-pages-module"), __webpack_require__.e("dashboards-dashboard-module")]).then(__webpack_require__.bind(null, /*! ./dashboards/dashboard.module */ "./src/app/dashboards/dashboard.module.ts")).then(m => m.DashboardModule)
             },
             // {
             //   path: 'starter',
@@ -372,7 +373,7 @@ const Approutes = [
             //   loadChildren:
             //     () => import('./extra-component/extra-component.module').then(m => m.ExtraComponentModule)
             // },
-            { path: 'apps', loadChildren: () => Promise.all(/*! import() | apps-apps-module */[__webpack_require__.e("default~apps-apps-module~dashboards-dashboard-module~pages-pages-module"), __webpack_require__.e("default~apps-apps-module~dashboards-dashboard-module"), __webpack_require__.e("default~apps-apps-module~pages-pages-module"), __webpack_require__.e("apps-apps-module")]).then(__webpack_require__.bind(null, /*! ./apps/apps.module */ "./src/app/apps/apps.module.ts")).then(m => m.AppsModule) },
+            // { path: 'apps', loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule) },
             // {
             // //   path: 'apps/email',
             // //   loadChildren: () => import('./apps/email/mail.module').then(m => m.MailModule)
@@ -380,7 +381,7 @@ const Approutes = [
             // // { path: 'maps', loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule) },
             {
                 path: 'pages',
-                loadChildren: () => Promise.all(/*! import() | pages-pages-module */[__webpack_require__.e("default~apps-apps-module~dashboards-dashboard-module~pages-pages-module"), __webpack_require__.e("default~dashboards-dashboard-module~pages-pages-module"), __webpack_require__.e("default~apps-apps-module~pages-pages-module"), __webpack_require__.e("pages-pages-module")]).then(__webpack_require__.bind(null, /*! ./pages/pages.module */ "./src/app/pages/pages.module.ts")).then(m => m.PagesModule)
+                loadChildren: () => Promise.all(/*! import() | pages-pages-module */[__webpack_require__.e("default~dashboards-dashboard-module~pages-pages-module"), __webpack_require__.e("pages-pages-module")]).then(__webpack_require__.bind(null, /*! ./pages/pages.module */ "./src/app/pages/pages.module.ts")).then(m => m.PagesModule)
             },
         ]
     },
@@ -428,7 +429,7 @@ class AppComponent {
     }
 }
 AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(); };
-AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], decls: 5, vars: 1, consts: [["bdColor", "rgba(0, 0, 0, 0.8)", "size", "default", "color", "#fff", "type", "la-ball-clip-rotate-pulse", 3, "fullScreen"], [2, "color", "white"]], template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
+AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], decls: 5, vars: 1, consts: [["bdColor", "rgba(0, 0, 0, 0.8)", "size", "default", "color", "#9ECB2E", "type", "ball-clip-rotate", 3, "fullScreen"], [2, "color", "white"]], template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "router-outlet");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "app-spinner");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();

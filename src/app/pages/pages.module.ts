@@ -82,6 +82,8 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { AgmCoreModule } from '@agm/core';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input'
 import { MatTooltipModule } from '@angular/material/tooltip';
+// import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { CKEditorModule } from 'ckeditor4-angular';
 @NgModule({
   imports: [
 CommonModule,
@@ -108,6 +110,8 @@ CommonModule,
     AgmCoreModule,
     NgxIntlTelInputModule,
     MatTooltipModule,
+    // CKEditorModule,
+    CKEditorModule
   ],
   declarations: [
     // HelperclassesComponent,

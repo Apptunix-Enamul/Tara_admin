@@ -29,7 +29,7 @@ export class ErrorInterceptor implements HttpInterceptor {
               }
           }),
           catchError(err => {
-            if (err.error.data != null && err.error.data != undefined) {
+            if (err.error?.data != null && err.error?.data != undefined) {
               if (typeof err.error.data == 'object') {
                 var errr = '';
                   Object.keys(err.error.data).forEach(key => {
@@ -47,7 +47,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                   }
               }
           }else {
-            var error = err.error.error_description || err.error.message || err.statusText || err.message;
+            var error = err.error?.error_description || err.error?.message || err.statusText || err?.message;
             this._noti.clear()
             this._noti.error(error,'Error',{
               timeOut: 2000,
@@ -61,7 +61,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                   sessionStorage.removeItem(environment.storageKey);
                   this.router.navigate(['/login']);
               }
-              var error = err.error.error_description || err.error.message || err.statusText || err.message;
+              var error = err.error?.error_description || err.error?.message || err.statusText || err?.message;
               return throwError(error);
           }));
   }
