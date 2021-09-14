@@ -126,3 +126,24 @@ input[type=number] {
     background: #fff;
     padding: 10px;
 } */
+.imgs {
+    margin-right: 10px;
+    position: relative;
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    object-fit: cover;
+}
+.cros {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    top: 0;
+}
+
+.rows {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.add {
+    margin-left: 5px;
+}

@@ -67,7 +67,7 @@ export class FoodCategoriesComponent implements OnInit {
     this.CategoryForm = this.fb.group({
       name:['',[Validators.required,Validators.maxLength(30)]],
       description:['',Validators.required],
-      tax_percentage:['',[Validators.required,Validators.maxLength(2)]]
+      tax_percentage:['',[Validators.required]]
     })
   }
   ngOnInit() {
@@ -319,6 +319,7 @@ addUser() {
       this.ImageUrl = obj?.category_image?.media_file_url
       this.imageId = obj?.category_image?.id
       this.CategoryForm.patchValue(obj)
+      this.catId = obj?.id
     }
     this.modalService.open(addCategory, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
   }
@@ -372,23 +373,16 @@ addUser() {
     }
   }
   DataSubmission(FOR){
-    if(FOR=='cat'){
+ if(FOR=='cat'){
+      let OperationalApi = (this.IsUpdate=='')?`product/create-category/`:`product/update-category/${this.catId}/`
       let obj ={
         "name":this.CategoryForm.value.name,
         "category_image":this.imageId,
         "description":this.CategoryForm.value.description,
         "tax_percentage":this.CategoryForm.value.tax_percentage
     }
-      this.service.post(`product/create-category/`,obj).subscribe((res:any)=>{
-        if ([200,201].includes(res.code)){
-          this.GetCategory()
-          this.toaster.success('New category created','Success')
-          this.modalService.dismissAll()
-          this.imageId = undefined
-          this.ImageUrl=undefined
-        }
-      })
-    }
+        this.CallCreateUpdateApi(OperationalApi,obj)
+  }
     else if(FOR=='sub'){
       let obj ={
       "name":this.SubcategoryForm.value.name,
@@ -455,6 +449,28 @@ DeleteVendor(){
       }));
     }
     this.SubcategoryForm.setControl('specification',formArray)
+  }
+
+  CallCreateUpdateApi(Api,obj){
+    if(this.IsUpdate==''){
+      this.service.post(Api,obj).subscribe((res:any)=>{
+        if ([200,201].includes(res.code)){
+          this.GetCategory()
+          this.toaster.success(`New category created`,'Success')
+          this.modalService.dismissAll()
+          this.imageId = undefined
+          this.ImageUrl=undefined
+        }
+      })
+    }else{this.service.put(Api,obj).subscribe((res:any)=>{
+      if ([200,201].includes(res.code)){
+        this.GetCategory()
+        this.toaster.success(`Category updated successfully`,'Success')
+        this.modalService.dismissAll()
+        this.imageId = undefined
+        this.ImageUrl=undefined
+      }
+    })}
   }
 }
 

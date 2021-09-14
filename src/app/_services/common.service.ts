@@ -62,10 +62,16 @@ export class CommonService {
     putApi(url, data) {
       return this._http.put(`${environment.baseUrl}` + url, data);
       }
+	  deleteApi(url) {
+		return this._http.delete(`${environment.baseUrl}` + url).pipe(map((data: any) => {
+			return data;
+		}));
+	  }
+
 	  Showspinner(){
      this.spinner.show()
 	 setTimeout(() => {
 	 this.spinner.hide()
-	 }, 5000);
+	 }, 4000);
 	}
 }

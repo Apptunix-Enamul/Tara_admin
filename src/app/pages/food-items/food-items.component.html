@@ -1,427 +1,586 @@
 <div class="card">
     <div class="card-body">
-        <div class="row">
-            <div class="col-md-4">
-                <form>
-                    <div class="mb-2">
-                        <input type="text" class="form-control" id="prenametext" placeholder="Search">
-                    </div>
-                </form>
+      <div class="row">
+        <div class="col-md-4">
+          <form>
+            <div class="mb-2">
+              <input type="text" class="form-control" id="prenametext" placeholder="Search" (keydown)="Filter($event)">
             </div>
-            <div class="col-md-8 text-right mb-5">
-                <div class="add-categories ">
-                    <!-- <div ngbDropdown class="d-inline-block mr-2">
-            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
-              Filter by Category
-            </button>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button class="dropdown-item">Fast Food</button>
-              <button class="dropdown-item">Drink</button>
-              <button class="dropdown-item">Thali</button>
-            </div>
-          </div> -->
-                    <button class="btn btn-seconadary" (click)="addCategoryModel(addCategory)"><i class="sl-icon-plus"></i>
-            Add Food Items</button>
-                </div>
-            </div>
+          </form>
         </div>
-        <div class="col-12 card pt-3">
-            <div class="row align-items-stretch">
-                <div class="col-md-2">
-                    <img width="150px" class="mr-2" src="assets/images/food/1.jpg" alt="">
-                </div>
-                <div class="col-md-5 row">
-                    <div class="col-md-6">
-                        <h3> Apple </h3>
-                        <p> <b class="text-black">ID</b> : <span>#123456</span> </p>
-                        <p> <b class="text-black">Product Collection</b> : <span>123</span></p>
-                        <p> <b class="text-black">Product Cost</b> : <span>$10</span></p>
-                        <p> <b class="text-black">Product Quantity</b> : <span>10</span></p>
-                        <p> <b class="text-black">Purchase Limit</b> : <span>3</span> </p>
-                    </div>
-                    <div class="col-md-6">
-                        <p> <b class="text-black">Brand</b> : <span>Appiz</span></p>
-                        <!-- <p>Category : Fast Food </p> -->
-                        <!-- <p>Sub-Category : Soya Chap </p> -->
-                        <p> <b class="text-black">Quantity</b> : 10/pc</p>
-                        <p> <b class="text-black">Price</b> : $11/inc tax </p>
-                        <p> <b class="text-black">Discount</b> : <span>10%</span></p>
-                        <div class="form-group"> <b class="text-black"> Occasion </b> :
-                            <select class="w-100 form-control">
-                              <option>one</option>
-                              <option>two</option>
-                              <option>three</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <label class="text-black">Description</label>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos voluptatem, recusandae quibusdam.</p>
-                    <p> <b class="text-black"> Warranty </b> : <span>Lorem ipsum dolor sit amet</span></p>
-                    <p> <b class="text-black"> Product Material </b> : <span>Lorem ipsum dolor sit amet</span></p>
-                </div>
-                <div class="col-md-2 align-items-center d-flex justify-content-center">
-                    <div class="delete-categories">
-                        <span class="btn btn-primary mr-2" (click)="editBoxModal(editModel)"><i class="ti-marker-alt"></i> </span>
-                        <span class="btn btn-danger" (click)="deleteBoxModal(deleteBox)"><i class="ti-trash"></i> </span>
-                    </div>
-                </div>
+        <div class="col-md-8 text-right mb-5">
+          <div class="add-categories ">
+            <div ngbDropdown class="d-inline-block mr-2">
+              <!-- <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                Filter by Category
+              </button> -->
+              <!-- <div ngbDropdownMenu aria-labelledby="dropdownBasic1"> -->
+                <input list="brow" placeholder="Filter by category" [formControl]="CategoryName" class="form-control" (change)="FilterByCategory($event)">
+                <datalist id="brow">
+                 <option *ngFor="let item of CategoryData">{{item?.name}}</option>
+                </datalist>
+                <!-- <button class="dropdown-item" *ngFor="let item of CategoryData" (click)="FilterByCategory(item?.id)">{{item?.name}}</button> -->
+                <!-- <button class="dropdown-item">Drink</button>
+                <button class="dropdown-item">Thali</button> -->
+              <!-- </div> -->
             </div>
+            <button class="btn btn-seconadary" (click)="addCategoryModel(addCategory)"><i class="sl-icon-plus"></i>
+              Add Food Items</button>
+          </div>
         </div>
-        <div class="col-12 card pt-3">
-            <div class="row align-items-stretch">
-                <div class="col-md-2">
-                    <img width="150px" class="mr-2" src="assets/images/food/2.jpg" alt="">
-                </div>
-                <div class="col-md-5 row">
-                    <div class="col-md-6">
-                        <h3> Banana </h3>
-                        <p> <b class="text-black">ID</b> : <span>#123456</span> </p>
-                        <p> <b class="text-black">Product Collection</b> : <span>123</span></p>
-                        <p> <b class="text-black">Product Cost</b> : <span>$10</span></p>
-                        <p> <b class="text-black">Product Quantity</b> : <span>10</span></p>
-                        <p> <b class="text-black">Purchase Limit</b> : <span>3</span> </p>
-                    </div>
-                    <div class="col-md-6">
-                        <p> <b class="text-black">Brand</b> : <span>Appiz</span></p>
-                        <!-- <p>Category : Fast Food </p> -->
-                        <!-- <p>Sub-Category : Soya Chap </p> -->
-                        <p> <b class="text-black">Quantity</b> : 10/pc</p>
-                        <p> <b class="text-black">Price</b> : $11/inc tax </p>
-                        <p> <b class="text-black">Discount</b> : <span>10%</span></p>
-                        <div class="form-group"> <b class="text-black"> Occasion </b> :
-                            <select class="w-100 form-control">
-                <option>one</option>
-                <option>two</option>
-                <option>three</option>
-              </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <label class="text-black">Description</label>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos voluptatem, recusandae quibusdam.</p>
-                    <p> <b class="text-black"> Warranty </b> : <span>Lorem ipsum dolor sit amet</span></p>
-                    <p> <b class="text-black"> Product Material </b> : <span>Lorem ipsum dolor sit amet</span></p>
-                </div>
-                <div class="col-md-2 align-items-center d-flex justify-content-center">
-                    <div class="delete-categories">
-                        <span class="btn btn-primary mr-2" (click)="editBoxModal(editModel)"><i class="ti-marker-alt"></i> </span>
-                        <span class="btn btn-danger" (click)="deleteBoxModal(deleteBox)"><i class="ti-trash"></i> </span>
-                    </div>
-                </div>
+      </div>
+      <div class="col-12 card pt-3" *ngFor="let item of ProductItems">
+        <div class="row align-items-stretch">
+          <div class="col-md-2">
+            <img class="mr-2 SetImg" [src]="item?.product_images[0]?item?.product_images[0].image?.media_file_url:'assets/images/food/placeHolder.jpg'" alt="">
+            
+          </div>
+          <div class="col-md-5 row">
+            <div class="col-md-6">
+              <h3> {{item?.item_name}}</h3>
+              <!-- <p> <b class="text-black">ID</b> : <span>{{item?.}}</span> </p> -->
+              <!-- <p> <b class="text-black">Product Collection</b> : <span>{{item?.}}</span></p> -->
+              <p> <b class="text-black">Product Cost</b> : <span>{{item?.product_cost}} $</span></p>
+              <p> <b class="text-black">Product Quantity</b> : <span>{{item?.quantity}}</span></p>
+              <p> <b class="text-black">Purchase Limit</b> : <span>{{item?.purchase_limit}}</span> </p>
             </div>
+            <div class="col-md-6">
+              <p> <b class="text-black">Brand</b> : <span>{{item?.brand}}</span></p>
+              <!-- <p>Category : Fast Food </p> -->
+              <!-- <p>Sub-Category : Soya Chap </p> -->
+              <!-- <p> <b class="text-black">Quantity</b> : 10/pc</p> -->
+              <p> <b class="text-black">Price</b> : {{item?.selling_price}}$/inc tax </p>
+              <p> <b class="text-black">Discount</b> : <span>{{item?.discount}}</span></p>
+              <p> <b class="text-black"> Product Material </b> : <span>{{item?.product_material}}</span></p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="text-black">Description</label>
+            <p class="pb-0">{{item?.description|slice:0:10}}<a href="javascript:void()" matTooltipClass="example-tooltip-red" matTooltipPosition="above" *ngIf="item?.description?.length>20" [matTooltip]="item?.description">...Read More</a></p>
+            <p> <b class="text-black"> Warranty </b> : <span>{{item?.warranty}}</span></p>
+            
+          </div>
+          <div class="col-md-2 align-items-center d-flex justify-content-center">
+            <div class="delete-categories">
+              <span class="btn btn-primary mr-2" (click)="editBoxModal(editModel,item?.id)"><i class="ti-marker-alt"></i> </span>
+              <span class="btn btn-danger" (click)="deleteBoxModal(deleteBox,item?.id)"><i class="ti-trash"></i> </span>
+            </div>
+          </div>
         </div>
+      </div>
+      <div *ngIf="count==0"><h3>Data not found</h3></div>
+      <div class="col-md-12 text-right" *ngIf="count!==0">
+        <mat-paginator [length]="count" [pageSize]="PageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPaginateChange($event)">
+        </mat-paginator>
     </div>
-</div>
-
-<!-- delete modal -->
-<ng-template #deleteBox let-modal>
-    <div class="modal-body">
-        <p>Are you sure you want to delete this product?</p>
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary mr-2" aria-label="Close" (click)="modal.dismiss('Cross click')">Yes</button>
-            <button type="button" class="btn btn-seconadary" aria-label="Close" (click)="modal.dismiss('Cross click')">No</button>
-        </div>
     </div>
-</ng-template>
-
-<!-- edit Product detail -->
-<ng-template #editModel let-modal>
+  </div>
+  
+  <!-- delete modal -->
+  <ng-template #deleteBox let-modal>
     <div class="modal-body">
-        <div class="card">
-            <form action="#">
-                <div class="form-body">
-                    <div class="card-body">
-                        <div class="row p-t-20">
-                            <!-- <div class="col-md-6">
-                <div class="form-group">
-                  <label class="control-label">Category Name</label>
-                  <mat-form-field class="w-100">
-                    <mat-label>Category Name</mat-label>
-                    <mat-select>
-                      <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+      <p>Are you want to delete this product?</p>
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary mr-2" aria-label="Close"
+          (click)="DeleteProduct()">Yes</button>
+        <button type="button" class="btn btn-seconadary" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">No</button>
+      </div>
+    </div>
+  </ng-template>
+  
+  <!-- edit Product detail -->
+  <ng-template #editModel let-modal>
+    <div class="modal-body">
+      <div class="card">
+        <form [formGroup]="ProductForm">
+          <div class="form-body">
+            <div class="card-body">
+              <div class="row p-t-20">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Category Name</label>
+                      <select class="form-control" (change)="GetSubCategory($event.target.value)" formControlName="product_category">
+                        <option value="" [selected]="true" disabled>Choose category</option>
+                        <option *ngFor="let topping of CategoryData" [value]="topping?.id">{{topping?.name}}</option>
+                      </select>
+                      <span *ngIf="this.ProductForm.get('product_category').hasError('required') && this.ProductForm.get('product_category').touched" class="error">
+                        Please choose category name.
+                       </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Sub Category</label>
+                   <select class="form-control" formControlName="product_sub_category">
+                    <option value="" [selected]="true" disabled>Choose sub category</option>
+                    <option *ngFor="let topping of SubCategoryData" [value]="topping?.id">{{topping?.name}}</option>
+                      </select>
+                      <span *ngIf="this.ProductForm.get('product_sub_category').hasError('required') && this.ProductForm.get('product_sub_category').touched" class="error">
+                        Please choose sub category name.
+                       </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Food Item name</label>
+                    <input type="text" id="firstName" class="form-control" placeholder="Food Item name" formControlName="FoodName" #foodName (keydown.space)="!foodName.value?$event.preventDefault():null">
+                  <span *ngIf="this.ProductForm.get('FoodName').hasError('required') && this.ProductForm.get('FoodName').touched" class="error">
+                  Please enter food item name.
+                 </span>
+                 <span *ngIf="this.ProductForm.get('FoodName').hasError('maxlength')" class="error">
+                  Maxlength should 30.
+                 </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label">Vendor name</label>
+                     <select class="form-control" formControlName="vendor">
+                      <option value="" [selected]="true" disabled>Choose vendor</option>
+                      <option *ngFor="let topping of VendorList" [value]="topping?.id">{{topping?.first_name+' '+topping?.last_name}}</option>
+                        </select>
+                        <span *ngIf="this.ProductForm.get('vendor').hasError('required') && this.ProductForm.get('vendor').touched" class="error">
+                          Please choose vendor.
+                         </span>
+                    </div>
+                  </div>
+              </div>
+              <!--/row-->
+              <div class="row">
+                <!-- <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Product ID</label>
+                    <input type="number" class="form-control" aria-label="Username" placeholder="Product ID" formControlName="FoodId" #foodNam (keydown.space)="!foodNam.value?$event.preventDefault():null">
+                    <span *ngIf="this.ProductForm.get('FoodId').hasError('required') && this.ProductForm.get('FoodId').touched" class="error">
+                      Please enter product id.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('FoodId').hasError('maxlength')" class="error">
+                      Maxlength should 15.
+                     </span>
+                  </div>
+                </div> -->
+                <!-- <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Product Collection</label>
+                    <input aria-describedby="basic-addon1" aria-label="price" class="form-control" placeholder="Product Collection" type="number" formControlName="collection" #foodNa (keydown.space)="!foodNa.value?$event.preventDefault():null">
+                    <span *ngIf="this.ProductForm.get('collection').hasError('required') && this.ProductForm.get('collection').touched" class="error">
+                      Please enter product collection.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('collection').hasError('maxlength')" class="error">
+                      Maxlength should 30.
+                     </span>
+                  </div>
+                </div> -->
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Product Cost</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                      <input aria-describedby="basic-addon1"
+                        aria-label="price" class="form-control" placeholder="Product Cost" type="number" formControlName="cost" #cost (keydown.space)="!cost.value?$event.preventDefault():null">
+                      </div>
+                      <span *ngIf="this.ProductForm.get('cost').hasError('required') && this.ProductForm.get('cost').touched" class="error">
+                        Please enter product cost.
+                       </span>
+                       <span *ngIf="this.ProductForm.get('cost').hasError('maxlength')" class="error">
+                        Maxlength should 15.
+                       </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Purchase Limit</label>
+                    <input type="number" class="form-control" aria-label="Username" placeholder="Purchase Limit" formControlName="limit" #lmt (keydown.space)="!lmt.value?$event.preventDefault():null">
+                    <span *ngIf="this.ProductForm.get('limit').hasError('required') && this.ProductForm.get('limit').touched" class="error">
+                      Please enter purchase limit.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('limit').hasError('maxlength')" class="error">
+                      Maxlength should 15.
+                     </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Brand </label>
+                    <input type="text" class="form-control" aria-label="Username" placeholder="Brand" formControlName="brand" #brand (keydown.space)="!brand.value?$event.preventDefault():null">
+                    <span *ngIf="this.ProductForm.get('brand').hasError('required') && this.ProductForm.get('brand').touched" class="error">
+                      Please enter brand.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('brand').hasError('maxlength')" class="error">
+                      Maxlength should 15.
+                     </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Quantity </label>
+                    <input type="number" class="form-control" aria-label="Username" placeholder="Quantity" formControlName="qty" #qty (keydown.space)="!qty.value?$event.preventDefault():null">
+                    <span *ngIf="this.ProductForm.get('qty').hasError('required') && this.ProductForm.get('qty').touched" class="error">
+                      Please enter quantity.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('qty').hasError('maxlength')" class="error">
+                      Maxlength should 15.
+                     </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Price</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                      <input aria-describedby="basic-addon1"
+                        aria-label="price" class="form-control" placeholder="Price" type="number" formControlName="price" #price (keydown.space)="!price.value?$event.preventDefault():null">
+                      </div>
+                      <span *ngIf="this.ProductForm.get('price').hasError('required') && this.ProductForm.get('price').touched" class="error">
+                        Please enter price.
+                       </span>
+                       <span *ngIf="this.ProductForm.get('price').hasError('maxlength')" class="error">
+                        Maxlength should 10.
+                       </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Discount</label>
+                    <input type="number" placeholder="6%" class="form-control" formControlName="discount" #discount (keydown.space)="!discount.value?$event.preventDefault():null">
+                    <span *ngIf="this.ProductForm.get('discount').hasError('required') && this.ProductForm.get('discount').touched" class="error">
+                      Please enter discount.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('discount').hasError('maxlength')" class="error">
+                      Maxlength should 10.
+                     </span>
+                  </div>
+                </div>
+                <!-- <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Occasion</label>
+                    <mat-form-field class="w-100">
+                      <mat-label>Select Occasion</mat-label>
+                      <mat-select formControlName="Occasion">
+                        <mat-option *ngFor="let Select of Selected" [value]="Select">{{Select}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="this.ProductForm.get('Occasion').hasError('required') && this.ProductForm.get('Occasion').touched" class="error">
+                        Please choose occasion.
+                      </mat-error>
+                    </mat-form-field>
+                    
+                  </div>
+                </div> -->
+                <div class="col-md-12">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Description </label>
+                    <textarea name="" id="" cols="30" rows="3" class="form-control" formControlName="description" #desc (keydown.space)="!desc.value?$event.preventDefault():null"></textarea>
+                    <span *ngIf="this.ProductForm.get('description').hasError('required') && this.ProductForm.get('description').touched" class="error">
+                      Please enter description.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('description').hasError('maxlength')" class="error">
+                      Maxlength should 350.
+                     </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Warranty </label>
+                    <textarea name="" id="" cols="30" rows="3" class="form-control" formControlName="Warranty" #war (keydown.space)="!war.value?$event.preventDefault():null"></textarea>
+                    <span *ngIf="this.ProductForm.get('Warranty').hasError('required') && this.ProductForm.get('Warranty').touched" class="error">
+                      Please enter Warranty.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('Warranty').hasError('maxlength')" class="error">
+                      Maxlength should 300.
+                     </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Product Material </label>
+                    <textarea name="" id="" cols="30" rows="3" class="form-control" formControlName="material" #matt (keydown.space)="!matt.value?$event.preventDefault():null"></textarea>
+                    <span *ngIf="this.ProductForm.get('material').hasError('required') && this.ProductForm.get('material').touched" class="error">
+                      Please enter product material.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('material').hasError('maxlength')" class="error">
+                      Maxlength should 300.
+                     </span>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="upload">
+                    <label class="control-label">Upload product images</label>
+                  <div class="rows flex-wrap justify-content-start">
+                   <div class="imgs" *ngFor="let item of docfile; index as i">   
+                      <button  (click)="Remove(i)" class="cros btn btn-danger">
+                        <span>&times;</span>
+                      </button>         
+                      <img [src]="item?item:'assets/images/food/1.jpg'" height="80" width="90" style=" position: relative;"/>
+                    </div>
+                    <div class="add w-100 mt-2">
+                      <div class="upload-btn-wrapper">
+                        <button class="add btn btn-primary">+</button>
+                        <input type="file" (change)="uploadFile($event)" multiple/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="control-label">Sub Category</label>
-                  <mat-form-field class="w-100">
-                    <mat-label>Sub Category</mat-label>
-                    <mat-select [formControl]="toppings" multiple>
-                      <mat-option *ngFor="let topping of dishType" [value]="topping">{{topping}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div> -->
-                            <!--/span-->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Food Item name</label>
-                                    <input type="text" id="firstName" class="form-control" placeholder="Food Item name">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-success">
-                                    <div class="form-group">
-                                        <label class="control-label">Upload Food Image</label>
-                                        <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"><label class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/row-->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Product ID</label>
-                                    <input type="number" class="form-control" aria-label="Username" placeholder="Product ID">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Product Collection</label>
-                                    <input aria-describedby="basic-addon1" aria-label="price" class="form-control" placeholder="Product Collection" type="number">
-                                    <!-- <div class="input-group mb-3">
-                    <div class="input-group-prepend"><span class="input-group-text"><i
-                          class="fas fa-euro-sign"></i></span></div><input aria-describedby="basic-addon1"
-                      aria-label="price" class="form-control" placeholder="Product Collection" type="number">
-                  </div> -->
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Product Cost</label>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend"><span class="input-group-text">$</span></div><input aria-describedby="basic-addon1" aria-label="price" class="form-control" placeholder="Product Cost" type="number">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Purchase Limit</label>
-                                    <input type="number" class="form-control" aria-label="Username" placeholder="Purchase Limit">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Brand </label>
-                                    <input type="number" class="form-control" aria-label="Username" placeholder="Brand ">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Quantity </label>
-                                    <input type="text" class="form-control" aria-label="Username" placeholder="Quantity">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Price</label>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend"><span class="input-group-text">$</span></div><input aria-describedby="basic-addon1" aria-label="price" class="form-control" placeholder="Price" type="number">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Discount</label>
-                                    <input type="text" placeholder="6%" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Occasion</label>
-                                    <mat-form-field class="w-100">
-                                        <mat-label>Select Occasion</mat-label>
-                                        <mat-select>
-                                            <mat-option *ngFor="let Select of Selected" [value]="Select">{{Select}}</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Description </label>
-                                    <textarea name="" id="" cols="30" rows="3" class="form-control"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Warranty </label>
-                                    <textarea name="" id="" cols="30" rows="3" class="form-control"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Product Material </label>
-                                    <textarea name="" id="" cols="30" rows="3" class="form-control"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-actions">
-                        <div class="card-body">
-                            <button type="submit" class="btn btn-success mr-3" (click)="modal.dismiss('Cross click')">
-                <i class="fa fa-check"></i> Update</button>
-                            <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-
+            </div>
+            <div class="form-actions">
+              <div class="card-body">
+                <button type="submit" class="btn btn-success mr-3" (click)="AddProduct('update')" >Update</button>
+                <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+  
     </div>
-</ng-template>
-
-<!-- Add Product detail -->
-<ng-template #addCategory let-modal>
+  </ng-template>
+  
+  <!-- Add Product detail -->
+  <ng-template #addCategory let-modal>
     <div class="modal-body">
-        <div class="card">
-            <form action="#">
-                <div class="form-body">
-                    <div class="card-body">
-                        <div class="row p-t-20">
-                            <!-- <div class="col-md-6">
-                <div class="form-group">
-                  <label class="control-label">Category Name</label>
-                  <mat-form-field class="w-100">
-                    <mat-label>Category Name</mat-label>
-                    <mat-select>
-                      <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+      <div class="card">
+        <form [formGroup]="ProductForm">
+          <div class="form-body">
+            <div class="card-body">
+              <div class="row p-t-20">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Category Name</label>
+                      <select class="form-control" (change)="GetSubCategory($event.target.value)" formControlName="product_category">
+                        <option value="" [selected]="true" disabled>Choose category</option>
+                        <option *ngFor="let topping of CategoryData" [value]="topping?.id">{{topping?.name}}</option>
+                      </select>
+                      <span *ngIf="this.ProductForm.get('product_category').hasError('required') && this.ProductForm.get('product_category').touched" class="error">
+                        Please choose category name.
+                       </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Sub Category</label>
+                   <select class="form-control" formControlName="product_sub_category">
+                    <option value="" [selected]="true" disabled>Choose sub category</option>
+                    <option *ngFor="let topping of SubCategoryData" [value]="topping?.id">{{topping?.name}}</option>
+                      </select>
+                      <span *ngIf="this.ProductForm.get('product_sub_category').hasError('required') && this.ProductForm.get('product_sub_category').touched" class="error">
+                        Please choose sub category name.
+                       </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Food Item name</label>
+                    <input type="text" id="firstName" class="form-control" placeholder="Food Item name" formControlName="FoodName" #foodName (keydown.space)="!foodName.value?$event.preventDefault():null">
+                  <span *ngIf="this.ProductForm.get('FoodName').hasError('required') && this.ProductForm.get('FoodName').touched" class="error">
+                  Please enter food item name.
+                 </span>
+                 <span *ngIf="this.ProductForm.get('FoodName').hasError('maxlength')" class="error">
+                  Maxlength should 30.
+                 </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label">Vendor name</label>
+                     <select class="form-control" formControlName="vendor">
+                      <option value="" [selected]="true" disabled>Choose vendor</option>
+                      <option *ngFor="let topping of VendorList" [value]="topping?.id">{{topping?.first_name+' '+topping?.last_name}}</option>
+                        </select>
+                        <span *ngIf="this.ProductForm.get('vendor').hasError('required') && this.ProductForm.get('vendor').touched" class="error">
+                          Please choose vendor.
+                         </span>
+                    </div>
+                  </div>
+              </div>
+              <!--/row-->
+              <div class="row">
+                <!-- <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Product ID</label>
+                    <input type="number" class="form-control" aria-label="Username" placeholder="Product ID" formControlName="FoodId" #foodNam (keydown.space)="!foodNam.value?$event.preventDefault():null">
+                    <span *ngIf="this.ProductForm.get('FoodId').hasError('required') && this.ProductForm.get('FoodId').touched" class="error">
+                      Please enter product id.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('FoodId').hasError('maxlength')" class="error">
+                      Maxlength should 15.
+                     </span>
+                  </div>
+                </div> -->
+                <!-- <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Product Collection</label>
+                    <input aria-describedby="basic-addon1" aria-label="price" class="form-control" placeholder="Product Collection" type="number" formControlName="collection" #foodNa (keydown.space)="!foodNa.value?$event.preventDefault():null">
+                    <span *ngIf="this.ProductForm.get('collection').hasError('required') && this.ProductForm.get('collection').touched" class="error">
+                      Please enter product collection.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('collection').hasError('maxlength')" class="error">
+                      Maxlength should 30.
+                     </span>
+                  </div>
+                </div> -->
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Product Cost</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                      <input aria-describedby="basic-addon1"
+                        aria-label="price" class="form-control" placeholder="Product Cost" type="number" formControlName="cost" #cost (keydown.space)="!cost.value?$event.preventDefault():null">
+                      </div>
+                      <span *ngIf="this.ProductForm.get('cost').hasError('required') && this.ProductForm.get('cost').touched" class="error">
+                        Please enter product cost.
+                       </span>
+                       <span *ngIf="this.ProductForm.get('cost').hasError('maxlength')" class="error">
+                        Maxlength should 15.
+                       </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Purchase Limit</label>
+                    <input type="number" class="form-control" aria-label="Username" placeholder="Purchase Limit" formControlName="limit" #lmt (keydown.space)="!lmt.value?$event.preventDefault():null">
+                    <span *ngIf="this.ProductForm.get('limit').hasError('required') && this.ProductForm.get('limit').touched" class="error">
+                      Please enter purchase limit.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('limit').hasError('maxlength')" class="error">
+                      Maxlength should 15.
+                     </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Brand </label>
+                    <input type="text" class="form-control" aria-label="Username" placeholder="Brand" formControlName="brand" #brand (keydown.space)="!brand.value?$event.preventDefault():null">
+                    <span *ngIf="this.ProductForm.get('brand').hasError('required') && this.ProductForm.get('brand').touched" class="error">
+                      Please enter brand.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('brand').hasError('maxlength')" class="error">
+                      Maxlength should 15.
+                     </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Quantity </label>
+                    <input type="number" class="form-control" aria-label="Username" placeholder="Quantity" formControlName="qty" #qty (keydown.space)="!qty.value?$event.preventDefault():null">
+                    <span *ngIf="this.ProductForm.get('qty').hasError('required') && this.ProductForm.get('qty').touched" class="error">
+                      Please enter quantity.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('qty').hasError('maxlength')" class="error">
+                      Maxlength should 15.
+                     </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Price</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                      <input aria-describedby="basic-addon1"
+                        aria-label="price" class="form-control" placeholder="Price" type="number" formControlName="price" #price (keydown.space)="!price.value?$event.preventDefault():null">
+                      </div>
+                      <span *ngIf="this.ProductForm.get('price').hasError('required') && this.ProductForm.get('price').touched" class="error">
+                        Please enter price.
+                       </span>
+                       <span *ngIf="this.ProductForm.get('price').hasError('maxlength')" class="error">
+                        Maxlength should 10.
+                       </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Discount</label>
+                    <input type="number" placeholder="6%" class="form-control" formControlName="discount" #discount (keydown.space)="!discount.value?$event.preventDefault():null">
+                    <span *ngIf="this.ProductForm.get('discount').hasError('required') && this.ProductForm.get('discount').touched" class="error">
+                      Please enter discount.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('discount').hasError('maxlength')" class="error">
+                      Maxlength should 10.
+                     </span>
+                  </div>
+                </div>
+                <!-- <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Occasion</label>
+                    <mat-form-field class="w-100">
+                      <mat-label>Select Occasion</mat-label>
+                      <mat-select formControlName="Occasion">
+                        <mat-option *ngFor="let Select of Selected" [value]="Select">{{Select}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="this.ProductForm.get('Occasion').hasError('required') && this.ProductForm.get('Occasion').touched" class="error">
+                        Please choose occasion.
+                      </mat-error>
+                    </mat-form-field>
+                    
+                  </div>
+                </div> -->
+                <div class="col-md-12">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Description </label>
+                    <textarea name="" id="" cols="30" rows="3" class="form-control" formControlName="description" #desc (keydown.space)="!desc.value?$event.preventDefault():null"></textarea>
+                    <span *ngIf="this.ProductForm.get('description').hasError('required') && this.ProductForm.get('description').touched" class="error">
+                      Please enter description.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('description').hasError('maxlength')" class="error">
+                      Maxlength should 350.
+                     </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Warranty </label>
+                    <textarea name="" id="" cols="30" rows="3" class="form-control" formControlName="Warranty" #war (keydown.space)="!war.value?$event.preventDefault():null"></textarea>
+                    <span *ngIf="this.ProductForm.get('Warranty').hasError('required') && this.ProductForm.get('Warranty').touched" class="error">
+                      Please enter Warranty.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('Warranty').hasError('maxlength')" class="error">
+                      Maxlength should 300.
+                     </span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-danger">
+                    <label class="control-label">Product Material </label>
+                    <textarea name="" id="" cols="30" rows="3" class="form-control" formControlName="material" #matt (keydown.space)="!matt.value?$event.preventDefault():null"></textarea>
+                    <span *ngIf="this.ProductForm.get('material').hasError('required') && this.ProductForm.get('material').touched" class="error">
+                      Please enter product material.
+                     </span>
+                     <span *ngIf="this.ProductForm.get('material').hasError('maxlength')" class="error">
+                      Maxlength should 300.
+                     </span>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="upload">
+                    <label class="control-label">Upload product images</label>
+                  <div class="rows flex-wrap justify-content-start">
+                   <div class="imgs" *ngFor="let item of docfile; index as i">   
+                      <button  (click)="Remove(i)" class="cros btn btn-danger">
+                        <span>&times;</span>
+                      </button>         
+                      <img [src]="item?item:'assets/images/food/1.jpg'" height="80" width="90" style=" position: relative;"/>
+                    </div>
+                    <div class="add w-100 mt-2">
+                      <div class="upload-btn-wrapper">
+                        <button class="add btn btn-primary">+</button>
+                        <input type="file" (change)="uploadFile($event)" multiple/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="control-label">Sub Category</label>
-                  <mat-form-field class="w-100">
-                    <mat-label>Sub Category</mat-label>
-                    <mat-select [formControl]="toppings" multiple>
-                      <mat-option *ngFor="let topping of dishType" [value]="topping">{{topping}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div> -->
-                            <!--/span-->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Food Item name</label>
-                                    <input type="text" id="firstName" class="form-control" placeholder="Food Item name">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-success">
-                                    <div class="form-group">
-                                        <label class="control-label">Upload Food Image</label>
-                                        <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"><label class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/row-->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Product ID</label>
-                                    <input type="number" class="form-control" aria-label="Username" placeholder="Product ID">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Product Collection</label>
-                                    <input aria-describedby="basic-addon1" aria-label="price" class="form-control" placeholder="Product Collection" type="number">
-                                    <!-- <div class="input-group mb-3">
-                    <div class="input-group-prepend"><span class="input-group-text"><i
-                          class="fas fa-euro-sign"></i></span></div><input aria-describedby="basic-addon1"
-                      aria-label="price" class="form-control" placeholder="Product Collection" type="number">
-                  </div> -->
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Product Cost</label>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend"><span class="input-group-text">$</span></div><input aria-describedby="basic-addon1" aria-label="price" class="form-control" placeholder="Product Cost" type="number">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Purchase Limit</label>
-                                    <input type="number" class="form-control" aria-label="Username" placeholder="Purchase Limit">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Brand </label>
-                                    <input type="number" class="form-control" aria-label="Username" placeholder="Brand ">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Quantity </label>
-                                    <input type="text" class="form-control" aria-label="Username" placeholder="Quantity">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Price</label>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend"><span class="input-group-text">$</span></div><input aria-describedby="basic-addon1" aria-label="price" class="form-control" placeholder="Price" type="number">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Discount</label>
-                                    <input type="text" placeholder="6%" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Occasion</label>
-                                    <mat-form-field class="w-100">
-                                        <mat-label>Select Occasion</mat-label>
-                                        <mat-select>
-                                            <mat-option *ngFor="let Select of Selected" [value]="Select">{{Select}}</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Description </label>
-                                    <textarea name="" id="" cols="30" rows="3" class="form-control"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Warranty </label>
-                                    <textarea name="" id="" cols="30" rows="3" class="form-control"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-danger">
-                                    <label class="control-label">Product Material </label>
-                                    <textarea name="" id="" cols="30" rows="3" class="form-control"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-actions">
-                        <div class="card-body">
-                            <button type="submit" class="btn btn-success mr-3" (click)="modal.dismiss('Cross click')"> Save </button>
-                            <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-
+            </div>
+            <div class="form-actions">
+              <div class="card-body">
+                <button type="submit" class="btn btn-success mr-3" (click)="AddProduct('add')" >Save</button>
+                <button type="button" class="btn btn-dark" (click)="modal.dismiss('Cross click')">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+  
     </div>
-</ng-template>
+  </ng-template>

@@ -19,7 +19,7 @@ export * from './recent-comments/comment.component';
 export * from './reviews/review.component';
 export * from './sales/sales.component';
 export * from './sales-income/sales-income.component';
-export * from './tasklist/tasklist.component';
+// export * from './tasklist/tasklist.component';
 export * from './user-map/usermap.component';
 export * from './user-details/user-details.component';
 export * from './user-profile/user-profile.component';
@@ -27,5 +27,5 @@ export * from './visitors/visitors.component';
 export * from './visits-bounce/visits-bounce.component';
 export * from './weathercard/weathercard.component';
 export * from './welcome/welcome.component';
-export * from './topsell/topsell.component';
+// export * from './topsell/topsell.component';
 export * from './cheflist/cheflist.component'

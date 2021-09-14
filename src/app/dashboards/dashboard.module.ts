@@ -36,7 +36,7 @@ import {
     ReviewComponent,
     SalesComponent,
     SalesIncomeComponent,
-    TasklistComponent,
+    // TasklistComponent,
     UserProfileComponent,
     UserDetailsComponent,
     VisitorsComponent,
@@ -44,7 +44,7 @@ import {
     WeathercardComponent,
     WelcomeComponent,
     UsermapComponent,
-    TopsellComponent,
+    // TopsellComponent,
     CheflistComponent,
     
 } from './dashboard-components';
@@ -86,14 +86,14 @@ import {
         ReviewComponent,
         SalesComponent,
         SalesIncomeComponent,
-        TasklistComponent,
+        // TasklistComponent,
         UserProfileComponent,
         UserDetailsComponent,
         VisitorsComponent,
         VisitsBounceComponent,
         WeathercardComponent,
         WelcomeComponent,
-        TopsellComponent,
+        // TopsellComponent,
         CheflistComponent
     ]
 })

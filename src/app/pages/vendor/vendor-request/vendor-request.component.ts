@@ -1,5 +1,5 @@
 
-import { Component, OnInit,ViewChild} from '@angular/core';
+import { Component, OnInit,ViewChild, ViewEncapsulation} from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
@@ -8,6 +8,7 @@ import {MatTableDataSource, } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/_services/common.service';
+import { TooltipPosition } from '@angular/material/tooltip';
 export interface UserData {
   serial_no:string,
   name: string,    
@@ -31,7 +32,8 @@ export interface UserData {
 @Component({
   selector: 'app-vendor-request',
   templateUrl: './vendor-request.component.html',
-  styleUrls: ['./vendor-request.component.css']
+  styleUrls: ['./vendor-request.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class VendorRequestComponent implements OnInit {
   closeResult: string;
@@ -47,6 +49,8 @@ export class VendorRequestComponent implements OnInit {
   dataSource: MatTableDataSource<UserData>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
+  position = new FormControl(this.positionOptions[1]);
   IsnotEmpty: any;
   localID: string;
   IsApproved: any;

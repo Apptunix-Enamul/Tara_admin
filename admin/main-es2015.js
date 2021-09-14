@@ -290,11 +290,16 @@ class CommonService {
     putApi(url, data) {
         return this._http.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl}` + url, data);
     }
+    deleteApi(url) {
+        return this._http.delete(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl}` + url).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])((data) => {
+            return data;
+        }));
+    }
     Showspinner() {
         this.spinner.show();
         setTimeout(() => {
             this.spinner.hide();
-        }, 5000);
+        }, 4000);
     }
 }
 CommonService.ɵfac = function CommonService_Factory(t) { return new (t || CommonService)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](ngx_spinner__WEBPACK_IMPORTED_MODULE_6__["NgxSpinnerService"])); };
@@ -439,7 +444,7 @@ class AppComponent {
     }
 }
 AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(); };
-AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], decls: 5, vars: 1, consts: [["bdColor", "rgba(0, 0, 0, 0.8)", "size", "default", "color", "#9ECB2E", "type", "ball-clip-rotate", 3, "fullScreen"], [2, "color", "white"]], template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
+AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], decls: 5, vars: 1, consts: [["bdColor", "rgba(0, 0, 0, 0.8)", "size", "default", "color", "#9ECB2E", "type", "ball-clip-rotate", 3, "fullScreen"], [2, "color", "#9ECB2E"]], template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "router-outlet");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "app-spinner");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();

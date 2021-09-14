@@ -526,6 +526,13 @@
             return this._http.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl) + url, data);
           }
         }, {
+          key: "deleteApi",
+          value: function deleteApi(url) {
+            return this._http["delete"]("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl) + url).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (data) {
+              return data;
+            }));
+          }
+        }, {
           key: "Showspinner",
           value: function Showspinner() {
             var _this3 = this;
@@ -533,7 +540,7 @@
             this.spinner.show();
             setTimeout(function () {
               _this3.spinner.hide();
-            }, 5000);
+            }, 4000);
           }
         }]);
 
@@ -792,7 +799,7 @@
         selectors: [["app-root"]],
         decls: 5,
         vars: 1,
-        consts: [["bdColor", "rgba(0, 0, 0, 0.8)", "size", "default", "color", "#9ECB2E", "type", "ball-clip-rotate", 3, "fullScreen"], [2, "color", "white"]],
+        consts: [["bdColor", "rgba(0, 0, 0, 0.8)", "size", "default", "color", "#9ECB2E", "type", "ball-clip-rotate", 3, "fullScreen"], [2, "color", "#9ECB2E"]],
         template: function AppComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "router-outlet");

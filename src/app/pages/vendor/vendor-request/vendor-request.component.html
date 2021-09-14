@@ -57,27 +57,12 @@
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Last Name </th>
                                 <td mat-cell *matCellDef="let row"> {{row?.last_name}} </td>
                             </ng-container>
-                            <!-- Progress Column -->
-                            <!-- <ng-container matColumnDef="id">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Vendor ID </th>
-                      <td mat-cell *matCellDef="let row"> <a routerLink="/pages/vendors/vendorsdetail" routerLinkActive="router-link-active">{{row.id}}</a> </td>
-                  </ng-container> -->
-                            <!-- Progress Column -->
+                          
                             <ng-container matColumnDef="restaurant">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Store Name </th>
                                 <td mat-cell *matCellDef="let row"> {{row.store_details[0].name}} </td>
                             </ng-container>
-                            <!-- Progress Column -->
-                            <!-- <ng-container matColumnDef="restaurant_delivery">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Currently Delivering </th>
-                      <td mat-cell *matCellDef="let row"> {{row.restaurant_delivery}} </td>
-                  </ng-container> -->
-                            <!-- Progress Column -->
-                            <!-- <ng-container matColumnDef="restaurant_type">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Type of Restaurant </th>
-                      <td mat-cell *matCellDef="let row"> {{row.restaurant_type}} </td>
-                  </ng-container> -->
-                            <!-- Progress Column -->
+                         
                             <ng-container matColumnDef="contact">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Phone Number </th>
                                 <td mat-cell *matCellDef="let row" class="text-nowrap"> <a href="tel:765453232">{{(row?.country_code&&row?.phone_no)?row?.country_code+" "+row?.phone_no:'--'}}</a> </td>
@@ -87,19 +72,17 @@
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Email </th>
                                 <td mat-cell *matCellDef="let row"> <a href="mailto:example@site.com"> {{row.email||'--'}}</a> </td>
                             </ng-container>
-                            <!-- Address -->
-                            <!-- <ng-container matColumnDef="dob">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header>DOB </th>
-                      <td mat-cell *matCellDef="let row" class="text-nowrap"> {{row.dob}}</td>
-                  </ng-container> -->
-                            <!-- pendingOrder -->
+                         
                             <ng-container matColumnDef="address">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Address </th>
-                                <td mat-cell *matCellDef="let row"> <span style=" width: 200px; display: inline-block;">{{row.address}}</span> </td>
+                                <td mat-cell *matCellDef="let row" class="text-nowrap"><p class="pb-0">{{row?.address|slice:0:10}}<a href="javascript:void()" matTooltipClass="example-tooltip-red" matTooltipPosition="above" *ngIf="row?.address?.length>10" [matTooltip]="row?.address">...Read More</a></p>
+
+                                </td>
                             </ng-container>
                             <ng-container matColumnDef="message">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Bio </th>
-                                <td mat-cell *matCellDef="let row"> <span>{{row.about_us}}</span> </td>
+                                <td mat-cell *matCellDef="let row" class="text-nowrap"><p class="pb-0">{{row?.about_us|slice:0:10}}<a href="javascript:void()" matTooltipClass="example-tooltip-red" matTooltipPosition="above" *ngIf="row?.about_us?.length>10" [matTooltip]="row?.about_us">...Read More</a></p>
+                                </td>
                             </ng-container>
                             <ng-container matColumnDef="doc">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Documents </th>
@@ -171,7 +154,7 @@
 
                             <!-- Row shown when there is no matching data. -->
                             <tr class="mat-row" *matNoDataRow>
-                                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                                <td class="mat-cell text-center" colspan="10"><h3>Data not found</h3></td>
                             </tr>
                         </table>
 
@@ -197,12 +180,12 @@
             <div class="row">
                 <div class="col-md-6">
                     <figure class=""><img [src]="VendorDocOne?VendorDocOne:'assets/images/gallery/driving-licence.jpg'"
-                            class="img-fluid"></figure>
+                            class="img-fluid SetImg"></figure>
                 </div>
                 <div class="col-md-6">
                     <figure class=""><img
                             [src]="VerndorDocTwo?VerndorDocTwo:'assets/images/gallery/driving-licence.jpg'"
-                            class="img-fluid"></figure>
+                            class="img-fluid SetImg"></figure>
                 </div>
             </div>
         </div>
