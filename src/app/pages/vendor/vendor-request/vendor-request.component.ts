@@ -12,7 +12,8 @@ import { TooltipPosition } from '@angular/material/tooltip';
 export interface UserData {
   serial_no:string,
   name: string,    
-  lastname: string,    
+  lastname: string,   
+ 
   // completedOrders:string,
   id: string,    
   restaurant:string,
@@ -22,7 +23,7 @@ export interface UserData {
   dob:string,
   message:string,
   email:string;
- status:string,
+//  status:string,
   action:string,
   address:string,
   doc:string,
@@ -39,6 +40,7 @@ export class VendorRequestComponent implements OnInit {
   closeResult: string;
   SearchValue:any = ''
   timer: number;
+ 
   page:number = 1
   PageSize:number = 10
   count:number = 0
@@ -148,8 +150,7 @@ export class VendorRequestComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
+ if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
@@ -201,6 +202,7 @@ GetVendorRequest(){
   let obj = {
     "draw": 2,
     "is_approved":false,
+    "is_active":true,
     "columns": [
         {
             "data": "first_name",
@@ -268,7 +270,7 @@ GetVendorRequest(){
   this.service.post(`vendor/vendor-list-pagination/`,obj).subscribe((res:any)=>{
     console.log('Vendor get',res);
     if([200,201].includes(res.code)){
-      this.displayedColumns = [ 'serial_no','name', 'lastname', 'restaurant', 'contact', 'email','address','message', 'doc','status','action'];
+      this.displayedColumns = [ 'serial_no','name', 'lastname', 'restaurant', 'contact', 'email','address','message', 'doc','action'];
      this.dataSource = new MatTableDataSource(res.data);
     this.count = res?.recordsTotal
     this.IsnotEmpty = res.data
@@ -304,6 +306,6 @@ submitCommission(){
       }
     })
  }
-  
+
 }
 

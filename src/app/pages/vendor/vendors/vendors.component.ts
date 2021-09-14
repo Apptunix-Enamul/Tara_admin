@@ -133,6 +133,7 @@ changeStatus(event, id) {
  });
 }
 FilterByStatus(ref){
+  this.SearchValue =''
 this.IsActive = ref
  this.GetVendor()
 

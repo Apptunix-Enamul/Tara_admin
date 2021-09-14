@@ -13,19 +13,19 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-8 d-flex  justify-content-end">
+                    <!-- <div class="col-md-8 d-flex  justify-content-end">
                         <div ngbDropdown class="d-inline-block mb-2 mr-0">
                             <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
                   Filter by vendors status
                 </button>
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                <button class="dropdown-item">All</button>
-                                <button class="dropdown-item"> Pending </button>
-                                <button class="dropdown-item"> Rejected </button>
+                                <button class="dropdown-item" (click)="FilterByStatus('all')">All</button>
+                                <button class="dropdown-item" (click)="FilterByStatus(null)"> Pending </button>
+                                <button class="dropdown-item" (click)="FilterByStatus(false)"> Rejected </button>
 
                             </div>
                         </div>
-                        <!-- <div ngbDropdown class="d-inline-block mb-2 mr-2">
+                        <div ngbDropdown class="d-inline-block mb-2 mr-2">
                 <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
                   Daily
                 </button>
@@ -35,11 +35,11 @@
                   <button class="dropdown-item">Monthly</button>
                   <button class="dropdown-item">Yearly</button>
                 </div>
-              </div> -->
-                        <!-- <button class="btn btn-primary mb-2 mr-2"><i class="sl-icon-cloud-download"></i> Export CSV</button> -->
-                        <!-- <button class="btn btn-seconadary mb-2" (click)="addUserModal(addUser)"><i class="sl-icon-plus"></i> Add
-                Vendor</button> -->
-                    </div>
+              </div>
+                        <button class="btn btn-primary mb-2 mr-2"><i class="sl-icon-cloud-download"></i> Export CSV</button>
+                        <button class="btn btn-seconadary mb-2" (click)="addUserModal(addUser)"><i class="sl-icon-plus"></i> Add
+                Vendor</button>
+                    </div> -->
                     <div class="table-responsive">
                         <table mat-table class=" w-100" [dataSource]="dataSource" matSort *ngIf="IsnotEmpty">
                             <!-- ID Column -->
@@ -109,12 +109,12 @@
       <td mat-cell *matCellDef="let row"> {{row.completedOrders}} </td>
     </ng-container> -->
                             <!-- Color Column -->
-                            <ng-container matColumnDef="status">
+                            <!-- <ng-container matColumnDef="status">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Status </th>
                                 <td mat-cell *matCellDef="let row" class="text-nowrap" >
-                                <button [ngClass]="[ (row?.is_active)? 'btn theme_btn text-white' : 'btn theme_btn text-danger']">{{row.is_active?'Active':'Inactive'}}</button>
+                                <button [ngClass]="[ (row?.is_active)? 'btn theme_btn text-white' : 'btn theme_btn text-danger']">{{row.is_approved?'Accepted':'Rejected'}}</button>
                                 </td>
-                            </ng-container>
+                            </ng-container> -->
                             <ng-container matColumnDef="action">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Action </th>
                                 <td mat-cell *matCellDef="let row" class="text-nowrap">

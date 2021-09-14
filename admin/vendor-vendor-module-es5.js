@@ -6659,6 +6659,7 @@
         }, {
           key: "FilterByStatus",
           value: function FilterByStatus(ref) {
+            this.SearchValue = '';
             this.IsActive = ref;
             this.GetVendor();
           }
