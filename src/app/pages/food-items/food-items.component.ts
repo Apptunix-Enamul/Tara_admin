@@ -505,6 +505,7 @@ if(this.productImageId.length > 0){
        })
     }
     FilterByCategory(id){
+      console.log(id.target.value);
       
     }
     GetVendor(){
