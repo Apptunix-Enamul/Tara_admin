@@ -1,4 +1,4 @@
-<div class="row mb-2">
+<div class="row mb-2" >
     <div class="col-md-12 text-right">
         <div class="d-flex">
             <div ngbDropdown container="body" class="ml-auto">
@@ -54,7 +54,7 @@
 </div>
 
 <div class="card">
-    <div class="card-body">
+    <div class="card-body" *ngIf="viewPermission;else noPermission">
         <ngb-tabset type="pills" class="cstm_tabs">
             <ngb-tab title="Payments Recieved">
                 <ng-template ngbTabContent>
@@ -280,4 +280,7 @@
             </ngb-tab>
         </ngb-tabset>
     </div>
+    <ng-template #noPermission>
+        <h2 class="m-5 d-flex align-items-center justify-content-center w-100">You don't have Permission to view this section</h2>
+      </ng-template>
 </div>

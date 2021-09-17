@@ -157,7 +157,7 @@ export const ROUTES: RouteInfo[] = [
     },
     {
       path: '/pages/fooditem',
-      title: 'Product',
+      title: 'Products',
       icon: 'mdi mdi-bowl',
       class: '',
       extralink: false,
@@ -261,7 +261,7 @@ export const ROUTES: RouteInfo[] = [
     },
     {
         path: '/pages/membership',
-        title: 'Membership Plans',
+        title: 'MemberShip Plans',
         icon: 'mdi mdi-account-star-variant',
         class: '',
         extralink: false,

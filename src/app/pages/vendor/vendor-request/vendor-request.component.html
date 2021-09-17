@@ -88,33 +88,7 @@
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Documents </th>
                                 <td mat-cell *matCellDef="let row"> <button class="btn theme_btn" (click)="openWindowCustomClass(content3,row?.vendor_document)">View</button> </td>
                             </ng-container>
-                            <!-- pendingOrder -->
-                            <!-- <ng-container matColumnDef="pendingOrders">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap">Pending Orders </th>
-      <td mat-cell *matCellDef="let row"> {{row.pendingOrders}} </td>
-    </ng-container> -->
-                            <!-- total Orders -->
-                            <!-- <ng-container matColumnDef="totalOrders">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Total Orders </th>
-      <td mat-cell *matCellDef="let row"> {{row.totalOrders}} </td>
-    </ng-container> -->
-                            <!-- Name Column -->
-                            <!-- <ng-container matColumnDef="cancelledOrders">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Cancelled Orders </th>
-      <td mat-cell *matCellDef="let row"> {{row.cancelledOrders}} </td>
-    </ng-container> -->
-                            <!-- Name Column -->
-                            <!-- <ng-container matColumnDef="completedOrders">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Completed Order </th>
-      <td mat-cell *matCellDef="let row"> {{row.completedOrders}} </td>
-    </ng-container> -->
-                            <!-- Color Column -->
-                            <!-- <ng-container matColumnDef="status">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Status </th>
-                                <td mat-cell *matCellDef="let row" class="text-nowrap" >
-                                <button [ngClass]="[ (row?.is_active)? 'btn theme_btn text-white' : 'btn theme_btn text-danger']">{{row.is_approved?'Accepted':'Rejected'}}</button>
-                                </td>
-                            </ng-container> -->
+                            
                             <ng-container matColumnDef="action">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-nowrap"> Action </th>
                                 <td mat-cell *matCellDef="let row" class="text-nowrap">
@@ -123,7 +97,7 @@
             Pending
           </button>
 
-                                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" *ngIf="editPermission">
                                             <a href="javascript:void()" class="dropdown-item" (click)="vendorConfirmModal(vendorConfirm,row?.id,'True')"><i
                 class=" sl-icon-check"></i>
               Accept
@@ -165,6 +139,9 @@
                     </div>
                 </div>
             </div>
+            <ng-template #noPermission>
+                <h2 class="m-5 d-flex align-items-center justify-content-center w-100">You don't have Permission to view this section</h2>
+              </ng-template>
         </div>
         <!-- Column -->
     </div>

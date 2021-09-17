@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/_services/common.service';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { ExportToCsv } from 'export-to-csv';
+import { environment } from 'src/environments/environment';
 export interface UserData {
   serial_no:string,
   name: string,    
@@ -55,8 +56,20 @@ export class VendorsComponent implements OnInit {
   VendorId: any;
   ExportPdf: any;
   IsActive:any=''
+  permissions: any;
+  editPermission: boolean;
+  viewPermission: boolean;
   constructor(private modalService: NgbModal, private service:CommonService,private router:Router,private fb:FormBuilder,private toaster:ToastrService) {
-   
+    this.permissions = JSON.parse(
+      sessionStorage.getItem(environment.storageKey)
+    ).permissions;
+    if (this.permissions.length==0 || this.permissions == null ||this.permissions == undefined) {
+      this.editPermission = true;
+      this.viewPermission = true;
+    } else {
+      this.editPermission = this.permissions[2].is_add_edit;
+      this.viewPermission = this.permissions[2].is_view;
+    }
   }
   toppings = new FormControl();
   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];

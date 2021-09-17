@@ -24,7 +24,7 @@
                 <button class="dropdown-item">Thali</button> -->
               <!-- </div> -->
             </div>
-            <button class="btn btn-seconadary" (click)="addCategoryModel(addCategory)"><i class="sl-icon-plus"></i>
+            <button class="btn btn-seconadary" *ngIf="editPermission" (click)="addCategoryModel(addCategory)"><i class="sl-icon-plus"></i>
               Add Food Items</button>
           </div>
         </div>
@@ -56,12 +56,12 @@
           </div>
           <div class="col-md-3">
             <label class="text-black">Description</label>
-            <p class="pb-0">{{item?.description|slice:0:10}}<a href="javascript:void()" matTooltipClass="example-tooltip-red" matTooltipPosition="above" *ngIf="item?.description?.length>20" [matTooltip]="item?.description">...Read More</a></p>
+            <p class="pb-0">{{item?.description|slice:0:10}}<a href="javascript:void()" matTooltipClass="example-tooltip-red" matTooltipPosition="above" *ngIf="item?.description?.length>10" [matTooltip]="item?.description">...Read More</a></p>
             <p> <b class="text-black"> Warranty </b> : <span>{{item?.warranty}}</span></p>
             
           </div>
           <div class="col-md-2 align-items-center d-flex justify-content-center">
-            <div class="delete-categories">
+            <div class="delete-categories" *ngIf="editPermission">
               <span class="btn btn-primary mr-2" (click)="editBoxModal(editModel,item?.id)"><i class="ti-marker-alt"></i> </span>
               <span class="btn btn-danger" (click)="deleteBoxModal(deleteBox,item?.id)"><i class="ti-trash"></i> </span>
             </div>

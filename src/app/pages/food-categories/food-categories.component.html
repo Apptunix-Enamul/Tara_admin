@@ -5,7 +5,7 @@
         <a ngbNavLink>Category</a>
         <ng-template ngbNavContent>
           <div class="row">
-            <div class="col-md-12 text-right">
+            <div class="col-md-12 text-right" *ngIf="editPermission">
               <button class="btn btn-primary mb-2" (click)="addCategoryModel(addCategory,'')">Add Category</button>
             </div>
           </div>
@@ -47,8 +47,8 @@
                             <p>{{item?.tax_percentage|slice:0:2 ||'0'}}% </p>
                           </td>
                           <td>
-                              <span class="btn btn-primary mr-2" (click)="addCategoryModel(addCategory,item)"><i class="ti-marker-alt"></i> </span>
-                              <span class="btn btn-danger" (click)="deleteBoxModal(deleteBox,item?.id,'cat')"><i class="ti-trash"></i> </span>
+                              <span class="btn btn-primary mr-2" *ngIf="editPermission" (click)="addCategoryModel(addCategory,item)"><i class="ti-marker-alt"></i> </span>
+                              <span class="btn btn-danger" *ngIf="editPermission" (click)="deleteBoxModal(deleteBox,item?.id,'cat')"><i class="ti-trash"></i> </span>
                           </td>
                           <td>
                             <div class="col-md-1 p-4">
@@ -94,9 +94,9 @@
                         {{objItem?.name}}
                       </td>
                       <td>
-                        <a href="javascript:void()" (click)="editBoxModal(editModel,objItem)" class="mr-2"><i
+                        <a href="javascript:void()" *ngIf="editPermission" (click)="editBoxModal(editModel,objItem)" class="mr-2"><i
                             class="ti-marker-alt"></i> </a>
-                        <a href="javascript:void()" (click)="deleteBoxModal(deleteBox,objItem?.id,'sub')"><i class="ti-trash"></i> </a>
+                        <a href="javascript:void()" *ngIf="editPermission" (click)="deleteBoxModal(deleteBox,objItem?.id,'sub')"><i class="ti-trash"></i> </a>
                       </td>
                     </tr>   
                     <tr *ngIf="SubCategoryData.length == 0"><td colspan="4"><h3>No sub category</h3></td></tr>
@@ -108,7 +108,7 @@
                     <mat-paginator [length]="subCatCount" [pageSize]="subCatPageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPaginateChange($event,'sub')">
                     </mat-paginator>
                 </div>
-                  <div class=""> <button class="btn btn-primary mr-2" (click)="addsubCategoryModel(addsubCategory)"><i
+                  <div class=""> <button class="btn btn-primary mr-2" *ngIf="editPermission" (click)="addsubCategoryModel(addsubCategory)"><i
                         class="sl-icon-plus"></i> Add New Sub Categories </button></div>
                
               </ng-template>

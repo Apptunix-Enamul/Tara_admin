@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-body">
+    <div class="card-body" *ngIf="viewPermission;else noPermission">
 
         <div class="row">
             <div class="col-md-6">
@@ -59,60 +59,11 @@
                 </form>
 
             </div>
-            <!-- <div class="col-md-6">
-        <div ngbDropdown placement="bottom" class="d-inline-block mb-3">
-            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
-              Notifications
-            </button>
-
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button class="dropdown-item"> Enable
-              </button>
-              <button class="dropdown-item"> Disable </button>
-
-            </div>
-          </div>
-        <form class="form-horizontal form-material">
-          <div ngbDropdown placement="bottom" class="d-inline-block mb-3">
-            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
-              All Bike
-            </button>
-
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button class="dropdown-item"> All Bikes
-              </button>
-              <button class="dropdown-item"> All Users </button>
-              <button class="dropdown-item"> All Vendors </button>
-              <button class="dropdown-item"> All Organizer </button>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-md-12">
-              <label>Add Heading</label>
-              <input type="text" placeholder="" class="form-control form-control-line" placeholder="Add Heading">
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="form-group">
-              <label>Add Content</label>
-              <textarea class="form-control" rows="5" placeholder="Add Content"></textarea>
-            </div>
-            <div class="form-group">
-                <label>Date</label>
-                <input type="date" placeholder="" class="form-control form-control-line" placeholder="Date">
-              </div>
-              <div class="form-group">
-                <label>Time</label>
-                <input type="time" placeholder="" class="form-control form-control-line" placeholder="Time">
-              </div>
-            <button type="submit" class="btn btn-success">
-              <i class="fa fa-check"></i> Send</button>
-
-          </div>
-        </form>
-      </div> -->
         </div>
 
 
     </div>
+    <ng-template #noPermission>
+      <h2 class="m-5 d-flex align-items-center justify-content-center w-100">You don't have permission to view this section</h2>
+    </ng-template>
 </div>

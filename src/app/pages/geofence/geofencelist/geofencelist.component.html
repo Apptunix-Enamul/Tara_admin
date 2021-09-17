@@ -1,9 +1,9 @@
 <div class="card">
-    <div class="card-body">
+    <div class="card-body" *ngIf="viewPermission;else noPermission">
         <div class="row">
             <div class="col-md-12 text-right">
                 <!-- <a (click)="addspeech(content3)" class="btn btn-primary text-white mb-3">Add Geofence</a> -->
-                <a routerLink="/pages/geofence/add" class="btn btn-primary text-white mb-3">Add Geofence</a>
+                <a routerLink="/pages/geofence/add" class="btn btn-primary text-white mb-3" *ngIf="editPermission">Add Geofence</a>
             
             </div>
             <div class="col-md-3">
@@ -12,7 +12,7 @@
                         <ul class="mb-0">
                            
                             <!-- <li class="d-flex">Geo Fencing <span class="ml-auto"><a class="cursor_pointer" (click)="editspeech(content4)"><i class="fas fa-pencil-alt"></i></a><a href="javascript:void()" class="ml-2"><i class="fas fa-trash"></i></a></span></li> -->
-                            <li class="d-flex">Geo Fencing <span class="ml-auto"><a class="cursor_pointer"  routerLink="/pages/geofence/edit"><i class="fas fa-pencil-alt"></i></a><a href="javascript:void()" class="ml-2"><i class="fas fa-trash"></i></a></span></li>
+                            <li class="d-flex">Geo Fencing <span *ngIf="editPermission" class="ml-auto"><a class="cursor_pointer"  routerLink="/pages/geofence/edit"><i class="fas fa-pencil-alt"></i></a><a href="javascript:void()" class="ml-2"><i class="fas fa-trash"></i></a></span></li>
                         
                         </ul>
                     </div>
@@ -38,6 +38,9 @@
             </div>
         </div>
     </div>
+    <ng-template #noPermission>
+        <h2 class="m-5 d-flex align-items-center justify-content-center w-100">You don't have Permission to view this section</h2>
+      </ng-template>
 </div>
 
 <ng-template #content3 let-modal>

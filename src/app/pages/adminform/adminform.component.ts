@@ -47,7 +47,9 @@ inputMessageRef: ElementRef;
     // isProductsAdd Permissions
     isProductsAdd: [false],
     isProductsView: [false],
-
+    //For categories
+    isCategoriesAdd: [false],
+    isCategoriesView: [false],
     // isRevenueAdd type Permissions
     isRevenueAdd: [false],
     isRevenueview: [false],
@@ -125,67 +127,72 @@ let obj = {
   "password": this.SubadminForm.value.password,
   "permissions": [
       {
-          "module": 'Dashboard',
+          "module": 0,
           "is_add_edit":this.SubadminForm.value.isDashboardAdd,
           "is_view": this.SubadminForm.value.isDashboardView
       },
       {
-          "module": 'User',
+          "module": 1,
           "is_add_edit": this.SubadminForm.value.isUsersAdd,
           "is_view": this.SubadminForm.value.isUsersView
       },
       {
-          "module": 'Vendor',
+          "module": 2,
           "is_add_edit": this.SubadminForm.value.isVendorAdd,
           "is_view": this.SubadminForm.value.isVendorView
       },
       {
-          "module": 'Speech',
+          "module": 3,
           "is_add_edit": this.SubadminForm.value.isSpeechadd,
           "is_view": this.SubadminForm.value.isSpeechView
       },
       {
-          "module": 'Order',
+          "module": 4,
           "is_add_edit": this.SubadminForm.value.isOrdersAdd,
           "is_view": this.SubadminForm.value.isOrdersView
       },
       {
-          "module": 'Product',
-          "is_add_edit": this.SubadminForm.value.isProductsAdd,
-          "is_view": this.SubadminForm.value.isProductsView
+          "module": 5,
+          "is_add_edit": this.SubadminForm.value.isCategoriesAdd,
+          "is_view": this.SubadminForm.value.isCategoriesView
       },
       {
-          "module": 'Revenue',
+        "module": 6,
+        "is_add_edit": this.SubadminForm.value.isProductsAdd,
+        "is_view": this.SubadminForm.value.isProductsView
+    },
+      {
+          "module": 8,
           "is_add_edit": this.SubadminForm.value.isRevenueAdd,
           "is_view": this.SubadminForm.value.isRevenueview
       },
       {
-          "module": 'Notifications',
+          "module": 7,
           "is_add_edit": this.SubadminForm.value.isNotificationAdd,
           "is_view": this.SubadminForm.value.isNotificationView
       },
       {
-          "module": 'Customer',
+          "module": 9,
           "is_add_edit": this.SubadminForm.value.isCustomAdd,
           "is_view": this.SubadminForm.value.isCustomView
       },
       {
-          "module": 'SOS',
+          "module": 10,
           "is_add_edit":this.SubadminForm.value.isSOSAdd,
           "is_view": this.SubadminForm.value.isSOSview
       },
       {
-          "module": 'Membership',
+          "module": 11,
           "is_add_edit": this.SubadminForm.value.isMembershipAdd,
           "is_view": this.SubadminForm.value.isMembershipView
       },
       {
-          "module": 'Geofence',
+          "module": 12,
           "is_add_edit": this.SubadminForm.value.isfenceAdd,
           "is_view": this.SubadminForm.value.isfenceView
       },
       {
-        "module": 'CMS',
+        "module": 13,
         "is_add_edit": this.SubadminForm.value.isCMSAdd,
         "is_view": this.SubadminForm.value.isCMSView
     }

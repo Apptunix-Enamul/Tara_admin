@@ -96,7 +96,7 @@ export class Login2Component implements OnInit ,AfterViewInit{
       }, 100);
    this.router.navigate(['dashboard']);
    sessionStorage.setItem(environment.storageKey,JSON.stringify(res?.data));
-     this.toaster.success('You logged in successfully','',{
+   this.toaster.success('You logged in successfully','',{
     timeOut: 2000,
   })
     }

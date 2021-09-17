@@ -2,7 +2,7 @@
     <!-- Column -->
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" *ngIf="viewPermission;else noPermission">
                 <div class="row">
                     <div class="col-md-4">
                         <form>
@@ -93,6 +93,9 @@
                     </table>
                 </div>
             </div>
+            <ng-template #noPermission>
+                <h2 class="m-5 d-flex align-items-center justify-content-center w-100">You don't have Permission to view this section</h2>
+              </ng-template>
         </div>
     </div>
     <!-- Column -->

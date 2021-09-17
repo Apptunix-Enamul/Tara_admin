@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/_services/common.service';
 import { ToastrService } from 'ngx-toastr';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { PageEvent } from '@angular/material/paginator';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-food-categories',
   templateUrl: './food-categories.component.html',
@@ -63,7 +64,20 @@ export class FoodCategoriesComponent implements OnInit {
   message: string;
   REFERENCE: any;
   MainCatId: any;
+  permissions: any;
+  editPermission: boolean;
+  viewPermission: boolean;
   constructor(private modalService: NgbModal,private fb:FormBuilder,private service:CommonService,private toaster:ToastrService) {
+    this.permissions = JSON.parse(
+      sessionStorage.getItem(environment.storageKey)
+    ).permissions;
+    if (this.permissions.length==0 || this.permissions == null ||this.permissions == undefined) {
+      this.editPermission = true;
+      this.viewPermission = true;
+    } else {
+      this.editPermission = this.permissions[5].is_add_edit;
+      this.viewPermission = this.permissions[5].is_view;
+    }
     this.CategoryForm = this.fb.group({
       name:['',[Validators.required,Validators.maxLength(30)]],
       description:['',Validators.required],

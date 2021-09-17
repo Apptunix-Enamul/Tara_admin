@@ -16,7 +16,7 @@ import { TooltipPosition } from '@angular/material/tooltip';
 export class FoodItemsComponent implements OnInit {
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[1]);
-VendorId= JSON.parse(sessionStorage.getItem(environment.storageKey)).id;
+
   CategoryName = new FormControl('')
  docfile: any=[];
   ProductForm:FormGroup
@@ -40,6 +40,9 @@ VendorId= JSON.parse(sessionStorage.getItem(environment.storageKey)).id;
   DuplicateFilesDetectors: any=[];
   productId: any;
   VendorList: any;
+  permissions: any;
+  editPermission: boolean;
+  viewPermission: boolean;
 
   constructor(private modalService: NgbModal,private service:CommonService,private toaster:ToastrService,private fb:FormBuilder) { 
     this.ProductForm  = this.fb.group({
@@ -65,6 +68,16 @@ VendorId= JSON.parse(sessionStorage.getItem(environment.storageKey)).id;
     this.GetProduct()
     this.GetCategory()
     this.GetVendor()
+    this.permissions = JSON.parse(
+      sessionStorage.getItem(environment.storageKey)
+    ).permissions;
+    if (this.permissions.length==0 || this.permissions == null ||this.permissions == undefined) {
+      this.editPermission = true;
+      this.viewPermission = true;
+    } else {
+      this.editPermission = this.permissions[6].is_add_edit;
+      this.viewPermission = this.permissions[6].is_view;
+    }
   }
 
   Filter(event: any) {

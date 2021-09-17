@@ -3,6 +3,7 @@ import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource, } from '@angular/material/table';
+import { environment } from 'src/environments/environment';
 export interface UserData {
   serial_no:string,
   name: string,
@@ -34,18 +35,25 @@ export class UsersComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  permissions: any;
+  editPermission: boolean;
+  viewPermission: boolean;
 
   constructor(private modalService: NgbModal) {
     this.dataSource = new MatTableDataSource(this.table);
   }
   ngOnInit(): void {
-  }
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-
+    this.permissions = JSON.parse(
+      sessionStorage.getItem(environment.storageKey)
+    ).permissions;
+    if (this.permissions.length==0 || this.permissions == null ||this.permissions == undefined) {
+      this.editPermission = true;
+      this.viewPermission = true;
+    } else {
+      this.editPermission = this.permissions[1].is_add_edit;
+      this.viewPermission = this.permissions[1].is_view;
+    }
+}
   discountModal(discount) {
     this.modalService.open(discount, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
   }

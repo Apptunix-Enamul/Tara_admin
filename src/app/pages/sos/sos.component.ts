@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sos',
@@ -8,9 +9,23 @@ import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-
 })
 export class SOSComponent implements OnInit {
   closeResult: string;
+  permissions: any;
+  editPermission: boolean;
+  viewPermission: boolean;
   ngOnInit(): void {
   }
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal) {
+    this.permissions = JSON.parse(
+      sessionStorage.getItem(environment.storageKey)
+    ).permissions;
+    if (this.permissions.length==0 || this.permissions == null ||this.permissions == undefined) {
+      this.editPermission = true;
+      this.viewPermission = true;
+    } else {
+      this.editPermission = this.permissions[10].is_add_edit;
+      this.viewPermission = this.permissions[10].is_view;
+    }
+  }
   locationmodal(location) {
     this.modalService.open(location, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
   }

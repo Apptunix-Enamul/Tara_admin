@@ -65,7 +65,7 @@
                                 </td> -->
                                 <td>Lorem ipsum dummy content It is useful for all type site and use for dummy content all type site and use for dummy content all type site and use for dummy content..... <a href="javascript:void(0)" (click)="reviewModal(review)">Read More</a></td>
                                 <td>
-                                    <button class="btn btn-danger" (click)="reviewDeleteModal(reviewDelete)"><i class="ti-trash"></i>
+                                    <button class="btn btn-danger" *ngIf="editPermission" (click)="reviewDeleteModal(reviewDelete)"><i class="ti-trash"></i>
                     Delete</button>
                                 </td>
                             </tr>

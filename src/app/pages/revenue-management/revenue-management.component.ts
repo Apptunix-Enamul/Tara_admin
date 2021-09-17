@@ -4,6 +4,7 @@ import { ChartType, ChartEvent } from 'ng-chartist';
 import * as c3 from 'c3';
 import {NgbDateStruct,NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'src/environments/environment';
 export interface Chart {
   type: ChartType;
   data: Chartist.IChartistData;
@@ -22,9 +23,22 @@ export class RevenueManagementComponent implements OnInit {
 
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
+  permissions: any;
+  editPermission: boolean;
+  viewPermission: boolean;
   constructor(private modalService: NgbModal, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    this.permissions = JSON.parse(
+      sessionStorage.getItem(environment.storageKey)
+    ).permissions;
+    if (this.permissions.length==0 || this.permissions == null ||this.permissions == undefined) {
+      this.editPermission = true;
+      this.viewPermission = true;
+    } else {
+      this.editPermission = this.permissions[8].is_add_edit;
+      this.viewPermission = this.permissions[8].is_view;
+    }
   }
   ngOnInit(): void {
   }
