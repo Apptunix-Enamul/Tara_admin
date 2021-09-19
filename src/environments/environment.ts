@@ -13,7 +13,7 @@ export const environment = {
 	// homeURL: 'http://192.168.1.87:8888/',
 	homeURL:'http://182.72.246.251:8888/',
 	googleMapKey: 'AIzaSyC7Ju90BCi9a01akYUWBvrEOFzwl8yxWZ8',
-	AdminPermission:JSON.parse(sessionStorage.getItem('TaraAdmin')).permissions
+	
 
 };
 

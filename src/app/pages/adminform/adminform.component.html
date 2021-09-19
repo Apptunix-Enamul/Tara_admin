@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body">
-        <form [formGroup]="SubadminForm" #inputMessage>
+        <form [formGroup]="SubadminForm" #inputMessage >
             <div class="form-body">
               <div class="card-body">
                 <div class="row p-t-20">
@@ -88,13 +88,31 @@
                     <table class="table">
                         <tr>
                             <th>Name</th>
-                            <th>Add/Edit</th>
+                            <th class="text-nowrap">Add/Edit/delete</th>
                             <th>View</th>
                             
                         </tr>
                         <tbody>
-                            <tr>
-                                <td>Dashboard</td>
+                            
+                                <tr *ngFor="let data of permissionArray; index as i">
+                                    <td>
+                                        {{data?.label}}
+                                    </td>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" [id]="data?.label" [disabled]=" data.label=='Dashboard'" (change)="check(data)" [(ngModel)]="data.is_add_edit" [ngModelOptions]="{standalone: true}">
+                                        <label class="custom-control-label" [for]="data?.label"></label>
+                                    </div>
+                                    </td>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input"  [id]="data?.label+'x'" [disabled]=" data.is_add_edit || data.label=='Dashboard'" [(ngModel)]="data.is_view" [ngModelOptions]="{standalone: true}">
+                                        <label class="custom-control-label" [for]="data?.label+'x'"></label>
+                                    </div> 
+                                    </td>
+ 
+                                    
+                                <!-- <td>Dashboard</td>
                                 <td>
                                     <div class="custom-control custom-checkbox">
                                         <input   class="custom-control-input" formControlName="isDashboardAdd" id="customCheck1" type="checkbox">
@@ -273,21 +291,7 @@
                                     </div>
                                  </td>    
                             </tr>
-                            <!-- <tr>
-                                <td> Admin </td>
-                                <td>
-                                    <div class="custom-control custom-checkbox">
-                                        <input   class="custom-control-input" id="customCheck26" type="checkbox">
-                                        <label class="custom-control-label" for="customCheck26"></label>
-                                    </div>
-                                 </td>
-                                 <td>
-                                    <div class="custom-control custom-checkbox">
-                                        <input   class="custom-control-input" id="customCheck27" type="checkbox">
-                                        <label class="custom-control-label" for="customCheck27"></label>
-                                    </div>
-                                 </td>    
-                            </tr> -->
+                          
                             <tr>
                                 <td> Geofence </td>
                                 <td>
@@ -316,7 +320,7 @@
                                         <input   class="custom-control-input" id="customCheck29" formControlName="isCMSView" type="checkbox">
                                         <label class="custom-control-label" for="customCheck29"></label>
                                     </div>
-                                 </td>    
+                                 </td>     -->
                             </tr>
                         </tbody>
                     </table>
