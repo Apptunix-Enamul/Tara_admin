@@ -179,13 +179,7 @@
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-      /*! src/environments/environment */
-      "./src/environments/environment.ts");
-      /* harmony import */
-
-
-      var _services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _services_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! ../_services/common.service */
       "./src/app/_services/common.service.ts");
 
@@ -228,7 +222,6 @@
           this.router = router;
           this._noti = _noti;
           this._comon = _comon;
-          this.AdminId = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].storageKey)).id;
         }
 
         _createClass(PermissionsGuard, [{
@@ -267,7 +260,7 @@
       }();
 
       PermissionsGuard.ɵfac = function PermissionsGuard_Factory(t) {
-        return new (t || PermissionsGuard)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](ngx_toastr__WEBPACK_IMPORTED_MODULE_2__["ToastrService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"]));
+        return new (t || PermissionsGuard)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](ngx_toastr__WEBPACK_IMPORTED_MODULE_2__["ToastrService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]));
       };
 
       PermissionsGuard.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
@@ -289,7 +282,7 @@
           }, {
             type: ngx_toastr__WEBPACK_IMPORTED_MODULE_2__["ToastrService"]
           }, {
-            type: _services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"]
+            type: _services_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]
           }];
         }, null);
       })();

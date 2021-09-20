@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CommonService } from '../_services/common.service';
-import { urls } from '../_services/urls';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class PermissionsGuard implements CanActivate {
   AdminId: any;
   
   constructor(private router: Router, private _noti : ToastrService, private _comon : CommonService) { 
-    this.AdminId= JSON.parse(sessionStorage.getItem(environment.storageKey)).id;
+    
   }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Promise<boolean> {
       return new Promise(async (resolve) => {
