@@ -34,9 +34,10 @@ export class SidebarComponent implements OnInit {
   }
 
   constructor( private modalService: NgbModal,private router: Router,private route: ActivatedRoute) {
-    console.log('Perms',this.permissions);
     for(let param of this.permissions) {
+      if(param?.is_view==true){
         this.checkArr.push(param?.module?.name);
+      }
     }
   }
 

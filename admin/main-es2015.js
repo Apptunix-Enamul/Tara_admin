@@ -72,6 +72,72 @@ AuthGuard.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjecta
 
 /***/ }),
 
+/***/ "./src/app/_guards/permissions.guard.ts":
+/*!**********************************************!*\
+  !*** ./src/app/_guards/permissions.guard.ts ***!
+  \**********************************************/
+/*! exports provided: PermissionsGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PermissionsGuard", function() { return PermissionsGuard; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/__ivy_ngcc__/fesm2015/ngx-toastr.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../_services/common.service */ "./src/app/_services/common.service.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+
+
+
+
+class PermissionsGuard {
+    constructor(router, _noti, _comon) {
+        this.router = router;
+        this._noti = _noti;
+        this._comon = _comon;
+        this.AdminId = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].storageKey)).id;
+    }
+    canActivate(route, state) {
+        return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
+            const roles = route.data;
+            if (this._comon.checkPermission(roles.permission, roles.type)) {
+                resolve(true);
+            }
+            else {
+                resolve(false);
+                this.router.navigate(['pages/profile']);
+                // this._noti.show("error", "You don't have the permission to access that page.")
+            }
+        }));
+    }
+}
+PermissionsGuard.ɵfac = function PermissionsGuard_Factory(t) { return new (t || PermissionsGuard)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](ngx_toastr__WEBPACK_IMPORTED_MODULE_2__["ToastrService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"])); };
+PermissionsGuard.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: PermissionsGuard, factory: PermissionsGuard.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PermissionsGuard, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{
+                providedIn: 'root'
+            }]
+    }], function () { return [{ type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_2__["ToastrService"] }, { type: _services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"] }]; }, null); })();
+
+
+/***/ }),
+
 /***/ "./src/app/_helpers/error.interceptor.ts":
 /*!***********************************************!*\
   !*** ./src/app/_helpers/error.interceptor.ts ***!
@@ -245,6 +311,21 @@ class CommonService {
         this._http = _http;
         this.spinner = spinner;
         this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](false);
+        this.permissions = {
+            dashboard: 1,
+            users: 2,
+            walkthrough: 3,
+            banks: 4,
+            manage_update: 5,
+            notification: 6,
+            customer_support: 7,
+            wallet_address: 8,
+            request: 9,
+            analytics: 10,
+            rate_change: 11,
+            refer_and_earn: 12,
+            manage_sub_admin: 13
+        };
     }
     profileUpdate() {
         return this.subject.asObservable();
@@ -301,6 +382,34 @@ class CommonService {
             this.spinner.hide();
         }, 4000);
     }
+    checkPermissionRealData(name, type) {
+        let userInfo = this.latestUserInfo;
+        let permissions = userInfo.permissions;
+        let check = permissions.find(x => x.module == this.permissions[name]);
+        if (permissions.length > 0) {
+            if (check != undefined && check[(type == 'view') ? 'is_view' : 'is_add_edit']) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        return true;
+    }
+    checkPermission(name, type) {
+        let userInfo = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].storageKey));
+        let permissions = userInfo.permissions;
+        if (permissions.length > 0) {
+            let check = permissions.find(x => x.module.id == this.permissions[name]);
+            if (check != undefined && check[(type == 'view') ? 'is_view' : 'is_add_edit']) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 CommonService.ɵfac = function CommonService_Factory(t) { return new (t || CommonService)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](ngx_spinner__WEBPACK_IMPORTED_MODULE_6__["NgxSpinnerService"])); };
 CommonService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({ token: CommonService, factory: CommonService.ɵfac, providedIn: 'root' });
@@ -328,7 +437,7 @@ const urls = {
     getUsers: 'admin/get-all-users/',
     changePassword: 'admin/change-password/',
     updateProfile: 'admin/update-profile/',
-    SignUp: 'auth/vendor/sign-up/'
+    SignUp: 'auth/vendor/sign-up/',
 };
 
 
@@ -345,19 +454,25 @@ const urls = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Approutes", function() { return Approutes; });
 /* harmony import */ var src_app_guards_auth_guard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/_guards/auth.guard */ "./src/app/_guards/auth.guard.ts");
-/* harmony import */ var _layouts_full_full_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./layouts/full/full.component */ "./src/app/layouts/full/full.component.ts");
-/* harmony import */ var _layouts_blank_blank_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./layouts/blank/blank.component */ "./src/app/layouts/blank/blank.component.ts");
+/* harmony import */ var _guards_permissions_guard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_guards/permissions.guard */ "./src/app/_guards/permissions.guard.ts");
+/* harmony import */ var _layouts_full_full_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./layouts/full/full.component */ "./src/app/layouts/full/full.component.ts");
+/* harmony import */ var _layouts_blank_blank_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./layouts/blank/blank.component */ "./src/app/layouts/blank/blank.component.ts");
+
 
 
 
 const Approutes = [
     {
         path: '',
-        component: _layouts_full_full_component__WEBPACK_IMPORTED_MODULE_1__["FullComponent"],
+        component: _layouts_full_full_component__WEBPACK_IMPORTED_MODULE_2__["FullComponent"],
         children: [
             { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
             {
-                path: 'dashboard', canActivate: [src_app_guards_auth_guard__WEBPACK_IMPORTED_MODULE_0__["AuthGuard"]],
+                path: 'dashboard', canActivate: [src_app_guards_auth_guard__WEBPACK_IMPORTED_MODULE_0__["AuthGuard"], _guards_permissions_guard__WEBPACK_IMPORTED_MODULE_1__["PermissionsGuard"]],
+                data: {
+                    permission: 'dashboard',
+                    type: "view"
+                },
                 loadChildren: () => Promise.all(/*! import() | dashboards-dashboard-module */[__webpack_require__.e("default~dashboards-dashboard-module~pages-pages-module"), __webpack_require__.e("dashboards-dashboard-module")]).then(__webpack_require__.bind(null, /*! ./dashboards/dashboard.module */ "./src/app/dashboards/dashboard.module.ts")).then(m => m.DashboardModule)
             },
             // {
@@ -402,7 +517,7 @@ const Approutes = [
     },
     {
         path: '',
-        component: _layouts_blank_blank_component__WEBPACK_IMPORTED_MODULE_2__["BlankComponent"],
+        component: _layouts_blank_blank_component__WEBPACK_IMPORTED_MODULE_3__["BlankComponent"],
         children: [
             {
                 path: '',
@@ -2095,9 +2210,10 @@ class SidebarComponent {
         this.Role = (_a = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].storageKey))) === null || _a === void 0 ? void 0 : _a.role;
         this.checkArr = [];
         this.showSubMenu = '';
-        console.log('Perms', this.permissions);
         for (let param of this.permissions) {
-            this.checkArr.push((_b = param === null || param === void 0 ? void 0 : param.module) === null || _b === void 0 ? void 0 : _b.name);
+            if ((param === null || param === void 0 ? void 0 : param.is_view) == true) {
+                this.checkArr.push((_b = param === null || param === void 0 ? void 0 : param.module) === null || _b === void 0 ? void 0 : _b.name);
+            }
         }
     }
     // this is for the open close

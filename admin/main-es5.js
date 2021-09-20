@@ -140,6 +140,164 @@
     },
 
     /***/
+    "./src/app/_guards/permissions.guard.ts":
+    /*!**********************************************!*\
+      !*** ./src/app/_guards/permissions.guard.ts ***!
+      \**********************************************/
+
+    /*! exports provided: PermissionsGuard */
+
+    /***/
+    function srcApp_guardsPermissionsGuardTs(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "PermissionsGuard", function () {
+        return PermissionsGuard;
+      });
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! @angular/core */
+      "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/router */
+      "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+      /* harmony import */
+
+
+      var ngx_toastr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ngx-toastr */
+      "./node_modules/ngx-toastr/__ivy_ngcc__/fesm2015/ngx-toastr.js");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! src/environments/environment */
+      "./src/environments/environment.ts");
+      /* harmony import */
+
+
+      var _services_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! ../_services/common.service */
+      "./src/app/_services/common.service.ts");
+
+      var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+        function adopt(value) {
+          return value instanceof P ? value : new P(function (resolve) {
+            resolve(value);
+          });
+        }
+
+        return new (P || (P = Promise))(function (resolve, reject) {
+          function fulfilled(value) {
+            try {
+              step(generator.next(value));
+            } catch (e) {
+              reject(e);
+            }
+          }
+
+          function rejected(value) {
+            try {
+              step(generator["throw"](value));
+            } catch (e) {
+              reject(e);
+            }
+          }
+
+          function step(result) {
+            result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+          }
+
+          step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+      };
+
+      var PermissionsGuard = /*#__PURE__*/function () {
+        function PermissionsGuard(router, _noti, _comon) {
+          _classCallCheck(this, PermissionsGuard);
+
+          this.router = router;
+          this._noti = _noti;
+          this._comon = _comon;
+          this.AdminId = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].storageKey)).id;
+        }
+
+        _createClass(PermissionsGuard, [{
+          key: "canActivate",
+          value: function canActivate(route, state) {
+            var _this = this;
+
+            return new Promise(function (resolve) {
+              return __awaiter(_this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+                var roles;
+                return regeneratorRuntime.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        roles = route.data;
+
+                        if (this._comon.checkPermission(roles.permission, roles.type)) {
+                          resolve(true);
+                        } else {
+                          resolve(false);
+                          this.router.navigate(['pages/profile']); // this._noti.show("error", "You don't have the permission to access that page.")
+                        }
+
+                      case 2:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }
+                }, _callee, this);
+              }));
+            });
+          }
+        }]);
+
+        return PermissionsGuard;
+      }();
+
+      PermissionsGuard.ɵfac = function PermissionsGuard_Factory(t) {
+        return new (t || PermissionsGuard)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](ngx_toastr__WEBPACK_IMPORTED_MODULE_2__["ToastrService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"]));
+      };
+
+      PermissionsGuard.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
+        token: PermissionsGuard,
+        factory: PermissionsGuard.ɵfac,
+        providedIn: 'root'
+      });
+      /*@__PURE__*/
+
+      (function () {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PermissionsGuard, [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+          args: [{
+            providedIn: 'root'
+          }]
+        }], function () {
+          return [{
+            type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
+          }, {
+            type: ngx_toastr__WEBPACK_IMPORTED_MODULE_2__["ToastrService"]
+          }, {
+            type: _services_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"]
+          }];
+        }, null);
+      })();
+      /***/
+
+    },
+
+    /***/
     "./src/app/_helpers/error.interceptor.ts":
     /*!***********************************************!*\
       !*** ./src/app/_helpers/error.interceptor.ts ***!
@@ -206,13 +364,13 @@
         _createClass(ErrorInterceptor, [{
           key: "intercept",
           value: function intercept(request, next) {
-            var _this = this;
+            var _this2 = this;
 
             return next.handle(request).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (data) {
               if (data.body && data.body.code == 400) {
-                _this._noti.clear();
+                _this2._noti.clear();
 
-                _this._noti.error(data.body.message, "Error", {
+                _this2._noti.error(data.body.message, "Error", {
                   timeOut: 2000
                 });
 
@@ -229,7 +387,7 @@
                   Object.keys(err.error.data).forEach(function (key) {
                     if (typeof err.error.data[key] == 'object') {
                       Object.keys(err.error.data[key]).forEach(function (key2) {
-                        _this._noti.clear();
+                        _this2._noti.clear();
 
                         errr = err.error.data[key][key2];
                       });
@@ -237,7 +395,7 @@
                   });
 
                   if (errr != '') {
-                    _this._noti.error(errr, "Error", {
+                    _this2._noti.error(errr, "Error", {
                       timeOut: 2000
                     });
                   }
@@ -245,23 +403,23 @@
               } else {
                 var error = ((_c = err.error) === null || _c === void 0 ? void 0 : _c.error_description) || ((_d = err.error) === null || _d === void 0 ? void 0 : _d.message) || err.statusText || (err === null || err === void 0 ? void 0 : err.message);
 
-                _this._noti.clear();
+                _this2._noti.clear();
 
-                _this._noti.error(error, 'Error', {
+                _this2._noti.error(error, 'Error', {
                   timeOut: 2000
                 });
               }
 
               if (err.status === 401) {
-                _this._noti.clear();
+                _this2._noti.clear();
 
-                _this._noti.error("Not authorized", "Error", {
+                _this2._noti.error("Not authorized", "Error", {
                   timeOut: 2000
                 });
 
                 sessionStorage.removeItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].storageKey);
 
-                _this.router.navigate(['/login']);
+                _this2.router.navigate(['/login']);
               }
 
               var error = ((_e = err.error) === null || _e === void 0 ? void 0 : _e.error_description) || ((_f = err.error) === null || _f === void 0 ? void 0 : _f.message) || err.statusText || (err === null || err === void 0 ? void 0 : err.message);
@@ -352,7 +510,7 @@
         _createClass(JwtInterceptor, [{
           key: "intercept",
           value: function intercept(request, next) {
-            var _this2 = this;
+            var _this3 = this;
 
             var currentUser = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].storageKey));
             this.spinner.show();
@@ -365,11 +523,11 @@
               });
               this.spinner.show();
               return next.handle(request).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["finalize"])(function () {
-                return _this2.spinner.hide();
+                return _this3.spinner.hide();
               }));
             } else {
               return next.handle(request).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["finalize"])(function () {
-                return _this2.spinner.hide();
+                return _this3.spinner.hide();
               }));
             }
           }
@@ -470,6 +628,21 @@
           this._http = _http;
           this.spinner = spinner;
           this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](false);
+          this.permissions = {
+            dashboard: 1,
+            users: 2,
+            walkthrough: 3,
+            banks: 4,
+            manage_update: 5,
+            notification: 6,
+            customer_support: 7,
+            wallet_address: 8,
+            request: 9,
+            analytics: 10,
+            rate_change: 11,
+            refer_and_earn: 12,
+            manage_sub_admin: 13
+          };
         }
 
         _createClass(CommonService, [{
@@ -541,12 +714,55 @@
         }, {
           key: "Showspinner",
           value: function Showspinner() {
-            var _this3 = this;
+            var _this4 = this;
 
             this.spinner.show();
             setTimeout(function () {
-              _this3.spinner.hide();
+              _this4.spinner.hide();
             }, 4000);
+          }
+        }, {
+          key: "checkPermissionRealData",
+          value: function checkPermissionRealData(name, type) {
+            var _this5 = this;
+
+            var userInfo = this.latestUserInfo;
+            var permissions = userInfo.permissions;
+            var check = permissions.find(function (x) {
+              return x.module == _this5.permissions[name];
+            });
+
+            if (permissions.length > 0) {
+              if (check != undefined && check[type == 'view' ? 'is_view' : 'is_add_edit']) {
+                return true;
+              } else {
+                return false;
+              }
+            }
+
+            return true;
+          }
+        }, {
+          key: "checkPermission",
+          value: function checkPermission(name, type) {
+            var _this6 = this;
+
+            var userInfo = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].storageKey));
+            var permissions = userInfo.permissions;
+
+            if (permissions.length > 0) {
+              var check = permissions.find(function (x) {
+                return x.module.id == _this6.permissions[name];
+              });
+
+              if (check != undefined && check[type == 'view' ? 'is_view' : 'is_add_edit']) {
+                return true;
+              } else {
+                return false;
+              }
+            }
+
+            return true;
           }
         }]);
 
@@ -639,26 +855,36 @@
       /* harmony import */
 
 
-      var _layouts_full_full_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      var _guards_permissions_guard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./_guards/permissions.guard */
+      "./src/app/_guards/permissions.guard.ts");
+      /* harmony import */
+
+
+      var _layouts_full_full_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! ./layouts/full/full.component */
       "./src/app/layouts/full/full.component.ts");
       /* harmony import */
 
 
-      var _layouts_blank_blank_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _layouts_blank_blank_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! ./layouts/blank/blank.component */
       "./src/app/layouts/blank/blank.component.ts");
 
       var Approutes = [{
         path: '',
-        component: _layouts_full_full_component__WEBPACK_IMPORTED_MODULE_1__["FullComponent"],
+        component: _layouts_full_full_component__WEBPACK_IMPORTED_MODULE_2__["FullComponent"],
         children: [{
           path: '',
           redirectTo: '/dashboard',
           pathMatch: 'full'
         }, {
           path: 'dashboard',
-          canActivate: [src_app_guards_auth_guard__WEBPACK_IMPORTED_MODULE_0__["AuthGuard"]],
+          canActivate: [src_app_guards_auth_guard__WEBPACK_IMPORTED_MODULE_0__["AuthGuard"], _guards_permissions_guard__WEBPACK_IMPORTED_MODULE_1__["PermissionsGuard"]],
+          data: {
+            permission: 'dashboard',
+            type: "view"
+          },
           loadChildren: function loadChildren() {
             return Promise.all(
             /*! import() | dashboards-dashboard-module */
@@ -726,7 +952,7 @@
         }]
       }, {
         path: '',
-        component: _layouts_blank_blank_component__WEBPACK_IMPORTED_MODULE_2__["BlankComponent"],
+        component: _layouts_blank_blank_component__WEBPACK_IMPORTED_MODULE_3__["BlankComponent"],
         children: [{
           path: '',
           loadChildren: function loadChildren() {
@@ -2293,7 +2519,7 @@
 
       var BreadcrumbComponent = /*#__PURE__*/function () {
         function BreadcrumbComponent(router, activatedRoute, titleService) {
-          var _this4 = this;
+          var _this7 = this;
 
           _classCallCheck(this, BreadcrumbComponent);
 
@@ -2303,7 +2529,7 @@
           this.router.events.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])(function (event) {
             return event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"];
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function () {
-            return _this4.activatedRoute;
+            return _this7.activatedRoute;
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (route) {
             while (route.firstChild) {
               route = route.firstChild;
@@ -2315,9 +2541,9 @@
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (route) {
             return route.data;
           })).subscribe(function (event) {
-            _this4.titleService.setTitle(event['title']);
+            _this7.titleService.setTitle(event['title']);
 
-            _this4.pageInfo = event;
+            _this7.pageInfo = event;
           });
         }
 
@@ -2757,12 +2983,12 @@
         _createClass(NavigationComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this5 = this;
+            var _this8 = this;
 
             this.GetVendorProfile();
             this.service.subject.subscribe(function (res) {
               if (res == true) {
-                _this5.GetVendorProfile();
+                _this8.GetVendorProfile();
               }
             });
           }
@@ -2775,7 +3001,7 @@
         }, {
           key: "GetVendorProfile",
           value: function GetVendorProfile() {
-            var _this6 = this;
+            var _this9 = this;
 
             this.service.get("vendor/get-vendor-by-id/".concat(this.VendorId, "/")).subscribe(function (res) {
               var _a, _b;
@@ -2783,8 +3009,8 @@
               console.log('Vendor get fromnav', res);
 
               if ([200, 201].includes(res.code)) {
-                _this6.VendorDetails = res.data;
-                _this6.ProfileImageUrl = (_b = (_a = res === null || res === void 0 ? void 0 : res.data) === null || _a === void 0 ? void 0 : _a.image) === null || _b === void 0 ? void 0 : _b.media_file_url;
+                _this9.VendorDetails = res.data;
+                _this9.ProfileImageUrl = (_b = (_a = res === null || res === void 0 ? void 0 : res.data) === null || _a === void 0 ? void 0 : _a.image) === null || _b === void 0 ? void 0 : _b.media_file_url;
               }
             });
           }
@@ -3782,7 +4008,6 @@
           this.Role = (_a = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].storageKey))) === null || _a === void 0 ? void 0 : _a.role;
           this.checkArr = [];
           this.showSubMenu = '';
-          console.log('Perms', this.permissions);
 
           var _iterator = _createForOfIteratorHelper(this.permissions),
               _step;
@@ -3790,7 +4015,10 @@
           try {
             for (_iterator.s(); !(_step = _iterator.n()).done;) {
               var param = _step.value;
-              this.checkArr.push((_b = param === null || param === void 0 ? void 0 : param.module) === null || _b === void 0 ? void 0 : _b.name);
+
+              if ((param === null || param === void 0 ? void 0 : param.is_view) == true) {
+                this.checkArr.push((_b = param === null || param === void 0 ? void 0 : param.module) === null || _b === void 0 ? void 0 : _b.name);
+              }
             }
           } catch (err) {
             _iterator.e(err);
@@ -3822,12 +4050,12 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this7 = this;
+            var _this10 = this;
 
             this.sidebarnavItems = _menu_items__WEBPACK_IMPORTED_MODULE_1__["ROUTES"].filter(function (sidebarnavItem) {
-              if (_this7.Role == 4) {
-                for (var index = 0; index < _this7.checkArr.length; index++) {
-                  if (_this7.checkArr[index] == sidebarnavItem.title) {
+              if (_this10.Role == 4) {
+                for (var index = 0; index < _this10.checkArr.length; index++) {
+                  if (_this10.checkArr[index] == sidebarnavItem.title) {
                     return sidebarnavItem;
                   }
                 }
@@ -3986,7 +4214,7 @@
 
       var SpinnerComponent = /*#__PURE__*/function () {
         function SpinnerComponent(router, document) {
-          var _this8 = this;
+          var _this11 = this;
 
           _classCallCheck(this, SpinnerComponent);
 
@@ -3996,12 +4224,12 @@
           this.backgroundColor = 'rgba(0, 115, 170, 0.69)';
           this.router.events.subscribe(function (event) {
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationStart"]) {
-              _this8.isSpinnerVisible = true;
+              _this11.isSpinnerVisible = true;
             } else if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"] || event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationCancel"] || event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationError"]) {
-              _this8.isSpinnerVisible = false;
+              _this11.isSpinnerVisible = false;
             }
           }, function () {
-            _this8.isSpinnerVisible = false;
+            _this11.isSpinnerVisible = false;
           });
         }
 
