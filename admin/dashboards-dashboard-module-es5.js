@@ -43577,12 +43577,13 @@
             label: 'Revenue'
           }];
           this.barChartLabels2 = ['Area 1', 'Area 2', 'Area 3', 'Area 4', 'Area 5', 'Area 6', 'Area 7', 'Area 8', 'Area 9'];
-          this.spinner.hide();
         }
 
         _createClass(SalesComponent, [{
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
+            console.log('From sdales');
+            this.spinner.hide();
             var chart2 = c3__WEBPACK_IMPORTED_MODULE_1__["generate"]({
               bindto: '#product-sales',
               data: {

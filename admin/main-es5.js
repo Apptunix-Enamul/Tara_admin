@@ -707,22 +707,19 @@
         }, {
           key: "Showspinner",
           value: function Showspinner() {
-            var _this4 = this;
-
             this.spinner.show();
-            setTimeout(function () {
-              _this4.spinner.hide();
+            setTimeout(function () {//  this.spinner.hide()
             }, 4000);
           }
         }, {
           key: "checkPermissionRealData",
           value: function checkPermissionRealData(name, type) {
-            var _this5 = this;
+            var _this4 = this;
 
             var userInfo = this.latestUserInfo;
             var permissions = userInfo.permissions;
             var check = permissions.find(function (x) {
-              return x.module == _this5.permissions[name];
+              return x.module == _this4.permissions[name];
             });
 
             if (permissions.length > 0) {
@@ -738,14 +735,14 @@
         }, {
           key: "checkPermission",
           value: function checkPermission(name, type) {
-            var _this6 = this;
+            var _this5 = this;
 
             var userInfo = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].storageKey));
-            var permissions = userInfo.permissions;
+            var permissions = (userInfo === null || userInfo === void 0 ? void 0 : userInfo.permissions) ? userInfo === null || userInfo === void 0 ? void 0 : userInfo.permissions : [];
 
             if (permissions.length > 0) {
               var check = permissions.find(function (x) {
-                return x.module.id == _this6.permissions[name];
+                return x.module.id == _this5.permissions[name];
               });
 
               if (check != undefined && check[type == 'view' ? 'is_view' : 'is_add_edit']) {
@@ -993,30 +990,48 @@
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      var ngx_spinner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ngx-spinner */
+      "./node_modules/ngx-spinner/__ivy_ngcc__/fesm2015/ngx-spinner.js");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/router */
       "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
       /* harmony import */
 
 
-      var _shared_spinner_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _shared_spinner_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! ./shared/spinner.component */
       "./src/app/shared/spinner.component.ts");
-      /* harmony import */
 
+      var AppComponent = /*#__PURE__*/function () {
+        function AppComponent(spinner) {
+          _classCallCheck(this, AppComponent);
 
-      var ngx_spinner__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-      /*! ngx-spinner */
-      "./node_modules/ngx-spinner/__ivy_ngcc__/fesm2015/ngx-spinner.js");
+          this.spinner = spinner;
+          this.title = 'app';
+        }
 
-      var AppComponent = function AppComponent() {
-        _classCallCheck(this, AppComponent);
+        _createClass(AppComponent, [{
+          key: "changeOfRoutes",
+          value: function changeOfRoutes() {
+            var _this6 = this;
 
-        this.title = 'app';
-      };
+            setTimeout(function () {
+              _this6.spinner.hide();
+
+              console.log('Route changed');
+            }, 130);
+          }
+        }]);
+
+        return AppComponent;
+      }();
 
       AppComponent.ɵfac = function AppComponent_Factory(t) {
-        return new (t || AppComponent)();
+        return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_spinner__WEBPACK_IMPORTED_MODULE_1__["NgxSpinnerService"]));
       };
 
       AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -1024,18 +1039,22 @@
         selectors: [["app-root"]],
         decls: 5,
         vars: 1,
-        consts: [["bdColor", "rgba(0, 0, 0, 0.8)", "size", "default", "color", "#9ECB2E", "type", "ball-clip-rotate", 3, "fullScreen"], [2, "color", "#9ECB2E"]],
+        consts: [[3, "activate"], ["bdColor", "rgba(0, 0, 0, 0.8)", "size", "default", "color", "#9ECB2E", "type", "ball-clip-rotate", 3, "fullScreen"], [2, "color", "#9ECB2E"]],
         template: function AppComponent_Template(rf, ctx) {
           if (rf & 1) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "router-outlet");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "router-outlet", 0);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("activate", function AppComponent_Template_router_outlet_activate_0_listener() {
+              return ctx.changeOfRoutes();
+            });
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "app-spinner");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "ngx-spinner", 0);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "ngx-spinner", 1);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "p", 1);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "p", 2);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4, " Loading... ");
 
@@ -1050,7 +1069,7 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("fullScreen", true);
           }
         },
-        directives: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterOutlet"], _shared_spinner_component__WEBPACK_IMPORTED_MODULE_2__["SpinnerComponent"], ngx_spinner__WEBPACK_IMPORTED_MODULE_3__["NgxSpinnerComponent"]],
+        directives: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterOutlet"], _shared_spinner_component__WEBPACK_IMPORTED_MODULE_3__["SpinnerComponent"], ngx_spinner__WEBPACK_IMPORTED_MODULE_1__["NgxSpinnerComponent"]],
         styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIn0= */"]
       });
       /*@__PURE__*/
@@ -1063,7 +1082,11 @@
             templateUrl: './app.component.html',
             styleUrls: ['./app.component.css']
           }]
-        }], null, null);
+        }], function () {
+          return [{
+            type: ngx_spinner__WEBPACK_IMPORTED_MODULE_1__["NgxSpinnerService"]
+          }];
+        }, null);
       })();
       /***/
 

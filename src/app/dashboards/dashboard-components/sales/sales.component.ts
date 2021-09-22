@@ -21,7 +21,7 @@ export interface Chart {
 })
 export class SalesComponent implements AfterViewInit {
     constructor(private spinner:NgxSpinnerService) {
-        this.spinner.hide()
+      
       }
 
     // Barchart
@@ -76,6 +76,9 @@ export class SalesComponent implements AfterViewInit {
     };
 
     ngAfterViewInit() {
+        console.log('From sdales');
+        
+        this.spinner.hide()
         const chart2 = c3.generate({
             bindto: '#product-sales',
             data: {

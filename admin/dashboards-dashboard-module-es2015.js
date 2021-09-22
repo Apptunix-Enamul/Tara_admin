@@ -30714,9 +30714,10 @@ class SalesComponent {
             'Area 8',
             'Area 9',
         ];
-        this.spinner.hide();
     }
     ngAfterViewInit() {
+        console.log('From sdales');
+        this.spinner.hide();
         const chart2 = c3__WEBPACK_IMPORTED_MODULE_1__["generate"]({
             bindto: '#product-sales',
             data: {

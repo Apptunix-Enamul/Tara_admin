@@ -71,7 +71,7 @@ export class CommonService {
 	  Showspinner(){
      this.spinner.show()
 	 setTimeout(() => {
-	 this.spinner.hide()
+	//  this.spinner.hide()
 	 }, 4000);
 	}
 	permissions = {
@@ -106,7 +106,7 @@ export class CommonService {
  	}
 	 checkPermission(name : string, type) {
 		let userInfo = JSON.parse(sessionStorage.getItem(environment.storageKey));
-		let permissions = userInfo.permissions;
+		let permissions = userInfo?.permissions?userInfo?.permissions:[];
 		if(permissions.length > 0) {
 			let check = permissions.find(x=> x.module.id == this.permissions[name]);
 			if(check != undefined && check[(type == 'view')?'is_view':'is_add_edit']){
