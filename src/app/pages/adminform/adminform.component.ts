@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CountryISO, SearchCountryField, PhoneNumberFormat } from 'ngx-intl-tel-input';
@@ -11,7 +11,7 @@ import { PermissionsArray } from 'src/app/_services/permissions'
   templateUrl: './adminform.component.html',
   styleUrls: ['./adminform.component.css']
 })
-export class AdminformComponent implements OnInit {
+export class AdminformComponent implements OnInit , AfterViewInit{
   SubadminForm:FormGroup
   selectedCountry : any = CountryISO.India;
   SearchCountryField = SearchCountryField;
@@ -32,6 +32,9 @@ inputMessageRef: ElementRef;
       phoneNo:['',[Validators.required]],
       email:['',[Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],
     })
+}
+ngAfterViewInit(){
+  this.GetSubAdmin()
 }
 ngOnInit(): void {
   // this.permissionArray=PermissionsArray.permissions
