@@ -78,6 +78,8 @@ export class SidebarComponent implements OnInit {
   }
   ClickListen() {
     this.router.events.subscribe((event: Event) => {
+      console.log('Fun Called ',event);
+      this.spinner.show();
       if (event instanceof NavigationStart) {
         this.spinner.show();
       }

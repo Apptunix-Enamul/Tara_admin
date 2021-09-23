@@ -2265,6 +2265,8 @@ class SidebarComponent {
     }
     ClickListen() {
         this.router.events.subscribe((event) => {
+            console.log('Fun Called ', event);
+            this.spinner.show();
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationStart"]) {
                 this.spinner.show();
             }
