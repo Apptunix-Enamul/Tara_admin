@@ -150,16 +150,33 @@
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      var ngx_spinner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ngx-spinner */
+      "./node_modules/ngx-spinner/__ivy_ngcc__/fesm2015/ngx-spinner.js");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/router */
       "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 
       var OrderComponent = /*#__PURE__*/function () {
-        function OrderComponent() {
+        function OrderComponent(spinner) {
           _classCallCheck(this, OrderComponent);
+
+          this.spinner = spinner;
         }
 
         _createClass(OrderComponent, [{
+          key: "changeOfRoutes",
+          value: function changeOfRoutes() {
+            var _this = this;
+
+            setTimeout(function () {
+              _this.spinner.hide();
+            }, 130);
+          }
+        }, {
           key: "ngOnInit",
           value: function ngOnInit() {}
         }]);
@@ -168,7 +185,7 @@
       }();
 
       OrderComponent.ɵfac = function OrderComponent_Factory(t) {
-        return new (t || OrderComponent)();
+        return new (t || OrderComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_spinner__WEBPACK_IMPORTED_MODULE_1__["NgxSpinnerService"]));
       };
 
       OrderComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -176,12 +193,19 @@
         selectors: [["app-order"]],
         decls: 1,
         vars: 0,
+        consts: [[3, "activate"]],
         template: function OrderComponent_Template(rf, ctx) {
           if (rf & 1) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "router-outlet");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "router-outlet", 0);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("activate", function OrderComponent_Template_router_outlet_activate_0_listener() {
+              return ctx.changeOfRoutes();
+            });
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
           }
         },
-        directives: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterOutlet"]],
+        directives: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterOutlet"]],
         styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL29yZGVyL29yZGVyLmNvbXBvbmVudC5jc3MifQ== */"]
       });
       /*@__PURE__*/
@@ -195,7 +219,9 @@
             styleUrls: ['./order.component.css']
           }]
         }], function () {
-          return [];
+          return [{
+            type: ngx_spinner__WEBPACK_IMPORTED_MODULE_1__["NgxSpinnerService"]
+          }];
         }, null);
       })();
       /***/

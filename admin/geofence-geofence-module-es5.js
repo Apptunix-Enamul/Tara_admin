@@ -168,16 +168,33 @@
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      var ngx_spinner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ngx-spinner */
+      "./node_modules/ngx-spinner/__ivy_ngcc__/fesm2015/ngx-spinner.js");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/router */
       "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 
       var GeofenceComponent = /*#__PURE__*/function () {
-        function GeofenceComponent() {
+        function GeofenceComponent(spinner) {
           _classCallCheck(this, GeofenceComponent);
+
+          this.spinner = spinner;
         }
 
         _createClass(GeofenceComponent, [{
+          key: "changeOfRoutes",
+          value: function changeOfRoutes() {
+            var _this = this;
+
+            setTimeout(function () {
+              _this.spinner.hide();
+            }, 130);
+          }
+        }, {
           key: "ngOnInit",
           value: function ngOnInit() {}
         }]);
@@ -186,7 +203,7 @@
       }();
 
       GeofenceComponent.ɵfac = function GeofenceComponent_Factory(t) {
-        return new (t || GeofenceComponent)();
+        return new (t || GeofenceComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_spinner__WEBPACK_IMPORTED_MODULE_1__["NgxSpinnerService"]));
       };
 
       GeofenceComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -194,12 +211,19 @@
         selectors: [["app-geofence"]],
         decls: 1,
         vars: 0,
+        consts: [[3, "activate"]],
         template: function GeofenceComponent_Template(rf, ctx) {
           if (rf & 1) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "router-outlet");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "router-outlet", 0);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("activate", function GeofenceComponent_Template_router_outlet_activate_0_listener() {
+              return ctx.changeOfRoutes();
+            });
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
           }
         },
-        directives: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterOutlet"]],
+        directives: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterOutlet"]],
         styles: [".sebm-google-map-container[_ngcontent-%COMP%] {\n    width: 100%;\n    height: 500px;\n    display: flex;\n  }\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZ2VvZmVuY2UvZ2VvZmVuY2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLFdBQVc7SUFDWCxhQUFhO0lBQ2IsYUFBYTtFQUNmIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvZ2VvZmVuY2UvZ2VvZmVuY2UuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5zZWJtLWdvb2dsZS1tYXAtY29udGFpbmVyIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBoZWlnaHQ6IDUwMHB4O1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gIH0iXX0= */"]
       });
       /*@__PURE__*/
@@ -213,7 +237,9 @@
             styleUrls: ['./geofence.component.css']
           }]
         }], function () {
-          return [];
+          return [{
+            type: ngx_spinner__WEBPACK_IMPORTED_MODULE_1__["NgxSpinnerService"]
+          }];
         }, null);
       })();
       /***/
@@ -407,7 +433,7 @@
 
       var GeofenceaddComponent = /*#__PURE__*/function () {
         function GeofenceaddComponent(router, Srvc, toaster, fb) {
-          var _this = this;
+          var _this2 = this;
 
           _classCallCheck(this, GeofenceaddComponent);
 
@@ -458,7 +484,7 @@
           this.sendZoom = 14;
 
           this.initDrawingManager = function (map) {
-            var self = _this;
+            var self = _this2;
             var options = {
               drawingControl: true,
               drawingControlOptions: {
@@ -470,11 +496,11 @@
               },
               drawingMode: google.maps.drawing.OverlayType.POLYGON
             };
-            _this.drawingManager = new google.maps.drawing.DrawingManager(options);
+            _this2.drawingManager = new google.maps.drawing.DrawingManager(options);
 
-            _this.drawingManager.setMap(map);
+            _this2.drawingManager.setMap(map);
 
-            google.maps.event.addListener(_this.drawingManager, "overlaycomplete", function (event) {
+            google.maps.event.addListener(_this2.drawingManager, "overlaycomplete", function (event) {
               if (event.type === google.maps.drawing.OverlayType.POLYGON) {
                 var paths = event.overlay.getPaths();
 
@@ -493,8 +519,8 @@
                 }
 
                 self.updatePointList(event.overlay.getPath());
-                _this.selectedShape = event.overlay;
-                _this.selectedShape.type = event.type;
+                _this2.selectedShape = event.overlay;
+                _this2.selectedShape.type = event.type;
               }
 
               if (event.type !== google.maps.drawing.OverlayType.MARKER) {
@@ -533,12 +559,12 @@
         }, {
           key: "setCurrentPosition",
           value: function setCurrentPosition() {
-            var _this2 = this;
+            var _this3 = this;
 
             if ("geolocation" in navigator) {
               navigator.geolocation.getCurrentPosition(function (position) {
-                _this2.lat = position.coords.latitude;
-                _this2.lng = position.coords.longitude;
+                _this3.lat = position.coords.latitude;
+                _this3.lng = position.coords.longitude;
               });
             }
           }
@@ -579,7 +605,7 @@
         }, {
           key: "addGeoFence",
           value: function addGeoFence() {
-            var _this3 = this;
+            var _this4 = this;
 
             if (this.pointList.length != 0) {
               var body = {
@@ -590,11 +616,11 @@
               body.points = this.pointList;
               this.Srvc.postApi("", body).subscribe(function (data) {
                 if (data.statusCode == 200) {
-                  _this3.toaster.success("Geofence Added");
+                  _this4.toaster.success("Geofence Added");
 
-                  _this3.router.navigate(["/pages/geofencelist"]);
+                  _this4.router.navigate(["/pages/geofencelist"]);
                 } else {
-                  _this3.toaster.error("Failed to add Geofence");
+                  _this4.toaster.error("Failed to add Geofence");
                 }
               });
             } else {
@@ -850,7 +876,7 @@
 
       var GeofenceeditComponent = /*#__PURE__*/function () {
         function GeofenceeditComponent(service, toastr, fb, router) {
-          var _this4 = this;
+          var _this5 = this;
 
           _classCallCheck(this, GeofenceeditComponent);
 
@@ -869,7 +895,7 @@
 
           this.initDrawingManager = function (map) {
             // debugger
-            var self = _this4;
+            var self = _this5;
             var options = {
               drawingControl: true,
               drawingControlOptions: {
@@ -881,11 +907,11 @@
               },
               drawingMode: google.maps.drawing.OverlayType.POLYGON
             };
-            _this4.drawingManager = new google.maps.drawing.DrawingManager(options);
+            _this5.drawingManager = new google.maps.drawing.DrawingManager(options);
 
-            _this4.drawingManager.setMap(map);
+            _this5.drawingManager.setMap(map);
 
-            google.maps.event.addListener(_this4.drawingManager, 'overlaycomplete', function (event) {
+            google.maps.event.addListener(_this5.drawingManager, 'overlaycomplete', function (event) {
               if (event.type === google.maps.drawing.OverlayType.POLYGON) {
                 var paths = event.overlay.getPaths();
 
@@ -904,8 +930,8 @@
                 }
 
                 self.updatePointList(event.overlay.getPath());
-                _this4.selectedShape = event.overlay;
-                _this4.selectedShape.type = event.type;
+                _this5.selectedShape = event.overlay;
+                _this5.selectedShape.type = event.type;
               }
 
               if (event.type !== google.maps.drawing.OverlayType.MARKER) {
@@ -922,11 +948,11 @@
           var drawPolygonArr = [];
           this.service.get("").subscribe(function (data) {
             if (data.statusCode == 200) {
-              _this4.getZoom = data.data.zoom;
-              _this4.lng = data.data.geoPoints.coordinates[0][data.data.geoPoints.coordinates[0].length - 1][0];
-              _this4.lat = data.data.geoPoints.coordinates[0][data.data.geoPoints.coordinates[0].length - 1][1]; //console.log(this.lat);
+              _this5.getZoom = data.data.zoom;
+              _this5.lng = data.data.geoPoints.coordinates[0][data.data.geoPoints.coordinates[0].length - 1][0];
+              _this5.lat = data.data.geoPoints.coordinates[0][data.data.geoPoints.coordinates[0].length - 1][1]; //console.log(this.lat);
 
-              _this4.editForm.controls['name'].setValue(data.data.name);
+              _this5.editForm.controls['name'].setValue(data.data.name);
 
               for (var i = 0; i < data.data.geoPoints.coordinates[0].length; i++) {
                 // drawPolygonArr.push(data.data.geoFence.coordinates[0][i]);
@@ -936,7 +962,7 @@
                 });
               }
 
-              _this4.constructTriangle = new google.maps.Polygon({
+              _this5.constructTriangle = new google.maps.Polygon({
                 paths: drawPolygonArr,
                 strokeColor: '#FF0000',
                 strokeOpacity: 0.8,
@@ -947,13 +973,13 @@
                 draggable: true
               });
 
-              _this4.constructTriangle.setMap(null); //this.pointList=drawPolygonArr;
+              _this5.constructTriangle.setMap(null); //this.pointList=drawPolygonArr;
 
 
-              _this4.constructTriangle.setMap(_this4.Map); // console.log(data.data.geoFence.coordinates[0]);
+              _this5.constructTriangle.setMap(_this5.Map); // console.log(data.data.geoFence.coordinates[0]);
 
             } else {
-              _this4.router.navigate(['/pages/geofencelist']);
+              _this5.router.navigate(['/pages/geofencelist']);
             }
           });
           this.test = drawPolygonArr;
@@ -975,12 +1001,12 @@
         }, {
           key: "setCurrentPosition",
           value: function setCurrentPosition() {
-            var _this5 = this;
+            var _this6 = this;
 
             if ('geolocation' in navigator) {
               navigator.geolocation.getCurrentPosition(function (position) {
-                _this5.lat = position.coords.latitude;
-                _this5.lng = position.coords.longitude;
+                _this6.lat = position.coords.latitude;
+                _this6.lng = position.coords.longitude;
               });
             }
           }
@@ -1044,7 +1070,7 @@
         }, {
           key: "updateGeoFence",
           value: function updateGeoFence() {
-            var _this6 = this;
+            var _this7 = this;
 
             // console.log("list",this.pointList);
             // console.log("test,",this.test);
@@ -1063,9 +1089,9 @@
               body.points = this.pointList;
               this.service.put(body).subscribe(function (data) {
                 if (data.statusCode == 200) {
-                  _this6.toastr.success("Updated successfully");
+                  _this7.toastr.success("Updated successfully");
 
-                  _this6.router.navigate(['/pages/geofencelist']);
+                  _this7.router.navigate(['/pages/geofencelist']);
                 }
               });
             } else {

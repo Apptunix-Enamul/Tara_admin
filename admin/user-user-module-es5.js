@@ -186,16 +186,34 @@
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      var ngx_spinner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ngx-spinner */
+      "./node_modules/ngx-spinner/__ivy_ngcc__/fesm2015/ngx-spinner.js");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/router */
       "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 
       var UserComponent = /*#__PURE__*/function () {
-        function UserComponent() {
+        function UserComponent(spinner) {
           _classCallCheck(this, UserComponent);
+
+          this.spinner = spinner;
         }
 
         _createClass(UserComponent, [{
+          key: "changeOfRoutes",
+          value: function changeOfRoutes() {
+            var _this = this;
+
+            console.log('User chngd');
+            setTimeout(function () {
+              _this.spinner.hide();
+            }, 130);
+          }
+        }, {
           key: "ngOnInit",
           value: function ngOnInit() {}
         }]);
@@ -204,7 +222,7 @@
       }();
 
       UserComponent.ɵfac = function UserComponent_Factory(t) {
-        return new (t || UserComponent)();
+        return new (t || UserComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_spinner__WEBPACK_IMPORTED_MODULE_1__["NgxSpinnerService"]));
       };
 
       UserComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -212,12 +230,19 @@
         selectors: [["app-user"]],
         decls: 1,
         vars: 0,
+        consts: [[3, "activate"]],
         template: function UserComponent_Template(rf, ctx) {
           if (rf & 1) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "router-outlet");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "router-outlet", 0);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("activate", function UserComponent_Template_router_outlet_activate_0_listener() {
+              return ctx.changeOfRoutes();
+            });
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
           }
         },
-        directives: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterOutlet"]],
+        directives: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterOutlet"]],
         styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3VzZXIvdXNlci5jb21wb25lbnQuY3NzIn0= */"]
       });
       /*@__PURE__*/
@@ -231,7 +256,9 @@
             styleUrls: ['./user.component.css']
           }]
         }], function () {
-          return [];
+          return [{
+            type: ngx_spinner__WEBPACK_IMPORTED_MODULE_1__["NgxSpinnerService"]
+          }];
         }, null);
       })();
       /***/
@@ -4252,14 +4279,14 @@
         }, {
           key: "open1",
           value: function open1(content1) {
-            var _this = this;
+            var _this2 = this;
 
             this.modalService.open(content1, {
               ariaLabelledBy: 'modal-basic-title'
             }).result.then(function (result) {
-              _this.closeResult = "Closed with: ".concat(result);
+              _this2.closeResult = "Closed with: ".concat(result);
             }, function (reason) {
-              _this.closeResult = "Dismissed ".concat(_this.getDismissReason(reason));
+              _this2.closeResult = "Dismissed ".concat(_this2.getDismissReason(reason));
             });
           }
         }, {

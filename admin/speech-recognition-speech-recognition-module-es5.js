@@ -168,16 +168,33 @@
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      var ngx_spinner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ngx-spinner */
+      "./node_modules/ngx-spinner/__ivy_ngcc__/fesm2015/ngx-spinner.js");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/router */
       "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 
       var SpeechRecognitionComponent = /*#__PURE__*/function () {
-        function SpeechRecognitionComponent() {
+        function SpeechRecognitionComponent(spinner) {
           _classCallCheck(this, SpeechRecognitionComponent);
+
+          this.spinner = spinner;
         }
 
         _createClass(SpeechRecognitionComponent, [{
+          key: "changeOfRoutes",
+          value: function changeOfRoutes() {
+            var _this = this;
+
+            setTimeout(function () {
+              _this.spinner.hide();
+            }, 130);
+          }
+        }, {
           key: "ngOnInit",
           value: function ngOnInit() {}
         }]);
@@ -186,7 +203,7 @@
       }();
 
       SpeechRecognitionComponent.ɵfac = function SpeechRecognitionComponent_Factory(t) {
-        return new (t || SpeechRecognitionComponent)();
+        return new (t || SpeechRecognitionComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_spinner__WEBPACK_IMPORTED_MODULE_1__["NgxSpinnerService"]));
       };
 
       SpeechRecognitionComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -194,12 +211,19 @@
         selectors: [["app-speech-recognition"]],
         decls: 1,
         vars: 0,
+        consts: [[3, "activate"]],
         template: function SpeechRecognitionComponent_Template(rf, ctx) {
           if (rf & 1) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "router-outlet");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "router-outlet", 0);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("activate", function SpeechRecognitionComponent_Template_router_outlet_activate_0_listener() {
+              return ctx.changeOfRoutes();
+            });
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
           }
         },
-        directives: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterOutlet"]],
+        directives: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterOutlet"]],
         styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3NwZWVjaC1yZWNvZ25pdGlvbi9zcGVlY2gtcmVjb2duaXRpb24uY29tcG9uZW50LmNzcyJ9 */"]
       });
       /*@__PURE__*/
@@ -213,7 +237,9 @@
             styleUrls: ['./speech-recognition.component.css']
           }]
         }], function () {
-          return [];
+          return [{
+            type: ngx_spinner__WEBPACK_IMPORTED_MODULE_1__["NgxSpinnerService"]
+          }];
         }, null);
       })();
       /***/

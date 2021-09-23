@@ -67,12 +67,8 @@ export class CommonService {
 			return data;
 		}));
 	  }
-
-	  Showspinner(){
+    Showspinner(){
      this.spinner.show()
-	 setTimeout(() => {
-	//  this.spinner.hide()
-	 }, 4000);
 	}
 	permissions = {
 		dashboard : 1,

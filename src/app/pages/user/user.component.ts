@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-user',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private spinner:NgxSpinnerService){}
+  changeOfRoutes(){
+    console.log('User chngd');
+     setTimeout(() => {
+       this.spinner.hide()
+     },130); 
+  }
+ ngOnInit(): void {
   }
 
 }
