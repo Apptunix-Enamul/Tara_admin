@@ -55980,42 +55980,29 @@
         }
 
         _createClass2(AdminformComponent, [{
-          key: "ngAfterViewInit",
-          value: function ngAfterViewInit() {
-            this.GetSubAdmin();
-          }
-        }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this167 = this;
-
-            // this.permissionArray=PermissionsArray.permissions
-            this.GetSubAdmin();
-            setTimeout(function () {
-              _this167.GetAdminById();
-            }, 100);
+            this.GetAdminById();
           }
         }, {
           key: "sendFile",
           value: function sendFile(fileData) {
-            var _this168 = this;
+            var _this167 = this;
 
             var formdata = new FormData();
             formdata.append('media', fileData);
             this.service.postApi("upload/media/", formdata).subscribe(function (res) {
-              console.log("Imager api called", res);
-
               if ([200, 201].includes(res.code)) {
-                _this168.toaster.success('File uploaded successfully', 'File');
+                _this167.toaster.success('File uploaded successfully', 'File');
 
-                _this168.subAdminPicId = res.data[0].id;
+                _this167.subAdminPicId = res.data[0].id;
               }
             });
           }
         }, {
           key: "uploadFile",
           value: function uploadFile(event) {
-            var _this169 = this;
+            var _this168 = this;
 
             if (event.target.files && event.target.files[0]) {
               var type = event.target.files[0].type;
@@ -56027,7 +56014,7 @@
                 this.sendFile(fileData);
 
                 reader.onload = function (event) {
-                  _this169.profileUrl = fileData.name;
+                  _this168.profileUrl = fileData.name;
                 };
               } else {
                 this.toaster.error('File format not supported', 'File Error');
@@ -56078,12 +56065,11 @@
         }, {
           key: "GetSubAdmin",
           value: function GetSubAdmin() {
-            var _this170 = this;
+            var _this169 = this;
 
             this.service.get("sub-admin/get-all-subadmin-module/").subscribe(function (res) {
               if ([200, 201].includes(res.code)) {
-                console.log('Get subAdmin data', res);
-                _this170.SubAdminData = res === null || res === void 0 ? void 0 : res.data;
+                _this169.SubAdminData = res === null || res === void 0 ? void 0 : res.data;
 
                 var _iterator15 = _createForOfIteratorHelper(res === null || res === void 0 ? void 0 : res.data),
                     _step15;
@@ -56092,7 +56078,7 @@
                   for (_iterator15.s(); !(_step15 = _iterator15.n()).done;) {
                     var x = _step15.value;
 
-                    _this170.permissionArray.push({
+                    _this169.permissionArray.push({
                       label: x === null || x === void 0 ? void 0 : x.name,
                       "module": x === null || x === void 0 ? void 0 : x.id,
                       "is_add_edit": false,
@@ -56115,29 +56101,33 @@
         }, {
           key: "GetAdminById",
           value: function GetAdminById() {
-            var _this171 = this;
+            var _this170 = this;
 
             this.route.queryParams.subscribe(function (params) {
-              _this171.id = params.id;
+              _this170.id = params.id;
 
-              if (_this171.id) {
-                _this171.service.get("sub-admin/get-details-by-id/".concat(params === null || params === void 0 ? void 0 : params.id, "/")).subscribe(function (data) {
+              if (_this170.id) {
+                _this170.permissionArray = [];
+
+                _this170.service.get("sub-admin/get-details-by-id/".concat(params === null || params === void 0 ? void 0 : params.id, "/")).subscribe(function (data) {
                   var _a, _b, _c, _d;
 
                   if ([200, 201].includes(data.code)) {
-                    _this171.setFormsValue(data === null || data === void 0 ? void 0 : data.data);
+                    _this170.setFormsValue(data === null || data === void 0 ? void 0 : data.data);
 
-                    _this171.profileUrl = (_b = (_a = data === null || data === void 0 ? void 0 : data.data) === null || _a === void 0 ? void 0 : _a.image) === null || _b === void 0 ? void 0 : _b.media_file_url;
-                    _this171.subAdminPicId = (_d = (_c = data === null || data === void 0 ? void 0 : data.data) === null || _c === void 0 ? void 0 : _c.image) === null || _d === void 0 ? void 0 : _d.id;
+                    _this170.profileUrl = (_b = (_a = data === null || data === void 0 ? void 0 : data.data) === null || _a === void 0 ? void 0 : _a.image) === null || _b === void 0 ? void 0 : _b.media_file_url;
+                    _this170.subAdminPicId = (_d = (_c = data === null || data === void 0 ? void 0 : data.data) === null || _c === void 0 ? void 0 : _c.image) === null || _d === void 0 ? void 0 : _d.id;
                     var findIndex = src_app_helpers_country__WEBPACK_IMPORTED_MODULE_5__["allCountries"].find(function (x) {
                       var _a, _b;
 
                       var phone = (_b = (_a = data === null || data === void 0 ? void 0 : data.data) === null || _a === void 0 ? void 0 : _a.country_code) === null || _b === void 0 ? void 0 : _b.split('+');
                       return x[2] == phone[1].trim();
                     });
-                    _this171.selectedCountry = findIndex != undefined ? findIndex[1] : ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_3__["CountryISO"].India;
+                    _this170.selectedCountry = findIndex != undefined ? findIndex[1] : ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_3__["CountryISO"].India;
                   }
                 });
+              } else {
+                _this170.GetSubAdmin();
               }
             });
           }
@@ -56165,6 +56155,7 @@
                   "is_add_edit": x === null || x === void 0 ? void 0 : x.is_add_edit,
                   "is_view": x === null || x === void 0 ? void 0 : x.is_view
                 });
+                console.log('Permiss', this.permissionArray);
               }
             } catch (err) {
               _iterator16.e(err);
@@ -56175,12 +56166,12 @@
         }, {
           key: "DataSubmitType",
           value: function DataSubmitType(idRef, obj) {
-            var _this172 = this;
+            var _this171 = this;
 
             if (idRef) {
               this.service.put("sub-admin/update-details/".concat(idRef, "/"), obj).subscribe(function (res) {
                 if ([200, 201].includes(res.code)) {
-                  _this172.toaster.success('Sub Admin updated', 'Success');
+                  _this171.toaster.success('Sub Admin updated', 'Success');
 
                   window.history.back();
                 }
@@ -56188,7 +56179,7 @@
             } else {
               this.service.post("sub-admin/create/", obj).subscribe(function (res) {
                 if ([200, 201].includes(res.code)) {
-                  _this172.toaster.success('Sub Admin created', 'Success');
+                  _this171.toaster.success('Sub Admin created', 'Success');
 
                   window.history.back();
                 }
@@ -57721,14 +57712,14 @@
         }, {
           key: "SaveTerms",
           value: function SaveTerms() {
-            var _this173 = this;
+            var _this172 = this;
 
             if (this.TermConditionForm.valid) {
               this.service.post("cms/create-update-cms/", this.TermConditionForm.value).subscribe(function (res) {
                 if ([200, 201].includes(res.code)) {
-                  _this173.GetTerms();
+                  _this172.GetTerms();
 
-                  _this173.toast.success('about us updated', 'Success');
+                  _this172.toast.success('about us updated', 'Success');
                 }
               });
             } else {
@@ -57738,14 +57729,14 @@
         }, {
           key: "GetTerms",
           value: function GetTerms() {
-            var _this174 = this;
+            var _this173 = this;
 
             this.service.get("cms/get-cms/").subscribe(function (res) {
               if ([200, 201].includes(res.code)) {
                 console.log('Get about_us', res);
-                _this174.TermsData = res.data;
+                _this173.TermsData = res.data;
 
-                _this174.TermConditionForm.controls['about_us'].setValue(res.data.about_us);
+                _this173.TermConditionForm.controls['about_us'].setValue(res.data.about_us);
               }
             });
           }
@@ -58027,13 +58018,13 @@
         }, {
           key: "GetFaq",
           value: function GetFaq() {
-            var _this175 = this;
+            var _this174 = this;
 
             this.Srvc.get("cms/get-faq/").subscribe(function (res) {
               if ([200, 201].includes(res.code)) {
-                _this175.setSpecifications(res.data);
+                _this174.setSpecifications(res.data);
 
-                _this175.IdData = res === null || res === void 0 ? void 0 : res.data;
+                _this174.IdData = res === null || res === void 0 ? void 0 : res.data;
               }
             });
           }
@@ -58064,7 +58055,7 @@
         }, {
           key: "saveFaq",
           value: function saveFaq() {
-            var _this176 = this;
+            var _this175 = this;
 
             this.noti.clear();
             this.Faqcheck.controls['specification'].value.forEach(function (v) {
@@ -58074,7 +58065,7 @@
             if (this.Faqcheck.valid && this.Faqcheck.controls['specification'].value.length > 0) {
               this.Srvc.post("cms/get-create-update-delete-faq/", this.Faqcheck.get('specification').value).subscribe(function (res) {
                 if (res.code == 200) {
-                  _this176.noti.success("Faq's updated successfully", 'Success');
+                  _this175.noti.success("Faq's updated successfully", 'Success');
                 }
               });
             } else {
@@ -59944,7 +59935,7 @@
         }, {
           key: "GetSubCategory",
           value: function GetSubCategory(id) {
-            var _this177 = this;
+            var _this176 = this;
 
             this.MainCatId = id;
             this.SubCategoryData = [];
@@ -60011,9 +60002,9 @@
             this.service.post("product/get-product-sub-category-with-pagination/".concat(id, "/"), obj).subscribe(function (res) {
               if ([200, 201].includes(res === null || res === void 0 ? void 0 : res.code)) {
                 console.log('Get sub cat called', res);
-                _this177.subCatCount = res === null || res === void 0 ? void 0 : res.recordsTotal; // this.IsnotEmpty = res.data
+                _this176.subCatCount = res === null || res === void 0 ? void 0 : res.recordsTotal; // this.IsnotEmpty = res.data
 
-                _this177.SubCategoryData = res.data;
+                _this176.SubCategoryData = res.data;
               }
             });
           }
@@ -60053,7 +60044,7 @@
         }, {
           key: "GetCategory",
           value: function GetCategory() {
-            var _this178 = this;
+            var _this177 = this;
 
             var obj = {
               "draw": 2,
@@ -60117,9 +60108,9 @@
             this.service.post("product/get-product-category-with-pagination/", obj).subscribe(function (res) {
               if ([200, 201].includes(res.code)) {
                 console.log('Get cat called', res);
-                _this178.count = res === null || res === void 0 ? void 0 : res.recordsTotal; // this.IsnotEmpty = res.data
+                _this177.count = res === null || res === void 0 ? void 0 : res.recordsTotal; // this.IsnotEmpty = res.data
 
-                _this178.CategoryData = res.data;
+                _this177.CategoryData = res.data;
               }
             });
           }
@@ -60230,7 +60221,7 @@
         }, {
           key: "sendFile",
           value: function sendFile(fileData) {
-            var _this179 = this;
+            var _this178 = this;
 
             var formdata = new FormData();
             formdata.append('media', fileData);
@@ -60238,16 +60229,16 @@
               console.log("Imager api called", res);
 
               if ([200, 201].includes(res.code)) {
-                _this179.toaster.success('File uploaded successfully', 'File');
+                _this178.toaster.success('File uploaded successfully', 'File');
 
-                _this179.imageId = res.data[0].id;
+                _this178.imageId = res.data[0].id;
               }
             });
           }
         }, {
           key: "uploadFile",
           value: function uploadFile(event) {
-            var _this180 = this;
+            var _this179 = this;
 
             if (event.target.files && event.target.files[0]) {
               var type = event.target.files[0].type;
@@ -60259,7 +60250,7 @@
                 this.sendFile(fileData);
 
                 reader.onload = function (event) {
-                  _this180.ImageUrl = fileData.name;
+                  _this179.ImageUrl = fileData.name;
                 };
               } else {
                 this.toaster.error('File format not supported', 'File Error');
@@ -60288,7 +60279,7 @@
         }, {
           key: "DataSubmission",
           value: function DataSubmission(FOR) {
-            var _this181 = this;
+            var _this180 = this;
 
             if (FOR == 'cat') {
               var OperationalApi = this.IsUpdate == '' ? "product/create-category/" : "product/update-category/".concat(this.catId, "/");
@@ -60308,14 +60299,14 @@
               };
               this.service.post("product/create-sub-category/", _obj).subscribe(function (res) {
                 if ([200, 201].includes(res.code)) {
-                  _this181.toaster.success('New sub category added', 'Success');
+                  _this180.toaster.success('New sub category added', 'Success');
 
-                  _this181.GetSubCategory(_this181.catId);
+                  _this180.GetSubCategory(_this180.catId);
 
-                  _this181.modalService.dismissAll();
+                  _this180.modalService.dismissAll();
 
-                  _this181.imageId = undefined;
-                  _this181.ImageUrl = undefined;
+                  _this180.imageId = undefined;
+                  _this180.ImageUrl = undefined;
                 }
               });
             } else if (FOR == 'subUpdate') {
@@ -60328,14 +60319,14 @@
               };
               this.service.put("product/update-sub-category/".concat(this.SubCatId, "/"), _obj2).subscribe(function (res) {
                 if ([200, 201].includes(res.code)) {
-                  _this181.toaster.success('Sub category updated', 'Success');
+                  _this180.toaster.success('Sub category updated', 'Success');
 
-                  _this181.GetSubCategory(_this181.catId);
+                  _this180.GetSubCategory(_this180.catId);
 
-                  _this181.modalService.dismissAll();
+                  _this180.modalService.dismissAll();
 
-                  _this181.imageId = undefined;
-                  _this181.ImageUrl = undefined;
+                  _this180.imageId = undefined;
+                  _this180.ImageUrl = undefined;
                 }
               });
             }
@@ -60343,7 +60334,7 @@
         }, {
           key: "DeleteVendor",
           value: function DeleteVendor() {
-            var _this182 = this;
+            var _this181 = this;
 
             var obj = {
               "is_force": false
@@ -60352,21 +60343,21 @@
             if (this.REFERENCE == 'cat') {
               this.service.put("product/delete-product-category/".concat(this.catId, "/"), obj).subscribe(function (res) {
                 if ([200, 201].includes(res.code)) {
-                  _this182.GetCategory();
+                  _this181.GetCategory();
 
-                  _this182.modalService.dismissAll();
+                  _this181.modalService.dismissAll();
 
-                  _this182.toaster.success('Category deleted successfully', 'Deleted');
+                  _this181.toaster.success('Category deleted successfully', 'Deleted');
                 }
               });
             } else {
               this.service.put("product/delete-product-sub-category/".concat(this.catId, "/"), obj).subscribe(function (res) {
                 if ([200, 201].includes(res.code)) {
-                  _this182.GetSubCategory(_this182.MainCatId);
+                  _this181.GetSubCategory(_this181.MainCatId);
 
-                  _this182.modalService.dismissAll();
+                  _this181.modalService.dismissAll();
 
-                  _this182.toaster.success('Sub category deleted successfully', 'Deleted');
+                  _this181.toaster.success('Sub category deleted successfully', 'Deleted');
                 }
               });
             }
@@ -60399,32 +60390,32 @@
         }, {
           key: "CallCreateUpdateApi",
           value: function CallCreateUpdateApi(Api, obj) {
-            var _this183 = this;
+            var _this182 = this;
 
             if (this.IsUpdate == '') {
               this.service.post(Api, obj).subscribe(function (res) {
                 if ([200, 201].includes(res.code)) {
-                  _this183.GetCategory();
+                  _this182.GetCategory();
 
-                  _this183.toaster.success("New category created", 'Success');
+                  _this182.toaster.success("New category created", 'Success');
 
-                  _this183.modalService.dismissAll();
+                  _this182.modalService.dismissAll();
 
-                  _this183.imageId = undefined;
-                  _this183.ImageUrl = undefined;
+                  _this182.imageId = undefined;
+                  _this182.ImageUrl = undefined;
                 }
               });
             } else {
               this.service.put(Api, obj).subscribe(function (res) {
                 if ([200, 201].includes(res.code)) {
-                  _this183.GetCategory();
+                  _this182.GetCategory();
 
-                  _this183.toaster.success("Category updated successfully", 'Success');
+                  _this182.toaster.success("Category updated successfully", 'Success');
 
-                  _this183.modalService.dismissAll();
+                  _this182.modalService.dismissAll();
 
-                  _this183.imageId = undefined;
-                  _this183.ImageUrl = undefined;
+                  _this182.imageId = undefined;
+                  _this182.ImageUrl = undefined;
                 }
               });
             }
@@ -63103,20 +63094,20 @@
         }, {
           key: "Filter",
           value: function Filter(event) {
-            var _this184 = this;
+            var _this183 = this;
 
             window.clearTimeout(this.timer);
             this.timer = window.setTimeout(function () {
               var filterValue = event.target.value;
-              _this184.SearchValue = filterValue;
+              _this183.SearchValue = filterValue;
 
-              _this184.GetProduct();
+              _this183.GetProduct();
             }, 1000);
           }
         }, {
           key: "GetSubCategory",
           value: function GetSubCategory(id) {
-            var _this185 = this;
+            var _this184 = this;
 
             this.SubCategoryData = [];
             this.catId = id;
@@ -63184,11 +63175,11 @@
                 console.log('Get sub cat called', res);
 
                 if (res.data.length) {
-                  _this185.SubCategoryData = res.data;
+                  _this184.SubCategoryData = res.data;
                 } else {
-                  _this185.SubCategoryData = [];
+                  _this184.SubCategoryData = [];
 
-                  _this185.ProductForm.controls['product_sub_category'].disable();
+                  _this184.ProductForm.controls['product_sub_category'].disable();
                 }
               }
             });
@@ -63213,7 +63204,7 @@
         }, {
           key: "GetCategory",
           value: function GetCategory() {
-            var _this186 = this;
+            var _this185 = this;
 
             var obj = {
               "draw": 2,
@@ -63276,14 +63267,14 @@
             };
             this.service.post("product/get-product-category-with-pagination/", obj).subscribe(function (res) {
               if ([200, 201].includes(res.code)) {
-                _this186.CategoryData = res.data;
+                _this185.CategoryData = res.data;
               }
             });
           }
         }, {
           key: "GetProductById",
           value: function GetProductById(id) {
-            var _this187 = this;
+            var _this186 = this;
 
             this.service.get("product/get-product-by-id/".concat(id, "/")).subscribe(function (res) {
               var _a, _b;
@@ -63291,9 +63282,9 @@
               console.log('ProductId get', res);
 
               if ([200, 201].includes(res === null || res === void 0 ? void 0 : res.code)) {
-                _this187.GetSubCategory((_b = (_a = res === null || res === void 0 ? void 0 : res.data) === null || _a === void 0 ? void 0 : _a.product_category) === null || _b === void 0 ? void 0 : _b.id);
+                _this186.GetSubCategory((_b = (_a = res === null || res === void 0 ? void 0 : res.data) === null || _a === void 0 ? void 0 : _a.product_category) === null || _b === void 0 ? void 0 : _b.id);
 
-                _this187.SetValuesInForm(res === null || res === void 0 ? void 0 : res.data);
+                _this186.SetValuesInForm(res === null || res === void 0 ? void 0 : res.data);
               }
             });
           }
@@ -63336,7 +63327,7 @@
         }, {
           key: "GetProduct",
           value: function GetProduct() {
-            var _this188 = this;
+            var _this187 = this;
 
             var obj = {
               "draw": 2,
@@ -63401,12 +63392,12 @@
               console.log('Product get', res);
 
               if ([200, 201].includes(res === null || res === void 0 ? void 0 : res.code)) {
-                _this188.ProductItems = res.data;
-                _this188.count = res === null || res === void 0 ? void 0 : res.recordsTotal;
-                console.log('Total', _this188.count);
+                _this187.ProductItems = res.data;
+                _this187.count = res === null || res === void 0 ? void 0 : res.recordsTotal;
+                console.log('Total', _this187.count);
               } else {
-                _this188.ProductItems = [];
-                _this188.count = 0;
+                _this187.ProductItems = [];
+                _this187.count = 0;
               }
             });
           }
@@ -63423,15 +63414,15 @@
         }, {
           key: "DeleteProduct",
           value: function DeleteProduct() {
-            var _this189 = this;
+            var _this188 = this;
 
             this.service.deleteApi("product/delete-by-id/".concat(this.productId, "/")).subscribe(function (res) {
               if ([200, 201].includes(res.code)) {
-                _this189.GetProduct();
+                _this188.GetProduct();
 
-                _this189.toaster.success('Product deleted successfully', 'Product delete');
+                _this188.toaster.success('Product deleted successfully', 'Product delete');
 
-                _this189.modalService.dismissAll();
+                _this188.modalService.dismissAll();
               }
             });
           }
@@ -63489,7 +63480,7 @@
         }, {
           key: "sendFile",
           value: function sendFile(fileData) {
-            var _this190 = this;
+            var _this189 = this;
 
             this.toaster.clear();
 
@@ -63499,13 +63490,13 @@
               this.service.postApi("upload/media/", formdata).subscribe(function (res) {
                 if ([200, 201].includes(res.code)) {
                   // this.productImageId = res.data[0].id
-                  _this190.docfile.push(res.data[0].media_file_url);
+                  _this189.docfile.push(res.data[0].media_file_url);
 
-                  _this190.productImageId.push({
+                  _this189.productImageId.push({
                     "image": res.data[0].id
                   });
 
-                  _this190.toaster.success('File uploaded', 'File');
+                  _this189.toaster.success('File uploaded', 'File');
                 }
               });
             } else {
@@ -63552,7 +63543,7 @@
         }, {
           key: "AddFunctionForProduct",
           value: function AddFunctionForProduct() {
-            var _this191 = this;
+            var _this190 = this;
 
             this.toaster.clear();
             var obj = {
@@ -63574,24 +63565,24 @@
             };
             this.service.post("product/create-product/", obj).subscribe(function (res) {
               if ([200, 201].includes(res === null || res === void 0 ? void 0 : res.code)) {
-                _this191.GetProduct();
+                _this190.GetProduct();
 
-                _this191.toaster.success("Product added successfully.", "Success!");
+                _this190.toaster.success("Product added successfully.", "Success!");
 
-                _this191.modalService.dismissAll();
+                _this190.modalService.dismissAll();
 
-                _this191.ProductForm.reset();
+                _this190.ProductForm.reset();
 
-                _this191.DuplicateFilesDetectors = [];
-                _this191.docfile;
-                _this191.productImageId = [];
+                _this190.DuplicateFilesDetectors = [];
+                _this190.docfile;
+                _this190.productImageId = [];
               }
             });
           }
         }, {
           key: "UpdateProduct",
           value: function UpdateProduct() {
-            var _this192 = this;
+            var _this191 = this;
 
             this.toaster.clear();
             var obj = {
@@ -63613,17 +63604,17 @@
             };
             this.service.put("product/update-product/".concat(this.productId, "/"), obj).subscribe(function (res) {
               if ([200, 201].includes(res === null || res === void 0 ? void 0 : res.code)) {
-                _this192.GetProduct();
+                _this191.GetProduct();
 
-                _this192.toaster.success("Product updated successfully.", "Success!");
+                _this191.toaster.success("Product updated successfully.", "Success!");
 
-                _this192.modalService.dismissAll();
+                _this191.modalService.dismissAll();
 
-                _this192.ProductForm.reset();
+                _this191.ProductForm.reset();
 
-                _this192.DuplicateFilesDetectors = [];
-                _this192.docfile;
-                _this192.productImageId = [];
+                _this191.DuplicateFilesDetectors = [];
+                _this191.docfile;
+                _this191.productImageId = [];
               }
             });
           }
@@ -63635,12 +63626,12 @@
         }, {
           key: "GetVendor",
           value: function GetVendor() {
-            var _this193 = this;
+            var _this192 = this;
 
             this.service.post("vendor/vendor-list-pagination/", src_app_body_api_body__WEBPACK_IMPORTED_MODULE_5__["BodyObject"].getVendor).subscribe(function (res) {
               if ([200, 201].includes(res.code)) {
-                _this193.VendorList = res.data;
-                _this193.count = res === null || res === void 0 ? void 0 : res.recordsTotal;
+                _this192.VendorList = res.data;
+                _this192.count = res === null || res === void 0 ? void 0 : res.recordsTotal;
               }
             });
           }
@@ -79667,14 +79658,14 @@
         }, {
           key: "SaveTerms",
           value: function SaveTerms() {
-            var _this194 = this;
+            var _this193 = this;
 
             if (this.TermConditionForm.valid) {
               this.service.post("cms/create-update-cms/", this.TermConditionForm.value).subscribe(function (res) {
                 if ([200, 201].includes(res.code)) {
-                  _this194.GetTerms();
+                  _this193.GetTerms();
 
-                  _this194.toast.success('Privacy policy updated', 'Success');
+                  _this193.toast.success('Privacy policy updated', 'Success');
                 }
               });
             } else {
@@ -79684,14 +79675,14 @@
         }, {
           key: "GetTerms",
           value: function GetTerms() {
-            var _this195 = this;
+            var _this194 = this;
 
             this.service.get("cms/get-cms/").subscribe(function (res) {
               if ([200, 201].includes(res.code)) {
                 console.log('Get privacy', res);
-                _this195.TermsData = res.data;
+                _this194.TermsData = res.data;
 
-                _this195.TermConditionForm.controls['privacy'].setValue(res.data.privacy);
+                _this194.TermConditionForm.controls['privacy'].setValue(res.data.privacy);
               }
             });
           }
@@ -80499,7 +80490,7 @@
         }, {
           key: "GetVendorProfile",
           value: function GetVendorProfile() {
-            var _this196 = this;
+            var _this195 = this;
 
             this.service.get("user/get-admin-user-details-by-id/".concat(this.AdminId)).subscribe(function (res) {
               var _a, _b, _c, _d, _e, _f;
@@ -80507,13 +80498,13 @@
               console.log('Admin get', res);
 
               if ([200, 201].includes(res.code)) {
-                _this196.SetValueInForm(res.data);
+                _this195.SetValueInForm(res.data);
 
-                _this196.VendorDetails = res.data;
-                _this196.profileImageId = (_b = (_a = res === null || res === void 0 ? void 0 : res.data) === null || _a === void 0 ? void 0 : _a.image) === null || _b === void 0 ? void 0 : _b.id;
-                _this196.ProfileImageUrl = (_d = (_c = res === null || res === void 0 ? void 0 : res.data) === null || _c === void 0 ? void 0 : _c.image) === null || _d === void 0 ? void 0 : _d.media_file_url;
-                _this196.lat = Number((_e = _this196.VendorDetails) === null || _e === void 0 ? void 0 : _e.latitude);
-                _this196.lng = Number((_f = _this196.VendorDetails) === null || _f === void 0 ? void 0 : _f.longitude); //  let findIndex = allCountries.find(x=>{
+                _this195.VendorDetails = res.data;
+                _this195.profileImageId = (_b = (_a = res === null || res === void 0 ? void 0 : res.data) === null || _a === void 0 ? void 0 : _a.image) === null || _b === void 0 ? void 0 : _b.id;
+                _this195.ProfileImageUrl = (_d = (_c = res === null || res === void 0 ? void 0 : res.data) === null || _c === void 0 ? void 0 : _c.image) === null || _d === void 0 ? void 0 : _d.media_file_url;
+                _this195.lat = Number((_e = _this195.VendorDetails) === null || _e === void 0 ? void 0 : _e.latitude);
+                _this195.lng = Number((_f = _this195.VendorDetails) === null || _f === void 0 ? void 0 : _f.longitude); //  let findIndex = allCountries.find(x=>{
                 //   const phone = res?.data?.country_code?.split('+');
                 //   return x[2] == phone[1].trim();
                 // })
@@ -80533,7 +80524,7 @@
         }, {
           key: "sendFile",
           value: function sendFile(fileData) {
-            var _this197 = this;
+            var _this196 = this;
 
             var formdata = new FormData();
             formdata.append('media', fileData);
@@ -80541,15 +80532,15 @@
               console.log("Imager api called", res);
 
               if ([200, 201].includes(res.code)) {
-                _this197.profileImageId = res.data[0].id;
-                _this197.ProfileImageUrl = res.data[0].media_file_url;
+                _this196.profileImageId = res.data[0].id;
+                _this196.ProfileImageUrl = res.data[0].media_file_url;
               }
             });
           }
         }, {
           key: "uploadFile",
           value: function uploadFile(event) {
-            var _this198 = this;
+            var _this197 = this;
 
             if (event.target.files && event.target.files[0]) {
               var type = event.target.files[0].type;
@@ -80561,7 +80552,7 @@
                 this.sendFile(fileData);
 
                 reader.onload = function (event) {
-                  _this198.ProfileImageUrl = event.target.result;
+                  _this197.ProfileImageUrl = event.target.result;
                 };
               }
             }
@@ -80576,7 +80567,7 @@
         }, {
           key: "updateProfileFn",
           value: function updateProfileFn() {
-            var _this199 = this;
+            var _this198 = this;
 
             if (this.ProfileForm.valid) {
               var obj = {
@@ -80591,17 +80582,17 @@
                 "longitude": this.lng
               };
               this.service.put("user/update-user-details-by-id/".concat(this.AdminId), obj).subscribe(function (res) {
-                _this199.GetVendorProfile();
+                _this198.GetVendorProfile();
 
-                _this199.service.subject.next(true);
+                _this198.service.subject.next(true);
 
-                _this199.toaster.success("Profile updated successfully.", "Success!");
+                _this198.toaster.success("Profile updated successfully.", "Success!");
 
-                _this199.router.navigate(['/dashboard']);
+                _this198.router.navigate(['/dashboard']);
 
-                _this199.isLoading = false;
+                _this198.isLoading = false;
               }, function (_) {
-                _this199.isLoading = false;
+                _this198.isLoading = false;
               });
             } else {
               this.ProfileForm.markAllAsTouched();
@@ -81743,14 +81734,14 @@
         }, {
           key: "open1",
           value: function open1(content1) {
-            var _this200 = this;
+            var _this199 = this;
 
             this.modalService.open(content1, {
               ariaLabelledBy: 'modal-basic-title'
             }).result.then(function (result) {
-              _this200.closeResult = "Closed with: ".concat(result);
+              _this199.closeResult = "Closed with: ".concat(result);
             }, function (reason) {
-              _this200.closeResult = "Dismissed ".concat(_this200.getDismissReason(reason));
+              _this199.closeResult = "Dismissed ".concat(_this199.getDismissReason(reason));
             });
           }
         }, {
@@ -85396,14 +85387,14 @@
         }, {
           key: "open1",
           value: function open1(content1) {
-            var _this201 = this;
+            var _this200 = this;
 
             this.modalService.open(content1, {
               ariaLabelledBy: 'modal-basic-title'
             }).result.then(function (result) {
-              _this201.closeResult = "Closed with: ".concat(result);
+              _this200.closeResult = "Closed with: ".concat(result);
             }, function (reason) {
-              _this201.closeResult = "Dismissed ".concat(_this201.getDismissReason(reason));
+              _this200.closeResult = "Dismissed ".concat(_this200.getDismissReason(reason));
             });
           }
         }, {
@@ -86853,14 +86844,14 @@
         }, {
           key: "open1",
           value: function open1(content1) {
-            var _this202 = this;
+            var _this201 = this;
 
             this.modalService.open(content1, {
               ariaLabelledBy: 'modal-basic-title'
             }).result.then(function (result) {
-              _this202.closeResult = "Closed with: ".concat(result);
+              _this201.closeResult = "Closed with: ".concat(result);
             }, function (reason) {
-              _this202.closeResult = "Dismissed ".concat(_this202.getDismissReason(reason));
+              _this201.closeResult = "Dismissed ".concat(_this201.getDismissReason(reason));
             });
           }
         }, {
@@ -89849,14 +89840,14 @@
         }, {
           key: "Filter",
           value: function Filter(event) {
-            var _this203 = this;
+            var _this202 = this;
 
             window.clearTimeout(this.timer);
             this.timer = window.setTimeout(function () {
               var filterValue = event.target.value;
-              _this203.SearchValue = filterValue;
+              _this202.SearchValue = filterValue;
 
-              _this203.GetVendorRequest();
+              _this202.GetVendorRequest();
             }, 1000);
           }
         }, {
@@ -89947,14 +89938,14 @@
         }, {
           key: "open1",
           value: function open1(content1) {
-            var _this204 = this;
+            var _this203 = this;
 
             this.modalService.open(content1, {
               ariaLabelledBy: 'modal-basic-title'
             }).result.then(function (result) {
-              _this204.closeResult = "Closed with: ".concat(result);
+              _this203.closeResult = "Closed with: ".concat(result);
             }, function (reason) {
-              _this204.closeResult = "Dismissed ".concat(_this204.getDismissReason(reason));
+              _this203.closeResult = "Dismissed ".concat(_this203.getDismissReason(reason));
             });
           }
         }, {
@@ -90042,7 +90033,7 @@
         }, {
           key: "GetVendorRequest",
           value: function GetVendorRequest() {
-            var _this205 = this;
+            var _this204 = this;
 
             var obj = {
               "draw": 2,
@@ -90109,11 +90100,11 @@
               console.log('Vendor get', res);
 
               if ([200, 201].includes(res.code)) {
-                _this205.displayedColumns = ['serial_no', 'name', 'lastname', 'restaurant', 'contact', 'email', 'address', 'message', 'doc', 'action'];
-                _this205.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](res.data);
-                _this205.count = res === null || res === void 0 ? void 0 : res.recordsTotal;
-                _this205.IsnotEmpty = res.data;
-                console.log('Total', _this205.count);
+                _this204.displayedColumns = ['serial_no', 'name', 'lastname', 'restaurant', 'contact', 'email', 'address', 'message', 'doc', 'action'];
+                _this204.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](res.data);
+                _this204.count = res === null || res === void 0 ? void 0 : res.recordsTotal;
+                _this204.IsnotEmpty = res.data;
+                console.log('Total', _this204.count);
               }
             });
           }
@@ -90137,7 +90128,7 @@
         }, {
           key: "submitCommission",
           value: function submitCommission() {
-            var _this206 = this;
+            var _this205 = this;
 
             this.toaster.clear();
             var obj = {
@@ -90145,11 +90136,11 @@
             };
             this.service.put("vendor/approve-reject-request/".concat(this.localID, "/"), obj).subscribe(function (res) {
               if ([200, 201].includes(res.code)) {
-                _this206.toaster.success(_this206.IsApproved == "True" ? 'Vendor request accepted' : 'Vendor request rejected', _this206.IsApproved == "True" ? 'Accepted' : 'Rejected');
+                _this205.toaster.success(_this205.IsApproved == "True" ? 'Vendor request accepted' : 'Vendor request rejected', _this205.IsApproved == "True" ? 'Accepted' : 'Rejected');
 
-                _this206.modalService.dismissAll();
+                _this205.modalService.dismissAll();
 
-                _this206.GetVendorRequest();
+                _this205.GetVendorRequest();
               }
             });
           }

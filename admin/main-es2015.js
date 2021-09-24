@@ -404,6 +404,10 @@ class CommonService {
         }
         return true;
     }
+    //  To check wheather object is empty
+    isObjectEmpty(obj) {
+        return Object.keys(obj).length === 0;
+    }
 }
 CommonService.ɵfac = function CommonService_Factory(t) { return new (t || CommonService)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](ngx_spinner__WEBPACK_IMPORTED_MODULE_6__["NgxSpinnerService"])); };
 CommonService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({ token: CommonService, factory: CommonService.ɵfac, providedIn: 'root' });
@@ -2265,7 +2269,6 @@ class SidebarComponent {
     }
     ClickListen() {
         this.router.events.subscribe((event) => {
-            console.log('Fun Called ', event);
             this.spinner.show();
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationStart"]) {
                 this.spinner.show();

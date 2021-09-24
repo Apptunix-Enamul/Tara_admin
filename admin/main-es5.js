@@ -751,6 +751,12 @@
             }
 
             return true;
+          } //  To check wheather object is empty
+
+        }, {
+          key: "isObjectEmpty",
+          value: function isObjectEmpty(obj) {
+            return Object.keys(obj).length === 0;
           }
         }]);
 
@@ -4104,8 +4110,6 @@
             var _this11 = this;
 
             this.router.events.subscribe(function (event) {
-              console.log('Fun Called ', event);
-
               _this11.spinner.show();
 
               if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationStart"]) {

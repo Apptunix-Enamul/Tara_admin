@@ -5,13 +5,13 @@ import { CountryISO, SearchCountryField, PhoneNumberFormat } from 'ngx-intl-tel-
 import { ToastrService } from 'ngx-toastr';
 import { allCountries } from 'src/app/_helpers/country';
 import { CommonService } from 'src/app/_services/common.service';
-import { PermissionsArray } from 'src/app/_services/permissions'
+
 @Component({
   selector: 'app-adminform',
   templateUrl: './adminform.component.html',
   styleUrls: ['./adminform.component.css']
 })
-export class AdminformComponent implements OnInit , AfterViewInit{
+export class AdminformComponent implements OnInit {
   SubadminForm:FormGroup
   selectedCountry : any = CountryISO.India;
   SearchCountryField = SearchCountryField;
@@ -22,7 +22,8 @@ export class AdminformComponent implements OnInit , AfterViewInit{
 inputMessageRef: ElementRef;
   subAdminPicId: any;
   profileUrl: any;
-  permissionArray: any[]=[];SubAdminData: any;
+  permissionArray: any[]=[];
+  SubAdminData: any;
   id: any;
   constructor(private fb:FormBuilder,private service:CommonService,private toaster:ToastrService,private router:Router,private route:ActivatedRoute) {
     this.SubadminForm = this.fb.group({
@@ -33,21 +34,15 @@ inputMessageRef: ElementRef;
       email:['',[Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],
     })
 }
-ngAfterViewInit(){
-  this.GetSubAdmin()
-}
+
 ngOnInit(): void {
-  // this.permissionArray=PermissionsArray.permissions
-  this.GetSubAdmin()
-  setTimeout(() => {
-    this.GetAdminById()
-  }, 100);
+  this.GetAdminById()
   }
 sendFile(fileData) {
     let formdata = new FormData()
     formdata.append('media', fileData);
     this.service.postApi(`upload/media/`,formdata).subscribe((res: any) => {
-      console.log("Imager api called",res);
+     
       if ([200,201].includes(res.code)) {
         this.toaster.success('File uploaded successfully','File')
           this.subAdminPicId = res.data[0].id
@@ -106,7 +101,6 @@ check(data)
 GetSubAdmin(){
   this.service.get(`sub-admin/get-all-subadmin-module/`).subscribe((res:any)=>{
   if([200,201].includes(res.code)){
-    console.log('Get subAdmin data',res);
     this.SubAdminData = res?.data
     for(let x of res?.data){
       this.permissionArray.push({label:x?.name,
@@ -125,6 +119,7 @@ GetAdminById(){
   this.route.queryParams.subscribe((params)=>{
     this.id = params.id;
     if(this.id){
+      this.permissionArray = []
       this.service.get(`sub-admin/get-details-by-id/${params?.id}/`).subscribe((data:any)=>{
         if([200,201].includes(data.code)){
           this.setFormsValue(data?.data)
@@ -137,6 +132,8 @@ GetAdminById(){
     this.selectedCountry = (findIndex != undefined)?findIndex[1]:CountryISO.India;
         }
         })
+    }else{
+      this.GetSubAdmin()
     }
    })
 }
@@ -153,6 +150,8 @@ setFormsValue(obj){
   "is_add_edit":x?.is_add_edit,
   "is_view":x?.is_view
   })
+  console.log('Permiss',this.permissionArray);
+  
 }
 }
  DataSubmitType(idRef,obj){

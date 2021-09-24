@@ -113,4 +113,9 @@ export class CommonService {
 		}
 		return true;
  	}
+
+	//  To check wheather object is empty
+	 isObjectEmpty(obj) {
+		return Object.keys(obj).length === 0;
+	}
 }

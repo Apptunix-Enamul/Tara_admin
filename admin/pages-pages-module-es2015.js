@@ -36533,21 +36533,13 @@ class AdminformComponent {
             email: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],
         });
     }
-    ngAfterViewInit() {
-        this.GetSubAdmin();
-    }
     ngOnInit() {
-        // this.permissionArray=PermissionsArray.permissions
-        this.GetSubAdmin();
-        setTimeout(() => {
-            this.GetAdminById();
-        }, 100);
+        this.GetAdminById();
     }
     sendFile(fileData) {
         let formdata = new FormData();
         formdata.append('media', fileData);
         this.service.postApi(`upload/media/`, formdata).subscribe((res) => {
-            console.log("Imager api called", res);
             if ([200, 201].includes(res.code)) {
                 this.toaster.success('File uploaded successfully', 'File');
                 this.subAdminPicId = res.data[0].id;
@@ -36605,7 +36597,6 @@ class AdminformComponent {
     GetSubAdmin() {
         this.service.get(`sub-admin/get-all-subadmin-module/`).subscribe((res) => {
             if ([200, 201].includes(res.code)) {
-                console.log('Get subAdmin data', res);
                 this.SubAdminData = res === null || res === void 0 ? void 0 : res.data;
                 for (let x of res === null || res === void 0 ? void 0 : res.data) {
                     this.permissionArray.push({ label: x === null || x === void 0 ? void 0 : x.name,
@@ -36622,6 +36613,7 @@ class AdminformComponent {
         this.route.queryParams.subscribe((params) => {
             this.id = params.id;
             if (this.id) {
+                this.permissionArray = [];
                 this.service.get(`sub-admin/get-details-by-id/${params === null || params === void 0 ? void 0 : params.id}/`).subscribe((data) => {
                     var _a, _b, _c, _d;
                     if ([200, 201].includes(data.code)) {
@@ -36636,6 +36628,9 @@ class AdminformComponent {
                         this.selectedCountry = (findIndex != undefined) ? findIndex[1] : ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_3__["CountryISO"].India;
                     }
                 });
+            }
+            else {
+                this.GetSubAdmin();
             }
         });
     }
@@ -36653,6 +36648,7 @@ class AdminformComponent {
                 "is_add_edit": x === null || x === void 0 ? void 0 : x.is_add_edit,
                 "is_view": x === null || x === void 0 ? void 0 : x.is_view
             });
+            console.log('Permiss', this.permissionArray);
         }
     }
     DataSubmitType(idRef, obj) {
