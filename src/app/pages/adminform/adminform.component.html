@@ -9,8 +9,8 @@
                       <label class="control-label">First name</label>
                       <input type="text" id="firstName" class="form-control" placeholder="Enter first name" formControlName="firstName" #name (keydown.space)="!name.value?$event.preventDefault():null">
                       <span class="error" *ngIf="SubadminForm.get('firstName').hasError('required') && SubadminForm.get('firstName').touched">Please enter first name.</span>
-                      <span class="error" *ngIf="SubadminForm.get('firstName').hasError('maxlength') && !SubadminForm.get('firstName').hasError('pattern')">Maxlength should 30.</span>
-                      <span class="error" *ngIf="SubadminForm.get('firstName').hasError('minlength') && !SubadminForm.get('firstName').hasError('pattern')">Minlength should 3.</span>
+                      <span class="error" *ngIf="SubadminForm.get('firstName').hasError('maxlength') && !SubadminForm.get('firstName').hasError('pattern')">Maxlength should be 30.</span>
+                      <span class="error" *ngIf="SubadminForm.get('firstName').hasError('minlength') && !SubadminForm.get('firstName').hasError('pattern')">Minlength should be 3.</span>
                       <span class="error" *ngIf="SubadminForm.get('firstName').hasError('pattern')">Please enter aplhabet only.</span>
                     </div>
                   </div>
@@ -20,8 +20,8 @@
                       <label class="control-label">Last name</label>
                       <input type="text" id="firstName" class="form-control" placeholder="Enter last name" formControlName="lastName" #nam (keydown.space)="!nam.value?$event.preventDefault():null">
                       <span class="error" *ngIf="SubadminForm.get('lastName').hasError('required') && SubadminForm.get('lastName').touched">Please enter last name.</span>
-                      <span class="error" *ngIf="SubadminForm.get('lastName').hasError('maxlength') && !SubadminForm.get('lastName').hasError('pattern')">Maxlength should 30.</span>
-                      <span class="error" *ngIf="SubadminForm.get('lastName').hasError('minlength') && !SubadminForm.get('lastName').hasError('pattern')">Minlength should 3.</span>
+                      <span class="error" *ngIf="SubadminForm.get('lastName').hasError('maxlength') && !SubadminForm.get('lastName').hasError('pattern')">Maxlength should be 30.</span>
+                      <span class="error" *ngIf="SubadminForm.get('lastName').hasError('minlength') && !SubadminForm.get('lastName').hasError('pattern')">Minlength should be 3.</span>
                       <span class="error" *ngIf="SubadminForm.get('lastName').hasError('pattern')">Please enter aplhabet only.</span>
                     </div>
                   </div>
