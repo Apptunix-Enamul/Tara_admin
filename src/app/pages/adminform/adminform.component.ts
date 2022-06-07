@@ -1,10 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CountryISO, SearchCountryField, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import { ToastrService } from 'ngx-toastr';
+import { allCountries } from 'src/app/_helpers/country';
 import { CommonService } from 'src/app/_services/common.service';
-import { PermissionsArray } from 'src/app/_services/permissions'
+
 @Component({
   selector: 'app-adminform',
   templateUrl: './adminform.component.html',
@@ -21,8 +22,10 @@ export class AdminformComponent implements OnInit {
 inputMessageRef: ElementRef;
   subAdminPicId: any;
   profileUrl: any;
-  permissionArray: any[]=[];;
-  constructor(private fb:FormBuilder,private service:CommonService,private toaster:ToastrService,private router:Router) {
+  permissionArray: any[]=[];
+  SubAdminData: any;
+  id: any;
+  constructor(private fb:FormBuilder,private service:CommonService,private toaster:ToastrService,private router:Router,private route:ActivatedRoute) {
     this.SubadminForm = this.fb.group({
       password:['',[Validators.required,Validators.minLength(8)]],
       firstName:['',[Validators.required,Validators.minLength(3),Validators.maxLength(30),Validators.pattern(/^[a-zA-Z ]*$/i)]],
@@ -31,14 +34,15 @@ inputMessageRef: ElementRef;
       email:['',[Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],
     })
 }
+
 ngOnInit(): void {
-  this.permissionArray=PermissionsArray.permissions
+  this.GetAdminById()
   }
 sendFile(fileData) {
     let formdata = new FormData()
     formdata.append('media', fileData);
     this.service.postApi(`upload/media/`,formdata).subscribe((res: any) => {
-      console.log("Imager api called",res);
+     
       if ([200,201].includes(res.code)) {
         this.toaster.success('File uploaded successfully','File')
           this.subAdminPicId = res.data[0].id
@@ -86,14 +90,7 @@ let obj = {
   "password": this.SubadminForm.value.password,
   "permissions": this.permissionArray
 }
-this.service.post(`sub-admin/create/`,obj).subscribe((res:any)=>{
-  if ([200,201].includes(res.code)){
-    this.toaster.success('Sub Admin created','Success')
-    this.router.navigate(['/'])
-  }
-})
-console.log('After delerted',this.permissionArray);
-
+this.DataSubmitType(this.id,obj)
 }
 check(data)
 {
@@ -101,5 +98,75 @@ check(data)
     data.is_view=true
   }
 }
-
+GetSubAdmin(){
+  this.service.get(`sub-admin/get-all-subadmin-module/`).subscribe((res:any)=>{
+  if([200,201].includes(res.code)){
+    this.SubAdminData = res?.data
+    for(let x of res?.data){
+      this.permissionArray.push({label:x?.name,
+      "module":x?.id,
+      "is_add_edit":false,
+      "is_view":false
+      })
+    }
+}
+  })
+}
+Back(){
+  window.history.back()
+}
+GetAdminById(){
+  this.route.queryParams.subscribe((params)=>{
+    this.id = params.id;
+    if(this.id){
+      this.permissionArray = []
+      this.service.get(`sub-admin/get-details-by-id/${params?.id}/`).subscribe((data:any)=>{
+        if([200,201].includes(data.code)){
+          this.setFormsValue(data?.data)
+          this.profileUrl = data?.data?.image?.media_file_url
+          this.subAdminPicId = data?.data?.image?.id
+          let findIndex = allCountries.find(x=>{
+         const phone = data?.data?.country_code?.split('+');
+      return x[2] == phone[1].trim();
+    })
+    this.selectedCountry = (findIndex != undefined)?findIndex[1]:CountryISO.India;
+        }
+        })
+    }else{
+      this.GetSubAdmin()
+    }
+   })
+}
+setFormsValue(obj){
+  this.permissionArray = []
+  this.SubadminForm.controls['firstName'].setValue(obj?.first_name)
+  this.SubadminForm.controls['lastName'].setValue(obj?.last_name)
+  this.SubadminForm.controls['phoneNo'].setValue(obj?.phone_no?obj?.phone_no:null)
+  this.SubadminForm.controls['email'].setValue(obj?.email?obj?.email:'')
+ this.SubadminForm.controls['password'].setValue(obj?.password?obj?.password:'12345678')
+ for(let x of obj?.permissions){
+  this.permissionArray.push({label:x?.module?.name,
+  "module":x?.module?.id,
+  "is_add_edit":x?.is_add_edit,
+  "is_view":x?.is_view
+  })
+  console.log('Permiss',this.permissionArray);
+  
+}
+}
+ DataSubmitType(idRef,obj){
+  if(idRef){ this.service.put(`sub-admin/update-details/${idRef}/`,obj).subscribe((res:any)=>{
+    if ([200,201].includes(res.code)){
+      this.toaster.success('Sub Admin updated','Success')
+      window.history.back()
+    }
+  })}else{
+    this.service.post(`sub-admin/create/`,obj).subscribe((res:any)=>{
+      if ([200,201].includes(res.code)){
+        this.toaster.success('Sub Admin created','Success')
+        window.history.back()
+      }
+    })
+  }
+}
 }

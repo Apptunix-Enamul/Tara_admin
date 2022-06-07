@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-    CommonModule,
-    LocationStrategy,
-    HashLocationStrategy
+    CommonModule, HashLocationStrategy, LocationStrategy,
+  
 } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -84,13 +83,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         {
             provide: PERFECT_SCROLLBAR_CONFIG,
             useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+
         },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         {
             provide: LocationStrategy,
             useClass: HashLocationStrategy
-        }
+        },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        
     ],
     bootstrap: [AppComponent],
     schemas: [

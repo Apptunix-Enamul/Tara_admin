@@ -14,8 +14,8 @@
                             <label class="control-label">First name</label>
                             <input type="text" id="FirstName" class="form-control" placeholder="First name" formControlName="firstName" #name (keydown.space)="!name.value?$event.preventDefault():null">
                             <span class="error" *ngIf="VendorForm.get('firstName').hasError('required') && VendorForm.get('firstName').touched">Please enter first name.</span>
-                            <span class="error" *ngIf="VendorForm.get('firstName').hasError('maxlength') && !VendorForm.get('firstName').hasError('pattern')">Maxlength should 30.</span>
-                            <span class="error" *ngIf="VendorForm.get('firstName').hasError('minlength') && !VendorForm.get('firstName').hasError('pattern')">Minlength should 3.</span>
+                            <span class="error" *ngIf="VendorForm.get('firstName').hasError('maxlength') && !VendorForm.get('firstName').hasError('pattern')">Maxlength should be 30.</span>
+                            <span class="error" *ngIf="VendorForm.get('firstName').hasError('minlength') && !VendorForm.get('firstName').hasError('pattern')">Minlength should be 3.</span>
                             <span class="error" *ngIf="VendorForm.get('firstName').hasError('pattern')">Please enter alphabet only.</span>
                         </div>
                     </div>
@@ -25,8 +25,8 @@
                             <label class="control-label">Last name</label>
                             <input type="text" id="LastName" class="form-control" placeholder="Last name" formControlName="lastName" #nam (keydown.space)="!nam.value?$event.preventDefault():null">
                             <span class="error" *ngIf="VendorForm.get('lastName').hasError('required') && VendorForm.get('lastName').touched">Please enter last name.</span>
-                            <span class="error" *ngIf="VendorForm.get('lastName').hasError('maxlength') && !VendorForm.get('lastName').hasError('pattern')">Maxlength should 30.</span>
-                            <span class="error" *ngIf="VendorForm.get('lastName').hasError('minlength') && !VendorForm.get('lastName').hasError('pattern')">Minlength should 3.</span>
+                            <span class="error" *ngIf="VendorForm.get('lastName').hasError('maxlength') && !VendorForm.get('lastName').hasError('pattern')">Maxlength should be 30.</span>
+                            <span class="error" *ngIf="VendorForm.get('lastName').hasError('minlength') && !VendorForm.get('lastName').hasError('pattern')">Minlength should be 3.</span>
                             <span class="error" *ngIf="VendorForm.get('lastName').hasError('pattern')">Please enter alphabet only.</span>
                         </div>
                     </div>

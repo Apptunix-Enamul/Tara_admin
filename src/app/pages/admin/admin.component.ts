@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/_services/common.service';
 @Component({
   selector: 'app-admin',
@@ -9,8 +11,13 @@ import { CommonService } from 'src/app/_services/common.service';
 export class AdminComponent implements OnInit {
   SubAdminData: any;
   count: any;
-
-  constructor(private modalService: NgbModal,private service:CommonService) {}
+  timer: number;
+  IsActive:any=undefined
+  AdminId: any;
+  SearchValue: string = '';
+  page:number = 1
+  PageSize:number = 10
+  constructor(private modalService: NgbModal,private service:CommonService,private toaster:ToastrService) {}
 
   ngOnInit(): void {
     this.GetSubAdmin()
@@ -22,7 +29,8 @@ openWindowCustomClass(content3) {
 userprofileModal(userDelete) {
   this.modalService.open(userDelete, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
 }
-userDeleteModal(userDelete) {
+userDeleteModal(userDelete,id) {
+  this.AdminId = id
   this.modalService.open(userDelete, {backdropClass: 'light-blue-backdrop',centered: true,size: 'sm'});
 }
 userDetailModal(userDetail) {
@@ -46,11 +54,47 @@ private getDismissReason(reason: any): string {
     return  `with: ${reason}`;
   }
 }
+Filter(event: any) {
+  window.clearTimeout(this.timer);
+  this.timer = window.setTimeout(() => {
+    let filterValue = (event.target as HTMLInputElement).value;
+    this.SearchValue=filterValue;
+   this.GetSubAdmin();
+  }, 1000)
+}
+DeleteAdmin(){
+  this.service.delete(`sub-admin/delete/${this.AdminId}/`).subscribe((res:any)=>{
+    if([200,201].includes(res.code)){
+      this.GetSubAdmin()
+      this.modalService.dismissAll()
+      this.toaster.success('Sub admin deleted successfully','Deleted')
+    }
+  })
+}
+onPaginateChange(e): PageEvent {
+  if (e.pageIndex == 0) {
+    this.page = e.pageIndex;
+  } else {
+    if (e.previousPageIndex < e.pageIndex) {
+      this.page =this.page+ e.pageSize;
+    } else {
+      this.page =this.page-e.pageSize;
+    }
+  }
+  this.PageSize = e.pageSize
+  this.GetSubAdmin();
+  return e;
+}
+FilterByStatus(ref){
+  this.SearchValue =''
+this.IsActive = ref
+ this.GetSubAdmin()
+}
 GetSubAdmin(){
   let obj = {
     "draw": 2,
     "is_approved":true,
-    "is_active":false,
+    "is_active":this.IsActive,
     "columns": [
         {
             "data": "first_name",
@@ -68,7 +112,7 @@ GetSubAdmin(){
             "searchable": true,
             "orderable": true,
             "search": {
-                "value": "",
+                "value": this.SearchValue,
                 "regex": false
             }
         },
@@ -108,15 +152,15 @@ GetSubAdmin(){
             "column": 3,
             "dir": "undefined"        }
     ],
-    "start": 0,
-    "length": 10,
+    "start": this.page,
+    "length": this.PageSize,
     "search": {
-        "value": "",
+        "value": this.SearchValue,
         "regex": false
     }
 }
 
-  this.service.get(`sub-admin/get-all-subadmin-module/`).subscribe((res:any)=>{
+  this.service.post(`sub-admin/get-all-pagination-list/`,obj).subscribe((res:any)=>{
   if([200,201].includes(res.code)){
     console.log('Get subAdmin data',res);
     this.SubAdminData = res?.data
@@ -124,5 +168,16 @@ GetSubAdmin(){
     
 }
   })
+}
+changeStatus(event, id) {
+  this.toaster.clear()
+  const data = {
+    is_active: event.checked,
+  };
+  this.service.put(`sub-admin/change-status/${id}/`, data).subscribe((res: any) => {
+    if([200,201].includes(res.code)){
+   this.toaster.success(event.checked?'Status Activated':'Status Deactivated',event.checked?'Activated':'Deactivated')
+ }
+ });
 }
 }

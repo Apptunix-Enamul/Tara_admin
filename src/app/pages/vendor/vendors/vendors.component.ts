@@ -55,7 +55,7 @@ export class VendorsComponent implements OnInit {
   IsnotEmpty:any
   VendorId: any;
   ExportPdf: any;
-  IsActive:any=''
+  IsActive:any=undefined
   permissions: any;
   editPermission: boolean;
   viewPermission: boolean;

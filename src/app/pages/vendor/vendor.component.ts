@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-vendor',
@@ -6,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vendor.component.css']
 })
 export class VendorComponent implements OnInit {
-
-  constructor() { }
+  constructor(private spinner:NgxSpinnerService){}
+  changeOfRoutes(){
+  this.spinner.hide()
+  }
 
   ngOnInit(): void {
   }

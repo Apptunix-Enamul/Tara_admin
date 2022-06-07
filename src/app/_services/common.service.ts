@@ -67,11 +67,55 @@ export class CommonService {
 			return data;
 		}));
 	  }
-
-	  Showspinner(){
+    Showspinner(){
      this.spinner.show()
-	 setTimeout(() => {
-	 this.spinner.hide()
-	 }, 4000);
+	}
+	permissions = {
+		dashboard : 1,
+		users : 2,
+		walkthrough : 3,
+		banks: 4,
+		manage_update : 5,
+		notification : 6,
+		customer_support : 7,
+		wallet_address : 8,
+		request : 9,
+		analytics : 10,
+		rate_change : 11,
+		refer_and_earn : 12,
+		manage_sub_admin : 13
+	}
+	latestUserInfo;
+
+	checkPermissionRealData(name : string, type) {
+		let userInfo = this.latestUserInfo;
+		let permissions = userInfo.permissions;
+		let check = permissions.find(x=> x.module == this.permissions[name]);
+		if(permissions.length > 0) {
+			if(check != undefined && check[(type == 'view')?'is_view':'is_add_edit']){
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return true;
+ 	}
+	 checkPermission(name : string, type) {
+		let userInfo = JSON.parse(sessionStorage.getItem(environment.storageKey));
+		let permissions = userInfo?.permissions?userInfo?.permissions:[];
+		if(permissions.length > 0) {
+			let check = permissions.find(x=> x.module.id == this.permissions[name]);
+			if(check != undefined && check[(type == 'view')?'is_view':'is_add_edit']){
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return true;
+ 	}
+
+	//  To check wheather object is empty
+	 isObjectEmpty(obj) {
+		return Object.keys(obj).length === 0;
 	}
 }

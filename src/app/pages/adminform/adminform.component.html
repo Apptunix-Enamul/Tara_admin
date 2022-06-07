@@ -9,8 +9,8 @@
                       <label class="control-label">First name</label>
                       <input type="text" id="firstName" class="form-control" placeholder="Enter first name" formControlName="firstName" #name (keydown.space)="!name.value?$event.preventDefault():null">
                       <span class="error" *ngIf="SubadminForm.get('firstName').hasError('required') && SubadminForm.get('firstName').touched">Please enter first name.</span>
-                      <span class="error" *ngIf="SubadminForm.get('firstName').hasError('maxlength') && !SubadminForm.get('firstName').hasError('pattern')">Maxlength should 30.</span>
-                      <span class="error" *ngIf="SubadminForm.get('firstName').hasError('minlength') && !SubadminForm.get('firstName').hasError('pattern')">Minlength should 3.</span>
+                      <span class="error" *ngIf="SubadminForm.get('firstName').hasError('maxlength') && !SubadminForm.get('firstName').hasError('pattern')">Maxlength should be 30.</span>
+                      <span class="error" *ngIf="SubadminForm.get('firstName').hasError('minlength') && !SubadminForm.get('firstName').hasError('pattern')">Minlength should be 3.</span>
                       <span class="error" *ngIf="SubadminForm.get('firstName').hasError('pattern')">Please enter aplhabet only.</span>
                     </div>
                   </div>
@@ -20,8 +20,8 @@
                       <label class="control-label">Last name</label>
                       <input type="text" id="firstName" class="form-control" placeholder="Enter last name" formControlName="lastName" #nam (keydown.space)="!nam.value?$event.preventDefault():null">
                       <span class="error" *ngIf="SubadminForm.get('lastName').hasError('required') && SubadminForm.get('lastName').touched">Please enter last name.</span>
-                      <span class="error" *ngIf="SubadminForm.get('lastName').hasError('maxlength') && !SubadminForm.get('lastName').hasError('pattern')">Maxlength should 30.</span>
-                      <span class="error" *ngIf="SubadminForm.get('lastName').hasError('minlength') && !SubadminForm.get('lastName').hasError('pattern')">Minlength should 3.</span>
+                      <span class="error" *ngIf="SubadminForm.get('lastName').hasError('maxlength') && !SubadminForm.get('lastName').hasError('pattern')">Maxlength should be 30.</span>
+                      <span class="error" *ngIf="SubadminForm.get('lastName').hasError('minlength') && !SubadminForm.get('lastName').hasError('pattern')">Minlength should be 3.</span>
                       <span class="error" *ngIf="SubadminForm.get('lastName').hasError('pattern')">Please enter aplhabet only.</span>
                     </div>
                   </div>
@@ -100,23 +100,28 @@
                                     </td>
                                     <td>
                                         <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" [id]="data?.label" [disabled]=" data.label=='Dashboard'" (change)="check(data)" [(ngModel)]="data.is_add_edit" [ngModelOptions]="{standalone: true}">
+                                        <input type="checkbox" class="custom-control-input" [id]="data?.label" (change)="check(data)" [(ngModel)]="data.is_add_edit" [ngModelOptions]="{standalone: true}">
                                         <label class="custom-control-label" [for]="data?.label"></label>
                                     </div>
                                     </td>
                                     <td>
                                         <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input"  [id]="data?.label+'x'" [disabled]=" data.is_add_edit || data.label=='Dashboard'" [(ngModel)]="data.is_view" [ngModelOptions]="{standalone: true}">
+                                        <input type="checkbox" class="custom-control-input"  [id]="data?.label+'x'" [disabled]=" data.is_add_edit" [(ngModel)]="data.is_view" [ngModelOptions]="{standalone: true}">
                                         <label class="custom-control-label" [for]="data?.label+'x'"></label>
                                     </div> 
                                     </td>
+<<<<<<< HEAD
                                   </tr>
+=======
+ 
+                            </tr>
+>>>>>>> b70040251704e593f274c5f7d2170a4b116a0ad9
                         </tbody>
                     </table>
                 </div>
                 <div class="form-actions ">
-                    <button type="submit" class="btn btn-success mr-3" (click)="SaveData()">
-                        <i class="fa fa-check"></i> Save</button>
+                    <button type="submit" class="btn btn-success mr-3" (click)="SaveData()"> {{this.id?'Update':'Save'}}</button>
+                        <button type="button" class="btn btn-danger" (click)="Back()">Back</button>
                   </div>
                 <!--/row-->                
               </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-geofence',
@@ -6,8 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./geofence.component.css']
 })
 export class GeofenceComponent implements OnInit {
-
-  constructor() { }
+  constructor(private spinner:NgxSpinnerService){}
+  changeOfRoutes(){
+     setTimeout(() => {
+      this.spinner.hide()
+     },130); 
+  }
 
   ngOnInit(): void {
   }

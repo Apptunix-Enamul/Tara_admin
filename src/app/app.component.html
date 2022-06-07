@@ -1,4 +1,4 @@
-<router-outlet>
+<router-outlet (activate)="changeOfRoutes()">
     <app-spinner></app-spinner>
 </router-outlet>
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="default" color="#9ECB2E" type="ball-clip-rotate" [fullScreen]="true">

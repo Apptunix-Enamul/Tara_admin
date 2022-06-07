@@ -10,7 +10,7 @@
           <div class="col-md-4">
             <form >
               <div class="mb-2">
-                  <input type="text" class="form-control" id="prenametext" placeholder="Search">
+                  <input type="text" class="form-control" id="prenametext" placeholder="Search" (keydown)="Filter($event)">
               </div>
           </form>
           </div>
@@ -20,8 +20,9 @@
                 Status
               </button>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button class="dropdown-item">Active</button>
-                <button class="dropdown-item">Inactive</button>
+                <button class="dropdown-item" (click)="FilterByStatus(undefined)">All</button>
+                                <button class="dropdown-item" (click)="FilterByStatus(true)">Active</button>
+                                <button class="dropdown-item" (click)="FilterByStatus(false)">Inactive</button>
               </div>
             </div>                           
             <a routerLink="/pages/manage_admin_form" class="btn btn-primary mb-2" ><i class="sl-icon-plus"></i> Add </a>
@@ -39,33 +40,32 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td><span class="nowrap"> <img src="assets/images/users/3.jpg" alt="" width="60px"> </span></td>                 
-                  <td><span class="nowrap"> Ronny </span></td>                 
-                 <td><span class="text-nowrap">+91-7858485474</span></td>
-                 <td class="text-nowrap">Ronny@example.com</td>                               
-                  <td>                    
-                      <div ngbDropdown class="d-inline-block " container="body">
-                        <button class="btn btn-outline-primary btn-sm " id="dropdownBasic1" ngbDropdownToggle>
-                          Status
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                          <button class="dropdown-item">Active</button>
-                          <button class="dropdown-item">Inactive</button>
-                        </div>
-                      </div>         
-                    </td>
+                <tr *ngFor="let item of SubAdminData">
+                  <td><span class="nowrap"> <img [src]="item?.image?.media_file_url?item?.image?.media_file_url:'assets/images/users/1.jpg'" alt="" width="60px"> </span></td>                 
+                  <td><span class="nowrap"> {{item?.first_name+" "+item?.last_name||'---'}}</span></td>                 
+                 <td><span class="text-nowrap">{{item?.phone_no||'---'}}</span></td>
+                 <td class="text-nowrap">{{item?.email||'---'}}</td>                               
+                 <td class="text-nowrap">
+                  <mat-slide-toggle [checked]="item?.is_active" (change)="changeStatus($event, item?.id)">
+                  </mat-slide-toggle>
+              </td>
                   <td>
-                      <a routerLink="/pages/manage_admin_form" class="btn btn-primary" ><i _ngcontent-axh-c146=""
+                      <a routerLink="/pages/manage_admin_form" [queryParams]="{ id: item?.id}" class="btn btn-primary" ><i _ngcontent-axh-c146=""
                           class="ti-marker-alt"></i> </a>
-                      <button class="btn btn-danger ml-2" (click)="userDeleteModal(userDelete)"><i class="ti-trash"></i>
+                      <button class="btn btn-danger ml-2" (click)="userDeleteModal(userDelete,item?.id)"><i class="ti-trash"></i>
                         </button>
                   </td>
                 </tr>
-                
+                <tr *ngIf="count==0"><td colspan="6">
+                  <h3 class="text-center">Data not found</h3>
+                </td></tr>
               </tbody>
             </table>
           </div>
+          <div class="col-md-12 text-right">
+            <mat-paginator [length]="count" (page)="onPaginateChange($event)" [pageSize]="PageSize" [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+        </div>
         </div>
       </div>
     </div>
@@ -183,10 +183,10 @@
   <!-- delete modal -->
   <ng-template #userDelete let-modal>
     <div class="modal-body">
-      <p>Are you sure want to delete?</p>
+      <p>Are you want to delete?</p>
       <div class="btn-group">
         <button type="button" class="btn btn-primary mr-2" aria-label="Close"
-          (click)="modal.dismiss('Cross click')">Yes</button>
+          (click)="DeleteAdmin()">Yes</button>
         <button type="button" class="btn btn-seconadary" aria-label="Close"
           (click)="modal.dismiss('Cross click')">No</button>
       </div>

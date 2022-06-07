@@ -175,7 +175,7 @@ days:string[]=['sun','mon','tue','wed','thu','fri','sat']
                 }
             }
       this.service.put(`vendor/update-vendor/${this.id}/`, obj).subscribe((res:any) => {
-         this.toaster.success("Vendor added successfully.", "Success!");
+         this.toaster.success("Vendor updated successfully.", "Success!");
           this.router.navigate(['/pages/vendors']);
           this.isLoading = false;
      
